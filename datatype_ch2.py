@@ -19,6 +19,7 @@ a = "single 'quotes' are fine;\"doubles\" must be escaped."
 b = 'single \'quotes\' must be secaped;"doubles" are fine.'
 print(a,'\n#',b)
 
+
 import re
 def test_whether_is_phone(phonestring):
 	phonePattern = re.compile(r"^((?:[0\d+[]])?\s*\d+(?:-\d+)?)$")
@@ -32,3 +33,10 @@ def test_whether_is_phone(phonestring):
 
 test_whether_is_phone('13911634999')
 test_whether_is_phone('1391163test')
+
+t = "This is not the best way to join two long strings" +\
+  " together "
+s = ("this is the nice way to"
+	" join two long strings")
+print(t)
+print(s)
