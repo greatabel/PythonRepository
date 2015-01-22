@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 z = -80 + 20j
 print(z)
 print(z.real,z.imag)
@@ -40,3 +42,44 @@ s = ("this is the nice way to"
 	" join two long strings")
 print(t)
 print(s)
+
+#unicode
+#打出欧元符号 在osx：http://www.macgg.com/archives/6490.html
+euros = "€\N{euro sign}\u20AC\U000020AC"
+print(euros)
+print(ord(euros[0]))
+print(ord(euros[1]))
+print(hex(ord(euros[0])))
+print(hex(ord(euros[1])))
+
+s = "test:" + chr(8364)+chr(0x20ac)
+print('s=',s)
+print(ascii(s))
+
+#compare string
+from unicodedata import normalize
+
+print( normalize('NFD', u'\u00C7'),end =""  )
+print( normalize('NFC', u'C\u0327') ,end="")
+print( normalize('NFKD', u'C\u0327') ,end="")
+print()
+s = 'Spicy Jalapeño'
+print(ord(s[13]))
+print( ord(normalize('NFKD', s)[13] ))
+
+
+
+
+treatises =['abc','def','gh']
+print("".join(treatises))
+print("-<>-".join(treatises))
+
+record = "Leo Tolstory*123*1910-01-10*2015-01-22"
+fields = record.split("*")
+print(fields)
+born = fields[2].split("-")
+
+died = fields[3].split("-")
+print(born,died)
+print("lived about",int(died[0]) - int(born[0]),"years")
+
