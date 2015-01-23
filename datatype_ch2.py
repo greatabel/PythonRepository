@@ -100,4 +100,5 @@ print("{who} turned {age} this year.".format(who="She",age=88))
 print("The {who} was {0} last week".format(12, who = "boy"))
 stock = ["paper","envelopes","notepads"]
 print("We have {0[1]} and {0[2]} in stock".format(stock))
-
+d = dict(animal="elephant",weight=12000)
+print("The {0[animal] weighs {0[weight]kg.".format(d))
