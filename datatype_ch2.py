@@ -100,5 +100,16 @@ print("{who} turned {age} this year.".format(who="She",age=88))
 print("The {who} was {0} last week".format(12, who = "boy"))
 stock = ["paper","envelopes","notepads"]
 print("We have {0[1]} and {0[2]} in stock".format(stock))
+
 d = dict(animal="elephant",weight=12000)
 print("The {0[animal]} weighs {0[weight]}kg.".format(d))
+
+import math,sys
+print("math.i=={0.pi} sys.maxunicode=={1.maxunicode}".format(math,sys))
+print("从python3.1开始 可以忽略字段名:{} {} {}".format("Python","can","count"))
+
+#another way
+element = "Silver"
+number = 47
+print("Element {number} is {element}".format(**locals()))
+print("The {animal} weighs {weight}kg. ---@^@".format(**d))
