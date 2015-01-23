@@ -83,3 +83,21 @@ died = fields[3].split("-")
 print(born,died)
 print("lived about",int(died[0]) - int(born[0]),"years")
 
+#http://stackoverflow.com/questions/10329290/python-3-x-using-string-maketrans-in-order-to-create-a-unicode-character-tran
+intab = "abcde"
+outtab = "12345"
+trantab = str.maketrans(intab,outtab)
+str = "this is a test of trans"
+print(str)
+print(str.translate(trantab))
+
+print("The movel '{0}' was published in {1}".format("Hard Times",1854));
+x = "three"
+s = "{0} {1} {2}"
+s = s.format("The",x,"tops")
+print(s)
+print("{who} turned {age} this year.".format(who="She",age=88))
+print("The {who} was {0} last week".format(12, who = "boy"))
+stock = ["paper","envelopes","notepads"]
+print("We have {0[1]} and {0[2]} in stock".format(stock))
+
