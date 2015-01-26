@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/local/bin/python3
+# coding:utf-8
 
 z = -80 + 20j
 print(z)
@@ -59,9 +60,9 @@ print(ascii(s))
 #compare string
 from unicodedata import normalize
 
-print( normalize('NFD', u'\u00C7'),end =""  )
-print( normalize('NFC', u'C\u0327') ,end="")
-print( normalize('NFKD', u'C\u0327') ,end="")
+print( normalize('NFD', u'\u00C7'),end = ""  )
+print( normalize('NFC', u'C\u0327') ,end = "")
+print( normalize('NFKD', u'C\u0327') ,end = "")
 print()
 s = 'Spicy Jalapeño'
 print(ord(s[13]))
@@ -113,3 +114,89 @@ element = "Silver"
 number = 47
 print("Element {number} is {element}".format(**locals()))
 print("The {animal} weighs {weight}kg. ---@^@".format(**d))
+
+#ascii
+print("{0} {0!s} {0!a}".format(decimal.Decimal("10.2")))
+s = "The sword of truth"
+print("{0}".format(s))
+print("{0:30}".format(s))
+print("{0:>30}".format(s))
+print("{0:^30}".format(s))
+print("{0:-^30}".format(s))
+print("{0:<30}".format(s))
+print("{0:.10}".format(s))
+
+print("{0:0=12}".format(1234))
+print("{0:0=12}".format(-1234))
+print("{0:012}".format(1234))
+print("{0:012}".format(-1234))
+
+#符号实例
+print("[{0: }][{1: }]".format(123,-456))
+print("[{0:+}][{1:+}]".format(123,-456))
+print("[{0:-}][{1:-}]".format(123,-456))
+
+print("{0:b} | {0:o} | {0:X}".format(64))
+print("{0:#b} | {0:#o} | {0:#X}".format(64))
+print("{0:,} | {0:*>13,}".format(int(2.3943e6)))
+
+print("{:*>20}{:*<20}".format('locale',''))
+import locale
+# “”时候python自动确定，以c为默认场所
+locale.setlocale(locale.LC_ALL, "")
+
+x,y = (1234567890, 12345.6789)
+locale.setlocale(locale.LC_ALL, "C")
+c ="{0:n} {1:n}".format(x,y)
+print(c)
+locale.setlocale(locale.LC_ALL,"en_US.UTF-8")
+en = "{0:n} {1:n}".format(x,y)
+print(en)
+locale.setlocale(locale.LC_ALL,"de_DE.UTF-8")
+de = "{0:n} {1:n}".format(x,y)
+print(de)
+
+amount = (10 ** 3) * math.pi
+print("[{0:12.2e}][{0:12.2f}]".format(amount))
+print("[{0:*>12.2e}] [{0:*>12.2f}]".format(amount))
+print("{:,.6f}".format(decimal.Decimal("123.123412341234")))
+print("{:,.4f}".format(3.21321e2-4.5678956789e3j))
+
+
+
+# import pdb
+# pdb.set_trace()
+import unicodedata
+def print_unicode_table(word):
+	print("decimal hex chr {0:^40}".format("name"))
+	print("--- --- {0:-<40}".format(""))
+
+	code = ord(" ")
+	end = sys.maxunicode
+
+	while code < end:
+		c = chr(code)
+		name = unicodedata.name(c,"*** unknown ***")
+		if word is None or word in name.lower():
+			# print('{0:^3c} '.format(code))
+			try:
+				print("{0:7} {0:5X} {0:^3c} {1}".format(code,name.title()))
+			except:
+				print("Error in print_unicode_table")
+		code += 1
+
+word = None
+if len(sys.argv) >1:
+	if sys.argv[1] in ("-h","--help"):
+		print("usage:{0}[string]".format(sys.argv[0]))
+		word = 0
+	else:
+		word = sys.argv[1].lower()
+if word !=0:
+	print_unicode_table(word)
+
+
+
+
+
+
