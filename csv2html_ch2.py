@@ -17,23 +17,28 @@ def extract_fields(line):
 			field = ""
 		else:
 			field += c
-		if field:
+	if field:
 			fields.append(field)
+	# print("fields =*{0}".format(fields))
 	return fields
 
 def escape_html(text):
 	text = text.replace("&","&amp;")
 	text = text.replace("<","&lt;")
 	text = text.replace(">","&gt;")
+	return text
 
 def print_start():
 	print("<table border='1'>")
 def print_end():
 	print("</table>")
+
 def print_line(line,color,maxwidth):
 	print("<tr bgcolor='{0}'>".format(color))
 	fields = extract_fields(line)
+	# print("fields={0}".format( fields))				
 	for field in fields:
+		# print("field=", field)
 		if not field:
 			print("<td></td>")
 		else:
@@ -43,14 +48,15 @@ def print_line(line,color,maxwidth):
 				print("<td align='right'>{0:d}</td>".format(round(x)))
 			except ValueError:
 				field = field.title()
-				field = field.replace("And", " and ")
+				print("field here=", field)
+				field = field.replace(" And ", " and ")
 				if len(field) <= maxwidth:
 					field = escape_html(field)
 				else:
 					field = "{0}..".format(
 						escape_html(field[:maxwidth]))
 				print("<td>{0}</td>".format(field))
-		print("</tr>")
+	print("</tr>")
 
 def main():
 	maxwidth = 100
