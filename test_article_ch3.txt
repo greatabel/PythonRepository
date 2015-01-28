@@ -1,0 +1,6 @@
+Strip. String manipulation is complex. In Python we have many methods: these handle most common requirements. To handle whitespace, strip() is useful.
+With strip, we remove certain characters (such as whitespace) from the left and right parts of strings.
+We invoke lstrip,
+rstrip and the versatile strip().
+and and and and and and and and 
+and and and and and and and and 
