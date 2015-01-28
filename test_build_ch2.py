@@ -12,6 +12,10 @@ test += '567'
 print('test build1'+test)
 print('end')
 
+import xml.sax.saxutils
+t = xml.sax.saxutils.escape("http://www.example.com/view?widget=3&count>2")
+print( t )
+
 
 import asyncio
 
@@ -30,3 +34,5 @@ loop.close()
 
 import sys, pdb
 sys.excepthook = lambda x,y,z: pdb.pm()
+
+
