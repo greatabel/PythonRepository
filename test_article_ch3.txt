@@ -4,3 +4,9 @@ We invoke lstrip,
 rstrip and the versatile strip().
 and and and and and and and and 
 and and and and and and and and 
+
+http://mail.163.com http://mail.qq.com
+http://passport.baidu.com
+
+href="http://alumni.chinaren.com">ChinaRen校友录</a></li><li onClick="sdm(23)"><a href="http://www.51.com">51.com 博客</a></li><li onClick="sdm(24)"><a href="http://www.xiaonei.com">校内网</a></li></ul></div>
+<div id="header_txt"><a href="#" target=_self onclick="setScreen()" id="screen">宽屏大字版</a><b></b><a href="http://www.todayonhistory.com/">历史上的今天</a><b></b><a href="about:blank">打开空白页</a></div><div id="c_bg"><div onClick="c_bg(1)" id="c_bg1" title="蓝色风格"></div><div onClick="c_bg(2)" id="c_bg2" title="绿色风格"></div><div onClick="c_bg(3)" id="c_bg3" title="粉红风格"></div></div><div id="version"><span class="sethome"><a   href="http://www.dd01.com" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.dd01.com/');return(false);" style="behavior: url(#default#homepage)">把DD01设为
