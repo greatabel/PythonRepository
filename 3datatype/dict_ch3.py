@@ -5,6 +5,7 @@ import sys
 
 words = {}
 strip = string.whitespace + string.punctuation + string.digits + "\""
+print("strip=",strip)
 for filename in sys.argv[1:]:
 	for line in open(filename):
 		for word in line.lower().split():
