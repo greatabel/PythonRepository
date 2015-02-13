@@ -48,7 +48,6 @@ def product_pessimistic(*args):
 	for arg in args:
 		result *= arg
 	return result
-
 # product_pessimistic(1,2,3,0)
 
 def product_optimistic(*args):
@@ -58,10 +57,13 @@ def product_optimistic(*args):
 		result *= arg
 	assert result,"0 argument"
 	return result
-
 # product_optimistic(1,2,3,0)
 
+#optional_expression
 number = input('Enter a positive number:')
 print(number)
 assert (int(number) > 0), 'Only positive numbers are allowed!'
+#不想执行asert可以用 -OO
+
+
 
