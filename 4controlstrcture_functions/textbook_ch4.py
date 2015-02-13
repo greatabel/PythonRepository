@@ -46,7 +46,7 @@ import sys
 def main():
 	# print("in main")
 	if len(sys.argv) == 1 or sys.argv[1] in {"-h","--help"}:
-		print("usage:{0}[en|zh] number".format(sys.arg[0]))
+		print("usage:{0}[en|zh] number".format(sys.argv[0]))
 		sys.exit()
 
 	args = sys.argv[1:]
