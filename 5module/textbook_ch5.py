@@ -29,8 +29,33 @@ tar.close()
 
 print("解压－>")
 import os
-print(os.getcwd())
+path = os.getcwd()
+print(path)
 mytar = tarfile.open("sample.tar")
 # mytar.extractall()
 mytar.extractall(path=os.getcwd()+"/abeltest")
 mytar.close()
+
+#os模块
+date_from_name = {}
+for name in os.listdir(path):
+	fullname = os.path.join(path, name)
+	if os.path.isfile(fullname):
+		date_from_name[fullname] = os.path.getmtime(fullname)
+
+print(date_from_name)
+
+print("io------->")
+import io
+output = io.StringIO()
+output.write('First line.\n')
+print('Second line.', file=output)
+
+# Retrieve file contents -- this will be
+# 'First line.\nSecond line.\n'
+contents = output.getvalue()
+print("contents="+contents)
+# Close object and discard memory buffer --
+# .getvalue() will now raise an exception.
+output.close()
+
