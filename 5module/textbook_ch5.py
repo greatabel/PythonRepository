@@ -74,3 +74,45 @@ parser.set_defaults(maxwidth=100, format=".0f")
 opts, args = parser.parse_args()
 print(opts, args)
 
+
+
+#calendar,datetime,time模块--------------------------------
+import calendar, datetime,time
+moon_datetime_a = datetime.datetime(2015, 2, 19,13,1,30)
+moon_time = calendar.timegm(moon_datetime_a.utctimetuple())
+
+print("moon_datetime_a=", moon_datetime_a)
+print("moon_time=", moon_time)
+
+moon_datetime_b = datetime.datetime.utcfromtimestamp(moon_time)
+print(moon_datetime_a.isoformat())
+print(moon_datetime_b.isoformat())
+print(time.strftime("%Y-%m-%T%H:%M:%S",time.gmtime(moon_time)))
+
+#排序模块bisect https://docs.python.org/2/library/bisect.html--------------------------------
+import bisect
+print("bisect=",dir(bisect))
+data = [4,2,9,12,1]
+print(data)
+data.sort()
+print(data)
+bisect.insort(data, 5)
+print(data)
+print('bisect.bisect(data,10)=',bisect.bisect(data,10))
+print(bisect.bisect(data,1))
+print(bisect.bisect(data,12))
+
+#UserList模块--------------------------------
+print("#从py3 开始 UserList模块被移到---->> collections")
+import collections
+class AutoList(collections.UserList):
+	def __setitem__(self,i,item):
+		if i == len(self.data):
+			self.data.append(item)
+		else:
+			self.data[i] = item
+list = AutoList()
+for i in range(10):
+	list[i] = 2 * i
+print(list)
+
