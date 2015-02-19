@@ -102,10 +102,10 @@ print('bisect.bisect(data,10)=',bisect.bisect(data,10))
 print(bisect.bisect(data,1))
 print(bisect.bisect(data,12))
 
-#UserList模块--------------------------------
+#UserList,  UserDict,weakref弱引用 模块--------------------------------
 print("#从py3 开始 UserList模块被移到---->> collections")
-import collections
-class AutoList(collections.UserList):
+from collections import UserList
+class AutoList(UserList):
 	def __setitem__(self,i,item):
 		if i == len(self.data):
 			self.data.append(item)
@@ -116,3 +116,23 @@ for i in range(10):
 	list[i] = 2 * i
 print(list)
 
+from collections import UserDict
+class FileInfo(UserDict):
+	"store file metadata"
+	def __init__(self,filename =None):
+		UserDict.__init__(self)
+		self["name"] = filename
+
+FileDic = FileInfo()
+for i in range(100,110):
+	FileDic[i-100]="file"+str(i)
+print(FileDic)
+
+import weakref
+class TestObj:
+    pass
+a = TestObj()
+#建立一个a的弱引用
+x = weakref.ref(a)
+print( x)
+print( x())
