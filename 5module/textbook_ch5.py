@@ -127,8 +127,10 @@ FileDic = FileInfo()
 for i in range(100,110):
 	FileDic[i-100]="file"+str(i)
 print(FileDic)
+#----------------------------
 
 import weakref
+print("weakref=",dir(weakref))
 class TestObj:
     pass
 a = TestObj()
@@ -148,3 +150,28 @@ def test_func(reference):
 tA = TestObjA()
 x = weakref.ref(tA,test_func)
 del tA
+#使用代理和使用普通weakref的区别就是不需要()，可以像原对象一样地使用proxy访问原对象的属性
+class TestObjB:
+    def __init__(self):
+        self.test_attr = 100
+def test_funcB(reference):
+    print('Hello[B] from Callback function!')
+   
+a = TestObjB()
+print('a here=', dir(a))
+#建立一个对a的代理(弱引用)
+x = weakref.proxy(a, test_funcB)
+print(a.test_attr)
+print( x.test_attr)
+del a
+
+#-heapq模块---------------------------
+import heapq
+heapa = []
+heapq.heappush(heapa,(5,"rest"))
+heapq.heappush(heapa,(2,"work"))
+heapq.heappush(heapa,(1,"study"))
+heapq.heappush(heapa,(10,"haha"))
+print("heapqa=",heapa)
+for x in heapq.merge([1,3,5,8],[2,4,7],[0,1]):
+	print(x,end=" ")
