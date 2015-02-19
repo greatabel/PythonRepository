@@ -136,3 +136,15 @@ a = TestObj()
 x = weakref.ref(a)
 print( x)
 print( x())
+
+#引用对象销毁时的回调函数-----------------
+class  TestObjA:
+	pass
+
+def test_func(reference):
+	print("hello from callback function")
+	print(reference,'this weak reference is no longer valid')
+
+tA = TestObjA()
+x = weakref.ref(tA,test_func)
+del tA
