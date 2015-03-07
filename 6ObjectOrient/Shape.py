@@ -17,6 +17,7 @@ class Point:
 	def __str__(self):
 		return "({0.x!r},{0.y!r})".format(self)
 
+
 class Circle(Point):
 
     def __init__(self, radius, x=0, y=0):
@@ -28,7 +29,7 @@ class Circle(Point):
         super().__init__(x, y)
         self.radius = radius
 
-
+         #周长
     def edge_distance_from_origin(self):
         """The distance of the circle's edge from the origin
         >>> circle = Circle(2, 3, 4)
