@@ -16,6 +16,7 @@ settings.configure(
 
 
 from django.conf.urls import url
+from django.core.wsgi import get_wsgi_application
 from django.http import HttpResponse
 
 def index(request):
@@ -24,6 +25,9 @@ def index(request):
 urlpatterns = (
         url(r'^$', index),
 )
+
+#用来走wsgi(web server gateway interface)
+application = get_wsgi_application()
 
 if __name__ == "__main__":
     from django.core.management import  execute_from_command_line
