@@ -30,6 +30,7 @@ def index(request):
     return HttpResponse('Hello World from foo')
 
 
+
 urlpatterns = (
     url(r'^$', index),
 )
