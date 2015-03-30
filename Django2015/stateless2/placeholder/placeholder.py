@@ -28,6 +28,7 @@ settings.configure(
 
 from django import forms
 from django.conf.urls import url
+from django.core.cache import cache
 from django.core.wsgi import get_wsgi_application
 from django.http import HttpResponse,HttpResponseBadRequest
 
@@ -40,26 +41,32 @@ class ImageForm(forms.Form):
         """Generate an image of the given type and return as raw bytes"""
         height = self.cleaned_data['height']
         width = self.cleaned_data['width']
-        image = Image.new('RGB',(width,height))
 
-        draw = ImageDraw.Draw(image)
-        #添加文字到图片
-        # font = ImageFont.truetype('simsun.ttc', 24, encoding="utf-8")
-        #我自己硬去找了osx上的fonts绝对地址－》
-        font = ImageFont.truetype(os.path.join("fonts", "/Library/Fonts/华文仿宋.ttf"), 18)
-        text = u'中文abel:{} X {}'.format(width, height)
-        # textwidth, textheight = draw.textsize(text)
-        #unicode转字符串：http://book.51cto.com/art/201005/198275.htm
-        utf8string = text.encode("utf-8")
-        textwidth, textheight = draw.textsize(utf8string)
-        if textwidth < width and textheight < height:
-            texttop = (height - textheight) // 2
-            textleft = (width - textwidth) // 2
-            draw.text((textleft, texttop), text, font=font)
+        key = '{}.{}.{}'.format(width,height,image_format)
+        content = cache.get(key)
+        if content is None:
+            image = Image.new('RGB',(width,height))
 
-        content = BytesIO()
-        image.save(content,image_format)
-        content.seek(0)
+            draw = ImageDraw.Draw(image)
+            #添加文字到图片
+            # font = ImageFont.truetype('simsun.ttc', 24, encoding="utf-8")
+            #我自己硬去找了osx上的fonts绝对地址－》
+            font = ImageFont.truetype(os.path.join("fonts", "/Library/Fonts/华文仿宋.ttf"), 18)
+            text = u'中文abel:{} X {}'.format(width, height)
+            # textwidth, textheight = draw.textsize(text)
+            #unicode转字符串：http://book.51cto.com/art/201005/198275.htm
+            utf8string = text.encode("utf-8")
+            textwidth, textheight = draw.textsize(utf8string)
+            if textwidth < width and textheight < height:
+                texttop = (height - textheight) // 2
+                textleft = (width - textwidth) // 2
+                draw.text((textleft, texttop), text, font=font)
+
+            content = BytesIO()
+            image.save(content,image_format)
+            content.seek(0)
+            cache.set(key,content, 60*60)
+            
         return content
 
 def placeholder(request, width, height):
