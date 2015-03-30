@@ -1,0 +1,33 @@
+{% load webdesign %}
+<div class="jumbotron">
+    <div class="container">
+        <h1>欢迎来到聚集力量</h1>
+        <p>添加需求来这里</p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>关于我们</h2>
+            <p>我们是一起众酬网，欢迎来访</p>
+        </div>
+        <div class="col-md-6">
+            <h2>联系</h2>
+            <p>联系请拨打12345678901</p>
+            <p>
+                <a class="btn btn-default"
+                href="{% url 'page' 'contact' %}" role="button">
+                Contact us »
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<footer>
+    <div class="container">
+        <p>&copy; 聚集力量网络 {% now 'Y' %}</p>
+    </div>
+</footer>
