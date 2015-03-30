@@ -1,3 +1,4 @@
+import hashlib
 import os
 import sys
 
@@ -31,11 +32,14 @@ from django.conf.urls import url
 from django.core.cache import cache
 from django.core.wsgi import get_wsgi_application
 from django.http import HttpResponse,HttpResponseBadRequest
+from django.views.decorators.http import etag
 
 class ImageForm(forms.Form):
     """Form to validate requested placeholder image."""
     height = forms.IntegerField(min_value=1, max_value=2000)
     width  = forms.IntegerField(min_value=1, max_value=2000)
+
+
 
     def generate(self, image_format='PNG'):
         """Generate an image of the given type and return as raw bytes"""
@@ -66,9 +70,15 @@ class ImageForm(forms.Form):
             image.save(content,image_format)
             content.seek(0)
             cache.set(key,content, 60*60)
-            
+
         return content
 
+
+def generate_etag(request, width, height):
+    content = 'Placeholder: {0} x {1}'.format(width, height)
+    return hashlib.sha1(content.encode('utf-8')).hexdigest()
+
+@etag(generate_etag)
 def placeholder(request, width, height):
     #TODO: rest of the view will go here
     form = ImageForm({'height':height,'width':width})
