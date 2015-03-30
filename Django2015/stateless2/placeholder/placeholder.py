@@ -3,6 +3,8 @@ import sys
 
 from io import BytesIO
 from PIL import Image, ImageDraw
+#Pillow上用中文
+from PIL import ImageFont
 
 from django.conf import settings
 
@@ -37,8 +39,24 @@ class ImageForm(forms.Form):
     def generate(self, image_format='PNG'):
         """Generate an image of the given type and return as raw bytes"""
         height = self.cleaned_data['height']
-        width  = self.cleaned_data['width']
+        width = self.cleaned_data['width']
         image = Image.new('RGB',(width,height))
+
+        draw = ImageDraw.Draw(image)
+        #添加文字到图片
+        # font = ImageFont.truetype('simsun.ttc', 24, encoding="utf-8")
+        #我自己硬去找了osx上的fonts绝对地址－》
+        font = ImageFont.truetype(os.path.join("fonts", "/Library/Fonts/华文仿宋.ttf"), 18)
+        text = u'中文abel:{} X {}'.format(width, height)
+        # textwidth, textheight = draw.textsize(text)
+        #unicode转字符串：http://book.51cto.com/art/201005/198275.htm
+        utf8string = text.encode("utf-8")
+        textwidth, textheight = draw.textsize(utf8string)
+        if textwidth < width and textheight < height:
+            texttop = (height - textheight) // 2
+            textleft = (width - textwidth) // 2
+            draw.text((textleft, texttop), text, font=font)
+
         content = BytesIO()
         image.save(content,image_format)
         content.seek(0)
