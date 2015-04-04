@@ -1,6 +1,7 @@
 #https://hg.python.org/cpython/file/2.7/Demo/scripts/pi.py
 #有趣
 
+
 import sys
 
 def main():
