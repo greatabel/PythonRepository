@@ -1,5 +1,10 @@
 import math
 import doctest
+
+"""
+运行python Shape.py 
+如果doctest通过，不会有任何输出。可以加-v参数来查看测试细节
+"""
 class Point:
 	def __init__(self,x=0,y=0):
 		self.x = x
@@ -29,7 +34,7 @@ class Circle(Point):
         super().__init__(x, y)
         self.radius = radius
 
-         #周长
+         
     def edge_distance_from_origin(self):
         """The distance of the circle's edge from the origin
         >>> circle = Circle(2, 3, 4)
