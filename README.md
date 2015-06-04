@@ -8,3 +8,6 @@ http://www.douban.com/doulist/608714/
 
 folder of "Core Python Applications Programming" are all codes and extensions related to:
 http://book.douban.com/subject/7069379/ 
+
+folder of "Programming in Python 3"
+http://book.douban.com/subject/5924860/
