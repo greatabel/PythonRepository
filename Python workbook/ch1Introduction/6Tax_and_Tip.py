@@ -1,6 +1,6 @@
 TAX_RATE = 0.10
 TIP_RATE = 0.18
-cost = int(input("What is your cost? "))
+cost = float(input("What is your cost? "))
 tax = cost * TAX_RATE
 tip = cost * TIP_RATE
 
