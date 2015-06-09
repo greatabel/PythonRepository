@@ -1,5 +1,8 @@
 line = input("Enter n:")
 while line != "":
+	line = line.lower()
+	line = line.replace (" ", "")
+	print("line=",line)
 	reverse = ""
 	isP = True
 	i = 1
