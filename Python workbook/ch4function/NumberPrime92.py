@@ -16,5 +16,5 @@ def main():
 			print("not prime")
 
 		line = input("Enter number:")
-
-main()
+if __name__ == '__main__':
+	main()
