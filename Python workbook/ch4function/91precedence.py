@@ -18,5 +18,6 @@ def main():
 				print(Precedence(c))
 
 		line = input("Enter sentence:")
-
-main()
+		
+if __name__ == "__main__":
+	main()

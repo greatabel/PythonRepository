@@ -8,4 +8,6 @@ while line != "":
 	else:
 		line = input("Enter number:")
 
-print(sorted(ilist))
+# print(sorted(ilist))
+for item in sorted(ilist):
+	print(item, end=" ")
