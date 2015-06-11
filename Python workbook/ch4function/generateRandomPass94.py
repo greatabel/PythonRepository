@@ -12,7 +12,7 @@ def randomPasword():
 	for i in range(randomLength):
 
 		randomChar = chr(randint(MIN_ASCII,MAX_ASCII))
-		print('randomChar=',randomChar)
+		# print('randomChar=',randomChar)
 		result = result + randomChar
 
 	return result
