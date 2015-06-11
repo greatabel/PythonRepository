@@ -1,3 +1,4 @@
+#http://stackoverflow.com/questions/4938429/how-do-we-determine-the-number-of-days-for-a-given-month-in-python
 def findDaysOfMonth(month,year):
 	from calendar import monthrange
 	result = monthrange(year, month)
