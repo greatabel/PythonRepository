@@ -1,11 +1,6 @@
 from random import randint
 import string, random
 
-SHORTEST = 7
-LONGEST = 10
-MIN_ASCII = 33
-MAX_ASCII = 126
-
 def randomPlate():
 	
 	result = ""
