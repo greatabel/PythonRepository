@@ -8,7 +8,7 @@ def main():
 	
 
 	try:
-		fname = 'data/test.py'
+		fname = 'data/test.txt'
 		inf = open(fname,"r")
 		words= []
 		for line in inf:
@@ -17,15 +17,14 @@ def main():
 				
 				c = word.lower()
 				# print(c)
-				if c == "def" and line.startswith("def") and line.find("#") < 0:
-					print(line.replace("\n",""),"is missing comments")
-			
+				words.append(c)
 		inf.close()
 		print('-'*30)
 		print(words)
-		import collections
-		duplicated = [item for item, count in collections.Counter(words).items() if count > 1]
-		print('duplicated=',duplicated)
+		
+		for i in (0,len(words)//5):
+			print(i)
+			print(words[i*5: (i*5+5)])
 
 		
 

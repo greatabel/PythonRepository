@@ -3,7 +3,7 @@
 # from onlywords111 import findwords
 
 def main():
-	# import calendar
+
 	LetterToPoint = {"A+":4.0,"A":4.0,"A-":3.7,
 	"B+":3.3, "B":3.0,"B-":2.7 } 
 
