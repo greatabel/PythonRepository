@@ -1,0 +1,15 @@
+1    A
+2    a
+3    aa
+4    aal
+5    aalii
+6    aam
+7    Aani
+8    aardvark
+9    aardwolf
+10   Aaron
+11   Aaronic
+12   Aaronical
+13   Aaronite
+14   Aaronitic
+

@@ -17,27 +17,30 @@ def main():
 		filenames = sys.argv[1:]
 		print(filenames)
 
-		with open('data/combine.txt','w') as outfile:
+		with open('data/linenumber.txt','w') as outfile:
 			# for fname in filenames:
 			# 	with open(fname) as infile:
 			# 		for line in infile:
 			# 			outfile.write(line)
 
 			#方法2:官方
-			for i in range(1,len(sys.argv)):
-				fname = sys.argv[i]
-				inf = open(fname,"r")
-				for line in inf:
-					outfile.write(line)
-				inf.close()
-				outfile.write("\n\n")
+		
+			fname = sys.argv[1]
+			inf = open(fname,"r")
+			count = 1
+			for line in inf:
+				# 对齐问题 http://stackoverflow.com/questions/5676646/fill-out-a-python-string-with-spaces
+				outfile.write("%s %s" % ( str(count).ljust(4) , line))
+				count += 1
+			inf.close()
+			outfile.write("\n\n")
 
 
 	except IOError:
 		print("获取文件时候出错")
 		quit()
 
-	inf = open('data/combine.txt', "r")
+	inf = open('data/linenumber.txt', "r")
 
 	# 读取文件，保存最多10行
 	lines = []
