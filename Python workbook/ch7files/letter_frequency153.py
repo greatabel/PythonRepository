@@ -1,0 +1,1 @@
+#letterfreq146.py 已经做过同样的
