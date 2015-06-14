@@ -1,7 +1,3 @@
-# [1,2,3]
-# [1],[2],[3]
-# [1,2],[2,3]
-# [1,2,3]
 mydic = {1:"one test",2:"two",3:"three",4:"test",5:"test"}
 def ReverseLoop(theDict,thevalue):
 	mykeys = []
