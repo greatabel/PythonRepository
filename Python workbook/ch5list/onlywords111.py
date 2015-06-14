@@ -2,8 +2,8 @@ def findwords(s):
 	values = s.split(" ")
 	newvalues = []
 	for i in values:
-		if i.endswith(":") or i.endswith(".") or i.endswith(","):
-			i = i.replace(":","").replace(".","").replace(",","")
+		if i.endswith(":") or i.endswith(".") or i.endswith(",") or i.endswith("\n"):
+			i = i.replace(":","").replace(".","").replace(",","").replace("\n","")
 		newvalues.append(i)
 
 	return newvalues
