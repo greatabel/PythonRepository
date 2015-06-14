@@ -1,4 +1,3 @@
-from fractions import Fraction
 import math,random
 
 mydic = {'.,?!:':1,'ABC':2,'DEF':3,
