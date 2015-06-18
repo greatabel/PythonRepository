@@ -8,7 +8,12 @@
         <h1>
          Hello World Django
        </h1>
-       <span> {{my_var}} </span>
+       <span> {{my_var | lower }} </span> <br/>
+       <span> {{my_var | upper }} </span> <br/>
+       <span> {{my_var | capfirst }} </span> <br/>
+
+       <span> I received {{ years }} year{{ years|pluralize }}. </span>
+       <span><font color="blue">Test Filter:</font> I received {{ years_test }} year{{ years_test|pluralize }}. </span>
        <br/>
        <span>
            {% if years < 10 %}
