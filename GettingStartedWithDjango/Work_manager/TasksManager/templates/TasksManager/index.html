@@ -1,3 +1,6 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'TasksManager/style.css' %}" />
+
 <html>
      <head>
        <title>
@@ -14,7 +17,11 @@
 
        <span> I received {{ years }} year{{ years|pluralize }}. </span>
        <span><font color="blue">Test Filter:</font> I received {{ years_test }} year{{ years_test|pluralize }}. </span>
-       <br/>
+    <hr/>
+       <span>{{my_variable1 | linebreaks }}</span>
+      <span>{{my_variable1 | truncatechars:13 }}</span>
+       <span> {{my_variable1  }} </span> 
+    <hr/>
        <span>
            {% if years < 10 %}
            You are children
