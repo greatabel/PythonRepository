@@ -27,15 +27,7 @@ class Project(models.Model):
     def __str__(self):
         return "ProjectTest:"+self.title
 
-class Task(models.Model):
-    title = models.CharField(max_length=50, verbose_name="Title")
-    description = models.CharField(max_length=1000, verbose_name="Description")
-    time_elapsed = models.IntegerField(verbose_name="Elapsed time" ,
-   null=True, default=None, blank=True)
-    importance = models.IntegerField(verbose_name="Importance")
-    project = models.ForeignKey(Project, verbose_name="Project" ,
-   null=True, default=None, blank=True)
-    app_user = models.ForeignKey(UserProfile, verbose_name="User")
+
 
 
 class Supervisor(UserProfile):
@@ -44,3 +36,15 @@ class Supervisor(UserProfile):
 
 class Developer(UserProfile):
     supervisor = models.ForeignKey(Supervisor, verbose_name="Supervisor")
+
+class Task(models.Model):
+    title = models.CharField(max_length=50, verbose_name="Title")
+    description = models.CharField(max_length=1000, verbose_name="Description")
+    time_elapsed = models.IntegerField(verbose_name="Elapsed time" ,
+   null=True, default=None, blank=True)
+    importance = models.IntegerField(verbose_name="Importance")
+    project = models.ForeignKey(Project, verbose_name="Project" ,
+   null=True, default=None, blank=True)
+    # developer = models.ForeignKey(Developer, verbose_name="Developer", 
+    # null=True,default=None, blank=True)
+    app_user = models.ForeignKey(UserProfile, verbose_name="User")
