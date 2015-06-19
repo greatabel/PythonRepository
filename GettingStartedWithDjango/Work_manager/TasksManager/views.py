@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils import timezone
+from django.db.models import Q
 
 from TasksManager.models import Project ,Task,Supervisor,Developer
 
@@ -81,12 +82,39 @@ def indexset(request):
     # one_task.delete() # line 1
     # all_tasks = Task.objects.all()
     # all_tasks.delete() # line 2
-    
+    project = Project.objects.get(id = 1)
+    Tasks = Task.objects.filter(project = project)
+    print("Tasks=",Tasks)
+
+    task = Task.objects.get(id = 11)
+    project = task.project
+    print("here project=",project)
     return render(request, 'TasksManager/indexset.html', {'action' : 'update model'})
 
 def connections(request):    
     i = random.randint(0,100)
     return render(request, 'TasksManager/connections.html',{"i":i})
+
+def indexQ(request):    
+    #测试 OR in queryset
+    projects_list = Project.objects.filter(Q(client_name="test") |   Q(client_name="Nobody"))
+    print("projects_list len",len(projects_list))
+    tasks_list = Task.objects.filter(id__gte=12)
+    print("tasks_list len",len(tasks_list))
+    #排除
+    tasks_list = Task.objects.filter(time_elapsed__gt=1)
+    array_projects = tasks_list.values_list('project', flat=True).distinct()
+    projects_list = Project.objects.all()
+    projects_list_lt4 = projects_list.exclude(id__in=array_projects)
+    print('projects_list_lt4',len(projects_list_lt4))
+
+        #使用sql
+    first_task = Project.objects.raw("SELECT * FROM TasksManager_project")
+    print("here->",first_task[0],len(list(first_task)))
+
+    return HttpResponse ("Hello world!" )
+
+
 
 
 def project_detail(request, pk):

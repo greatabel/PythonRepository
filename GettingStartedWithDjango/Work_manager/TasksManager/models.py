@@ -48,3 +48,6 @@ class Task(models.Model):
     # developer = models.ForeignKey(Developer, verbose_name="Developer", 
     # null=True,default=None, blank=True)
     app_user = models.ForeignKey(UserProfile, verbose_name="User")
+
+    def __str__(self):
+        return self.title
