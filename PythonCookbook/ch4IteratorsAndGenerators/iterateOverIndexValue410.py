@@ -29,6 +29,14 @@ def testC():
 
     print(word_summary)
 
+def testD():
+    data = [(1,2),(3,4),(100,2000)]
+    for n,(x,y) in enumerate(data):
+        print(n,'<->',(x,y),x,'and y=',y)
+    #error
+    # for n,x,y in enumerate(data):
+    #     print()
+
 def parse_data(filename):
     with open(filename, 'rt') as f:
         for lineno, line in enumerate(f,1):
@@ -49,6 +57,9 @@ def main():
     testA()
     print(Back.YELLOW + 'and with a yellow background'+Back.RESET )
     testC()
+    print(Back.CYAN + 'and with a yellow background'+Back.RESET )
+
+    testD()
     
     
 
