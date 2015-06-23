@@ -3,7 +3,7 @@
 from colorama import Fore, Back, Style
 
 
-def dullway_fullCombination():
+def dullway_full():
     items = ['a','b','c']
     index = 0
     for item1 in items:
@@ -30,11 +30,32 @@ def cookbookway():
     for p in permutations(items):
         print(p)
 
+    print('-'*20,'demo 2')
+    for p in permutations(items,2):
+        print(p)
+
+    print('-'*20,'demo 3')
+    from itertools import combinations
+    for c in combinations(items,3):
+        print(c)
+    for c in combinations(items,2):
+        print(c)
+    for c in combinations(items,1):
+        print(c)
+
+    print('-'*20,'demo 4')
+    import itertools
+    for c in itertools.combinations_with_replacement(items,3):
+        print(c)
+
+
+
+
 
 def main():
     print(Back.GREEN + 'and with a green background'+Back.RESET )
     
-    dullway_fullCombination()
+    dullway_full()
     print(Back.YELLOW + 'and with a green background'+Back.RESET )
     dullway()
     print(Back.RED + 'and with a red background'+Back.RESET )
