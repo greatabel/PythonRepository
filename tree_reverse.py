@@ -31,11 +31,19 @@ class BinaryTree():
             self.left = tree
             tree.left = self.left
 
-    #左右其实只对显示顺序有意义
-    def invertBinaryChange(self):
-        temp = self.left
-        self.left = self.right
-        self.right = temp
+#左右其实只对显示顺序有意义
+def invertBinaryChange(root):
+    if root is None:
+        return None
+    if root.left:
+        invertBinaryChange(root.left)
+    if root.right:
+        invertBinaryChange(root.right)
+    root.left, root.right = root.right, root.left
+    return root
+
+ 
+
 
 def printTree(tree):
         if tree != None:
@@ -58,7 +66,7 @@ def testTree():
     myTree.insertRight("4")
     printTree(myTree)
     print('*'*10)
-    myTree.invertBinaryChange()
+    mytree = invertBinaryChange(myTree)
     printTree(myTree)
 
 
