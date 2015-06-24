@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+   {% block title_html %}
+     Create Developer
+   {% endblock %}
+   {% block h1 %}
+     Create Developer
+   {% endblock %}
+   {% block article_content %}
+     
+     
+     <table> <tr>
+     <th>Title</th>
+     <th>Description</th>
+     <th>Client name</th>
+   </tr>
+   {% for project in object_list %}
+     <tr>
+       <td>{{ project.title }}</td>
+       <td>{{ project.description }}</td>
+       <td>{{ project.client_name }}</td>
+     </tr>
+   {% endfor %}
+   </table>
+   
+   {% endblock %}
+
