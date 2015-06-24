@@ -9,8 +9,10 @@ def read_into_buffer(filename):
 def main():
     buf = read_into_buffer('58test.txt')
     print(buf)
-    buf[0:5]=b'test1'
+    buf[0:5]=b'chang'
     print(buf)
+    with open('58test.txt','wb') as f:
+        f.write(buf)
 
 
             
