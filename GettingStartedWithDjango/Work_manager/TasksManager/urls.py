@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^indexset$', views.indexset, name='indexset'),
     url(r'^indexQ$', views.indexQ, name='indexQ'),
     url(r'^connections$', views.connections, name='connections'),
+    url(r'^create-developer$', views.create_developer,name='create_developer'),
 
 ]
