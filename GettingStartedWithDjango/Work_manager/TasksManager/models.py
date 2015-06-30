@@ -51,4 +51,4 @@ class Task(models.Model):
     app_user = models.ForeignKey(UserProfile, verbose_name="User")
 
     def __str__(self):
-        return self.title
+        return self.title+'#'+self.description+'#p='+self.project.title

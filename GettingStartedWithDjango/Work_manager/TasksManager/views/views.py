@@ -126,4 +126,12 @@ def project_detail(request, pk):
 
 # def create_developer(request):
 #     return HttpResponse ("Hello world from create_developer!" )
+def task_detail(request, pk):
+    task = Task.objects.get(id=pk)
+    mylastid = request.session['last_task']
+    if mylastid!=None:
+        print('mylastid=',mylastid)
+    if task != None:
+        request.session['last_task'] = task.id
 
+    return HttpResponse(task)
