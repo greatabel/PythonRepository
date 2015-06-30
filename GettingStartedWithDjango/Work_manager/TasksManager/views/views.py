@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django.db.models import Q
 
+
+
 from TasksManager.models import Project ,Task,Supervisor,Developer
 
 
@@ -124,3 +126,4 @@ def project_detail(request, pk):
 
 # def create_developer(request):
 #     return HttpResponse ("Hello world from create_developer!" )
+
