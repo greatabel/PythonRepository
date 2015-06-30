@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from TasksManager.models import Project, Task
 from . import views
-from TasksManager.views import MyView,GreetingView,ProjectList
+from TasksManager.views import MyView,GreetingView,ProjectList,TaskList
 
 urlpatterns = [
     url(r'^project-detail-(?P<pk>\d+)$', views.project_detail, name="project_detail"),
@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^aboutA/', MyView.as_view()),
     url(r'^greeting/', GreetingView.as_view()),
     url(r'^projectlist/$', ProjectList.as_view()),
+    url(r'^tasklist/$', TaskList.as_view()),
 ]

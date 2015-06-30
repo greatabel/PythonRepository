@@ -21,4 +21,7 @@ class ProjectList(ListView):
     # project_list = Project.objects.all()
     # context_object_name = 'project_list'
     template_name = 'TasksManager/projectlist.html'
-    
+
+class TaskList(ListView):
+    model = Task
+    template_name = 'TasksManager/tasklist.html'
