@@ -7,7 +7,7 @@ from django.db.models import Q
 
 
 from TasksManager.models import Project ,Task,Supervisor,Developer
-
+import json
 
 import random
 # Create your views here.
@@ -135,3 +135,10 @@ def task_detail(request, pk):
         request.session['last_task'] = task.id
 
     return HttpResponse(task)
+
+def test(request):
+    print('here',request.method)
+    # return HttpResponse ("Hello world from create_developer!" )
+    name=request.GET.get("name",None)
+    print('name=',name)  
+    return  HttpResponse(json.dumps({"msg":'test123'}))  

@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^greeting/', GreetingView.as_view()),
     url(r'^projectlist/$', ProjectList.as_view()),
     url(r'^tasklist/$', TaskList.as_view()),
+    url(r'^test/$', views.test, name="test"),
+
 ]
