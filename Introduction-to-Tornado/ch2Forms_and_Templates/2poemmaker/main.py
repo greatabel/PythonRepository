@@ -20,6 +20,7 @@ class MungedPageHandler(tornado.web.RequestHandler):
             for word in [x for x in line.split(' ') if len(x) > 0]:
                 if word[0] not in mapped: mapped[word[0]] = []
                 mapped[word[0]].append(word)
+        print('mapped=',mapped)
         return mapped
 
     def post(self):
