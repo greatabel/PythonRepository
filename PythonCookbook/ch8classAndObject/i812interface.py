@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     # Passing to type-check function
     serialize(None, a)
-
+    print('#'*10)
     # Attempt to pass a file-like object to serialize (fails)
     import sys
 
