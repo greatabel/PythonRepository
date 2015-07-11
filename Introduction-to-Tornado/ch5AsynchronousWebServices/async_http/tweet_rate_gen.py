@@ -13,6 +13,9 @@ import time
 from tornado.options import define, options
 define("port", default=8000, help="run on the given port", type=int)
 
+# 测试：siege http://localhost:8000/?q=test -c10 -t10s
+
+
 class IndexHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     @tornado.gen.engine
