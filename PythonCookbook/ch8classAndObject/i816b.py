@@ -7,11 +7,15 @@ class Date:
         self.month = month
         self.day = day
 
+    # Alternate constructor
     @classmethod
     def today(cls):
         t = time.localtime()
-        print('t=',t)
-        return cls(t.tm_year, t.tm_mon, t.tm_mday)
+        d = cls.__new__(cls)
+        d.year = t.tm_year
+        d.month = t.tm_mon
+        d.day = t.tm_mday
+        return d
 
 
 if __name__ == '__main__':
