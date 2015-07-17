@@ -1,0 +1,19 @@
+
+[program:hello]
+
+command=/Users/abel/.virtualenvs/env1/bin/python3 /Users/abel/Downloads/AbelProject/PythonRepository/Introduction-to-Tornado/ch8deploy/test.py --port=8004
+directory=/Users/abel/Downloads/AbelProject/PythonRepository/Introduction-to-Tornado/ch8deploy
+autorestart=true
+redirect_stderr=true
+
+1. 现在etc下创建 /etc/supervisord.conf
+
+并且命令：
+http://serverfault.com/questions/114477/supervisor-http-server-port-issue
+sudo unlink /tmp/supervisor.sock
+
+sudo unlink /var/run/supervisor.sock
+
+然后
+sudo supervisord -c /etc/supervisord.conf
+sudo supervisorctl -c /etc/supervisord.conf
