@@ -6,14 +6,16 @@ directory=/Users/abel/Downloads/AbelProject/PythonRepository/Introduction-to-Tor
 autorestart=true
 redirect_stderr=true
 
-1. 现在etc下创建 /etc/supervisord.conf
+1. sudo pip install supervisor,
+2 .现在etc下创建 /etc/supervisord.conf
 
-并且命令：
+
+3.并且当无法重启supervisor时候：
 http://serverfault.com/questions/114477/supervisor-http-server-port-issue
 sudo unlink /tmp/supervisor.sock
 
 sudo unlink /var/run/supervisor.sock
 
-然后
+4.然后为osx上配置生效
 sudo supervisord -c /etc/supervisord.conf
 sudo supervisorctl -c /etc/supervisord.conf
