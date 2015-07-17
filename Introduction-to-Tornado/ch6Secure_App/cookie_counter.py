@@ -12,6 +12,7 @@ class MainHandler(tornado.web.RequestHandler):
         count = int(cookie) + 1 if cookie else 1
         countString = "1 time" if count == 1 else "%d times" % count
         self.set_secure_cookie("count", str(count))
+        
         self.write('<html><head><title>Cookie Counter</title></head>' '<body><h1>You&rsquo;ve viewed this page '+countString +' times.</h1>' + 
             '</body></html>'
         )
