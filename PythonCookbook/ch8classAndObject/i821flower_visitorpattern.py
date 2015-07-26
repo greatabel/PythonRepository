@@ -66,6 +66,8 @@ def flowerGen(n):
 
 
 if __name__ == '__main__':
+    # import pdb
+    # pdb.set_trace()
     bee = Bee()
     fly = Fly()
     worm = Worm()

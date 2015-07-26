@@ -1,3 +1,8 @@
+import pdb    
+from PdbSublimeTextSupport import preloop, precmd
+pdb.Pdb.preloop = preloop
+pdb.Pdb.precmd = precmd
+
 class Node:
     pass
 
@@ -32,6 +37,7 @@ class Number(Node):
 #-------
 class NodeVisitor:
     def visit(self, node):
+        # pdb.set_trace()
         methname = 'visit_'+type(node).__name__
         meth = getattr(self,methname, None)
         if meth is None:
@@ -46,6 +52,7 @@ class Evaluator(NodeVisitor):
         return node.value
 
     def visit_Add(self,node):
+        # pdb.set_trace()
         return self.visit(node.left) + self.visit(node.right)
 
     def visit_Sub(self,node):
@@ -66,6 +73,10 @@ if __name__ == '__main__':
     t2 = Mul(Number(2), t1)
     t3 = Div(t2, Number(5))
     t4 = Add(Number(1), t3)
+    print('t4=',t4)
 
+
+
+    
     e = Evaluator()
     print(e.visit(t4))
