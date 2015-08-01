@@ -1,5 +1,6 @@
 import weakref
-
+# cls 和 self 区别
+# http://stackoverflow.com/questions/4613000/what-is-the-cls-variable-used-in-python-classes
 class Spam:
     _spam_cache = weakref.WeakValueDictionary()
     def __new__(cls, name):
