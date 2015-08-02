@@ -18,4 +18,5 @@ class Spam:
 if __name__ == "__main__":
     s = Spam('Abel')
     t = Spam('Abel')
+    c = Spam('xiaoming')
     print(s is t)

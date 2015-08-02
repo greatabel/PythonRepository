@@ -13,6 +13,7 @@ class CachedSpamManager:
 
 class Spam:
     def __init__(self, name):
+        print("Initializing Spam",name)
         self.name = name
 
 Spam.manager = CachedSpamManager()
