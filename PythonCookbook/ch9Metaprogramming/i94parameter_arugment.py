@@ -16,6 +16,7 @@ def bar(a,b,c):
 
 
 
+# https://www.artima.com/weblogs/viewpost.jsp?thread=240845
 
 class decoratorWithoutArguments(object):
 
@@ -71,9 +72,13 @@ class decoratorWithArguments(object):
 def sayHelloA(a1, a2, a3, a4):
     print( 'sayHello arguments:', a1, a2, a3, a4)
 
+
+
 if __name__ == "__main__":
     bar('x','y','z')
     print('-'*10)
     sayHello("say", "hello", "argument", "list")
     print('-'*10)
     sayHelloA("say", "hello", "argument", "list")
+    print('@'*10)
+    
