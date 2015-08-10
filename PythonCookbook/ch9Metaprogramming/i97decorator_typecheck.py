@@ -16,6 +16,7 @@ def typeassert(*ty_args, **ty_kwargs):
             bound_values = sig.bind(*args, **kwargs)
             # Enforce type assertions across supplied arguments
             for name, value in bound_values.arguments.items():
+                print("@@",name, value)
                 if name in bound_types:
                     if not isinstance(value, bound_types[name]):
                         raise TypeError(
