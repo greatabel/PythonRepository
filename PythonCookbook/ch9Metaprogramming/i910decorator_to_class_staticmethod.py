@@ -8,7 +8,7 @@ def timethis(func):
         start = time.time()
         r = func(*args, **kwargs)
         end = time.time()
-        print(end-start)
+        print(end-start,"in timethis")
         return r
 
     return wrapper
