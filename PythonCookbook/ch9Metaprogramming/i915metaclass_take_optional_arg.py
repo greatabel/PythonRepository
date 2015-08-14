@@ -15,7 +15,7 @@ class MyMeta(type):
         return super().__new__(cls, name, bases, ns)
         
     def __init__(self, name, bases, ns, *, debug=False, synchronize=False):
-        print('in MyMeta __init__ debug=',debug,' synchronize=',synchronize)
+        print('in MyMeta __init__ debug=',debug,' synchronize=',synchronize,'\n')
         # Custom processing
         super().__init__(name, bases, ns)
 
