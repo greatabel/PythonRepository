@@ -4,11 +4,13 @@ class MyMeta(type):
     # Optional
     @classmethod
     def __prepare__(cls, name, bases, *, debug=False, synchronize=False):
+        print('in MyMeta __prepare__ debug=',debug,' synchronize=',synchronize)
         # Custom processing
         return super().__prepare__(name, bases)
 
     # Required
     def __new__(cls, name, bases, ns, *, debug=False, synchronize=False):
+        print('in MyMeta __new__ debug=',debug,' synchronize=',synchronize)
         # Custom processing
         return super().__new__(cls, name, bases, ns)
         
