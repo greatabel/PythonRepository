@@ -46,3 +46,4 @@ b = Spam()
 print(a is b)
 c = Spam()
 print(a is c)
+
