@@ -49,5 +49,10 @@ class Stock(Structure):
 
 if __name__ == "__main__":
     s = Stock('GOOG',100,490.1)
+    print("s.name=",s.name,s.shares,s.price)
     print(s.as_csv())
+    try:
+        t = Stock('a', 'b', 1.1)
+    except:
+        print('error here')
 
