@@ -19,7 +19,16 @@ import types
 import abc
 Stock = types.new_class('Stock',(),{'metaclass': abc.ABCMeta}, lambda ns: ns.update(cls_dict))
 
+
+
 if __name__ == '__main__':
     s = Stock('APPLE', 4,25)
     print(s,type(Stock))
     print('s.cost=',s.cost())
+
+    print('other way:')
+    import collections
+    StockClass = collections.namedtuple('StockClass', ['name', 'shares', 'price'])
+    print(StockClass)
+    aa = StockClass('IBM',20,5)
+    print(aa,aa.name)
