@@ -38,9 +38,12 @@ def test3():
     loc = locals()
     print(loc)
     exec('x += 1')
-    print(loc)
+    print('test3A=',loc)
+    print('Each time it is invoked, locals() \
+        will take the current value of local variables\
+         and overwrite the corresponding entries in the dictionary. ')
     locals()
-    print(loc)
+    print('test3B=',loc)
  
 def test4():
     a = 13
