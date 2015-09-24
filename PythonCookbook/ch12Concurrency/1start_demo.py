@@ -15,3 +15,9 @@ if t.is_alive():
     print('Still running')
 else: 
     print('Completed')
+# You can also request to join with a thread, which waits for it to terminate:
+t.join()
+if t.is_alive(): 
+    print('Still running')
+else: 
+    print('Completed')
