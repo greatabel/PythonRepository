@@ -2,28 +2,35 @@ from queue import Queue
 from threading import Thread
 import time
 
+_sentinel = object()
+
+# A thread that produces data
 def producer(out_q):
     n = 10
     while n > 0:
+        # Produce some data
         out_q.put(n)
-        time.sleep(2)
+        time.sleep(0.2)
         n -= 1
 
-        out_q.put(_sentinel)
 
+    # Put the sentinel on the queue to indicate completion
+    out_q.put(_sentinel)
 
+# A thread that consumes data
 def consumer(in_q):
     while True:
-
+        # Get some data
         data = in_q.get()
 
+        # Check for termination
         if data is _sentinel:
             in_q.put(_sentinel)
             break
 
+        # Process the data
         print('Got:', data)
-
-    print('consumer shutting down')
+    print('Consumer shutting down')
 
 if __name__ == '__main__':
     q = Queue()
@@ -33,3 +40,4 @@ if __name__ == '__main__':
     t2.start()
     t1.join()
     t2.join()
+
