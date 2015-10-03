@@ -7,6 +7,7 @@ def philosopher(left, right):
         with acquire(left,right): 
             print(threading.currentThread(), 'eating')
 
+
 # The chopsticks (represented by locks)
 NSTICKS = 5
 chopsticks = [threading.Lock() for n in range(NSTICKS)]
