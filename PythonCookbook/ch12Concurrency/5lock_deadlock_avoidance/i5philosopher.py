@@ -1,6 +1,7 @@
 import threading
 from deadlock import acquire
 
+
 # The philosopher thread
 def philosopher(left, right):
     while True:
