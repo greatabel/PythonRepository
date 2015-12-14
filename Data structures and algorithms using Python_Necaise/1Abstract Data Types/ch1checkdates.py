@@ -1,5 +1,4 @@
 # Extracts a collection of birth dates from the user and determines # if each individual is at least 21 years of age.
-# from date import Date
 import datetime
 def main():
    # Date before which a person must have been born to be 21 or older.
