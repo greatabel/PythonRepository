@@ -1,7 +1,8 @@
-import datetime
+from date import Date
+
 def main():
    # Date before which a person must have been born to be 21 or older.
-   bornBefore = datetime.datetime(1988,6,19)
+   bornBefore = Date(6, 1, 1988)
    # Extract birth dates from the user and determine if 21 or older.
    date = promptAndExtractDate() 
    while date is not None :
@@ -17,7 +18,7 @@ def promptAndExtractDate():
    else :
       day = int( input("day: ") ) 
       year = int( input("year: ") ) 
-      return datetime.datetime( year,month, day)
+      return Date( month, day, year)
 
 #Call the main routine.
 if __name__ == "__main__":
