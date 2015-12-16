@@ -16,7 +16,7 @@ class Bag:
         assert item in self._theItems, "The item must be in the bag"
         ndx = self._theItems.index(item)
         return self._theItems.pop(ndx)
-
+    # http://stackoverflow.com/questions/4019971/how-to-implement-iter-self-for-a-container-object-python
     def __iter__(self):
         for x in  self._theItems:
             yield x
