@@ -18,6 +18,10 @@ class Bag:
         return self._theItems.pop(ndx)
 
     def __iter__(self):
-        return self
+        for x in  self._theItems:
+            yield x
+
+
+
 
 
