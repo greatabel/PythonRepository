@@ -1,13 +1,15 @@
-ID     NAME                       CLASS       GPA
------  -------------------------  ----------  ----
-10015  Smith, John                Sophomore  3.01
-10167  Jones, Wendy                         
-10175  Smith, Jane
-10188  Wales, Sam
-10200  Roberts, Sally
-10208  Green, Patrick
-10226  Nelson, Amy
-10334  Roberts, Jane
-10387  Taylor, Susan
-10400  Logan, Mark
-10485  Brown, Jessica
+10015
+John
+Smith
+2
+3.01
+10334
+Jane
+Roberts
+4
+3.81
+10335
+Jane1
+Roberts1
+4
+3.81

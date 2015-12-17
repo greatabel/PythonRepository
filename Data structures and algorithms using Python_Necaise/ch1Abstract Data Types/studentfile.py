@@ -23,7 +23,8 @@ class StudentFileReader :
      # Extract the next student record from the file.
     def fetchRecord( self ):
         # Read the first line of the record.
-        line = self._inputFile.readline() 
+        line = self._inputFile.readline()
+        print("line=",line) 
         if line == "" :
             return None
         # If there is another record, create a storage object and fill it.
@@ -34,7 +35,7 @@ class StudentFileReader :
         student.classCode = int( self._inputFile.readline() ) 
         student.gpa = float( self._inputFile.readline() ) 
         return student
-        
+
 # Storage class used for an individual student record.
 class StudentRecord : 
     def __init__( self ):
