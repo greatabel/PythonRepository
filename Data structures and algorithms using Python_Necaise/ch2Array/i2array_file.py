@@ -13,6 +13,7 @@ def main():
             theCounters[code] += 1
             # Close the file
     theFile.close()
+    
     # Print the results. The uppercase letters have ASCII values in the # range 65..90 and the lowercase letters are in the range 97..122. 
     for i in range( 26 ) :
         print( "%c - %4d %c - %4d" % \
