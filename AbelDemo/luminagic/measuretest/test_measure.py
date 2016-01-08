@@ -54,7 +54,7 @@ def readfile(filename):
         measurementA = measurement_pb2.Measurement()
         #print('before measurementA=', measurementA)
         filestr = f.read()
-        print("###", filestr)
+        # print("###", filestr)
         measurementA.ParseFromString(filestr)
         #print('after measurementA=', measurementA)
         f.close()
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     if args.inputfile:
         inputname = args.inputfile
     #writefile()
-    testwrite()
+    # testwrite()
     readfile(inputname)
 
 
