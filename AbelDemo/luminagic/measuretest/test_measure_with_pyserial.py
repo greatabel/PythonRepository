@@ -11,7 +11,7 @@ import random
 import argparse
 import serial  
 import time  
-
+import os, pty
 # def writefile():
 #     measurement = measurement_pb2.Measurement()
 #     measurement.side_a = True
@@ -94,7 +94,12 @@ if __name__ == '__main__':
     # readfile(inputname)
     
     # '/dev/ttyACM0' is the serial name , 9600 is frequency , you should change it
-    ser = serial.Serial('/dev/ttyACM0',9600)
+    # ser = serial.Serial('/dev/ttyACM0',9600)
+    master, slave = pty.openpty()
+    s_name = os.ttyname(slave)
+    print("s_name=", s_name)
+
+    ser = serial.Serial('/dev/ttys005')
 
 
     # write to serial
