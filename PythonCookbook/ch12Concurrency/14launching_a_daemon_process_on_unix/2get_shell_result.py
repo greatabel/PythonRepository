@@ -8,6 +8,6 @@ if __name__ == "__main__":
         line = " "
         while line:
             line = handle.read()
-            print(line)
+            print("line=",line)
         handle.close()
     print("that is it!")
