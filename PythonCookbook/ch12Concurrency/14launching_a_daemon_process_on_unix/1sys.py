@@ -13,3 +13,11 @@ if __name__ == '__main__':
             print("Function name: %s" % sys.argv[0])
         else:
             print("%d. argument: %s" % (i,sys.argv[i]) )
+
+    # change the output behaviour
+    x = 42
+    print(x)
+    def print(*args, **kwargs):
+        __builtins__.print("Custom--->", *args, **kwargs)
+    print(x)
+    print(100)
