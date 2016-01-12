@@ -26,6 +26,18 @@ if __name__ == '__main__':
     for i in (sys.stdin, sys.stdout, sys.stderr):
         print(i)
 
+    # output
     sys.stdout.write("Another way to do it!\n")
     x = input("read value via stdin: ")
     print("x=", x)
+
+    # combine input and output
+    while True:
+        # output to stdout:
+        print("###")
+        try:
+            number = input("Enter a nubmer:")
+            print("number:", number)
+        except EOFError:
+            print("\n here")
+            break
