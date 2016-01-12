@@ -17,7 +17,15 @@ if __name__ == '__main__':
     # change the output behaviour
     x = 42
     print(x)
+    #http://stackoverflow.com/questions/14986490/python-change-sys-stdout-print-to-custom-print-function
     def print(*args, **kwargs):
         __builtins__.print("Custom--->", *args, **kwargs)
     print(x)
     print(100)
+
+    for i in (sys.stdin, sys.stdout, sys.stderr):
+        print(i)
+
+    sys.stdout.write("Another way to do it!\n")
+    x = input("read value via stdin: ")
+    print("x=", x)
