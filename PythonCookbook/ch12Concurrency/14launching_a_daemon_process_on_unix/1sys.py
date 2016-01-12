@@ -36,8 +36,29 @@ if __name__ == '__main__':
         # output to stdout:
         print("###")
         try:
+
             number = input("Enter a nubmer:")
             print("number:", number)
+            if not number:
+                break
         except EOFError:
             print("\n here")
             break
+
+    print("Coming through stdout")
+    # stdout is saved
+    save_stdout = sys.stdout
+
+    fh = open("test.txt", "w")
+
+    sys.stdout = fh
+    print("This line goes to test.txt")
+
+    # return to normal
+    sys.stdout = save_stdout
+
+    fh.close()
+
+
+
+
