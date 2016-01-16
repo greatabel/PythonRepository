@@ -1,3 +1,4 @@
+# http://www.phperz.com/article/16/0113/169299.html
 import signal
 
 
