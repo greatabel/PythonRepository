@@ -1,6 +1,9 @@
 import os
 
 def child():
+    import time
+    time.sleep(3)
+    print('*'*20)
     print('\nin child() # A new child ', os.getpid())
     os._exit(0)
 
@@ -16,7 +19,9 @@ def parent():
             # print("pids=", pids)
             print("parent: %d, child: %d\n" % pids)
         reply = input("q for quit / c for new fork\n")
+
         if reply == 'c':
+            print("reply=", reply)
             continue
         else:
             break
