@@ -1,4 +1,6 @@
 # demo1: ls | python3 accepting_input.py
+# demo2: python3 accepting_input.py passwd.txt 
+# demo3: python3 accepting_input.py < passwd.txt 
 
 import fileinput
 
