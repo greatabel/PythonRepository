@@ -1,6 +1,7 @@
 import shutil
 
+print(shutil.get_archive_formats())
 shutil.make_archive('myarchive_name', 'zip','myfold')
 
-# 解压
+# unpack
 shutil.unpack_archive('myarchive_name.zip')
