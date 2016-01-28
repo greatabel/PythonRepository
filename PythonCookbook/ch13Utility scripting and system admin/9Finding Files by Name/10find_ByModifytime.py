@@ -1,6 +1,9 @@
 import os
 import time
 
+# usage of this script, something like:python3 10find_ByModifytime.py  . 3600
+
+
 def modified_within(top, seconds):
     now = time.time()
     for path, dirs, files in os.walk(top):
