@@ -24,4 +24,5 @@ if __name__ == "__main__":
     resource.setrlimit(resource.RLIMIT_AS, (2048, 2048))
     x = list(range(100000))  # MemoryError! Make this 1000 to live on...
     print("limit not working!")
+    print("Author said only work on linux but not osx")
         
