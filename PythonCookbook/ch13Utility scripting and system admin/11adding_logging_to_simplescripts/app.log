@@ -1,0 +1,5 @@
+CRITICAL:root:host www.test.org unkonw
+ERROR:root:Couldn't find 'spam'
+CRITICAL:2016-01-29 11:49:04,312:host www.test.org unkonw
+ERROR:2016-01-29 11:49:04,312:Couldn't find 'spam'
+WARNING:2016-01-29 11:49:04,312:Feature is deprecated
