@@ -42,8 +42,10 @@ if __name__ == '__main__':
     t.start()
     countdown(1000000)
     t.end()
+    print('usage 1:')
     print(t.elapsed)
 
+    print('usage 2:')
     with t:
         countdown(1000000)
     print(t.elapsed)
