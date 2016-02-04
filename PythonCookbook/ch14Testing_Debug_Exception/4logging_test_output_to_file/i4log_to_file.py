@@ -25,7 +25,9 @@ class TestIO(unittest.TestCase):
         else:
             self.fail("IOError not raised") 
 
+#----------------------- real maters is below:-------------------------
 import sys
+
 def main(out=sys.stderr, verbosity=2):
     loader = unittest.TestLoader()
     suite = loader.loadTestsFromModule(sys.modules[__name__])
