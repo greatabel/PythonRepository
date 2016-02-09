@@ -16,6 +16,10 @@ class Tests(unittest.TestCase):
         print('test_2')
         import winreg
 
+    @unittest.skipUnless(platform.system() == 'Darwin', 'Mac specific test')
+    def test_3(self):
+        print('test_3')
+        self.assertTrue(True)
 
 if __name__ == "__main__":
     unittest.main()
