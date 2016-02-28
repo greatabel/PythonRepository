@@ -26,5 +26,5 @@ if __name__ == "__main__":
     except ProtocolError as e:
         print('2', e)
     except Exception as e:
-        print('3',e)
+        print('3', e)
 
