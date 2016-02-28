@@ -6,5 +6,5 @@ if __name__ == "__main__":
         f = open('test.txt')
         s = f.readline()
         i = int(s.strip())
-    except (IOError, ValueError):
-        print("in error block")
+    except Exception as e:
+        print('Reason:', e)
