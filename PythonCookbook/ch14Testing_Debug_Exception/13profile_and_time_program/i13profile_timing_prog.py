@@ -20,3 +20,4 @@ def countdown(n):
 
 if __name__ == '__main__':
     countdown(10000)
+    countdown(20000)
