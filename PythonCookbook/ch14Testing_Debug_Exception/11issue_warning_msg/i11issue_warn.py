@@ -1,5 +1,9 @@
 import warnings
 
+# usage:
+# python3 -W all i11issue_warn.py 
+# python3 -W error i11issue_warn.py 
+
 def func(x, y, logfile=None, debug=False):
     print("#", logfile)
     if logfile is not None:
