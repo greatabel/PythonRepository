@@ -30,7 +30,7 @@ def biggest_common(a,b):
     for i in range(1,small+1):
         if a % i == 0 and b % i ==0:
             result = i
-    print(result,'-')
+    print('bigggestcommon=',result)
     return result
 
 def smallest_multiple(a,b):
