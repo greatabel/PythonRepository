@@ -14,7 +14,7 @@ if __name__ == "__main__":
     results = []
     # fibonacci_iter(4e6)
     for a in fibonacci_iter(math.pow(10,6)*4):
-        print(a)
+        # print(a)
         if a % 2 == 0:
             results.append(a)
     print("sum=", sum(results))
