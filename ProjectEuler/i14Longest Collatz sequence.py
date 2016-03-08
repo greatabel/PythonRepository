@@ -11,3 +11,30 @@
 # Which starting number, under one million, produces the longest chain?
 
 # NOTE: Once the chain starts the terms are allowed to go above one million.
+
+import math
+def find_sequence_length(n):
+    results = []
+    while n != 1:
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = 3 * n + 1
+        results.append(n)
+
+    return len(results)
+        
+
+
+
+if __name__ == "__main__":
+    MAX = 0
+    item = 0
+    for i in range(1,int(1e6)+1):
+        if i % 10000 == 0:
+            print(i)
+        result = find_sequence_length(i)
+        if  result > MAX:
+            MAX = result
+            item = i
+    print(MAX, item)
