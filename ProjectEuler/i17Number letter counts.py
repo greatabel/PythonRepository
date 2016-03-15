@@ -18,17 +18,14 @@ def handle_under100(i):
     lsum = 0
     if i <= 20:
         lsum += len(number[i])
-        print(number[i],len(number[i]))
     if i > 20 and i <= 99:
         if i % 10 == 0:
             lsum += len(number[i])
-            print(number[i],len(number[i]))
         else :
             remain = i % 10
             withoutSingle = i - remain
             temp = len(number[withoutSingle]) + len(number[remain])
             lsum += temp
-            print("i=",i,"withoutSingle=",number[withoutSingle],"remain=",number[remain],"temp=", temp)
     return lsum 
 
 def count_letter_sum(n):
@@ -48,10 +45,6 @@ def count_letter_sum(n):
                 lsum += len(number[k]) + len(number[100]) + 3 + handle_under100(remain)
         if i == 1000:
             lsum += len(number[1000]) + 3
-
-
-
-
     print(lsum)
 
 if __name__ == "__main__":
