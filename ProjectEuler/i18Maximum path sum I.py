@@ -37,11 +37,28 @@ def getData(path):
             items = [int(i) for i in line.rstrip('\n').lstrip().split(" ")]
             # print("itmes=", items)
             rows.append(items)
-    print(rows)
+    # print(rows)
     return rows
 
+def findMax(rows,rowNum):
+    for i in range(len(rows[rowNum])):
+        print("before:rows[",rowNum,"][", i, "]=",rows[rowNum][i])
+        rows[rowNum][i] += max(rows[rowNum+1][i], rows[rowNum+1][i+1])
+        print("after:rows[",rowNum,"][", i, "]=",rows[rowNum][i])
+    if len(rows[rowNum]) == 1:
+        return rows[rowNum][0]
+    else:
+        print('*'*10 )
+        return findMax(rows, rowNum-1)
 
 if __name__ == "__main__":
-    getData('i18data.txt')
+    # rows = getData('i18testdata.txt')
+    rows = getData('i18data.txt')
+    print(rows)
+    mypaths = []
+    thesum = 0
+    print(findMax(rows, len(rows)-2))
+
+        
 
 
