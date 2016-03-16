@@ -63,10 +63,7 @@ if __name__ == "__main__":
     print("results=",results)
     
 
-    # print(mypath)
 
-    # for i,j in pairs(mypath):
-    #     print(i,j)
 
         
 
