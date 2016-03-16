@@ -29,7 +29,7 @@
 # it cannot be solved by brute force, and requires a clever method! ;o)
 
 from termcolor import colored
-# import copy
+from copy import deepcopy
 
 def getData(path):
     rows = []
@@ -40,6 +40,33 @@ def getData(path):
             # print("itmes=", items)
             rows.append(items)
     # print(rows)
+    return rows
+
+def getStringData(path):
+    rows = []
+    with open(path) as file:
+        for line in file:
+            # print(line)
+            items = [i for i in line.rstrip('\n').lstrip().split(" ")]
+            # print("itmes=", items)
+            rows.append(items)
+    # print(rows)
+    return rows    
+
+def findMax_I(rows, xrows):
+    
+    # myrows = deepcopy(rows)
+
+    for row in range(len(rows)-1, 0, -1):
+        print("rows[row]=",rows[row])
+        for col in range(0,row):
+            imax = max(rows[row][col],rows[row][col+1])
+            rows[row-1][col] += imax
+            index = rows[row].index(imax)
+            print('index=',index)
+            xrows[row-1][col] += "_"+str(xrows[row][index])
+        print("\n")
+    print("xrows=",xrows)
     return rows
 
 
@@ -53,13 +80,13 @@ def findMax(rows):
         print("\n")
     return rows
 
-
-
 if __name__ == "__main__":
-    rows = getData('i18testdata.txt')
-    # rows = getData('i18data.txt')
+    # rows = getData('i18testdata.txt')
+    # xrows = getStringData('i18testdata.txt')
+    rows = getData('i18data.txt')
+    xrows = getStringData('i18data.txt')
 
-    results = findMax(rows)
+    results = findMax_I(rows, xrows)
     print("results=",results)
     
 
