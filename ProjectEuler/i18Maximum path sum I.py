@@ -1,8 +1,8 @@
 # By starting at the top of the triangle below and moving to adjacent numbers on the row below, the maximum total from top to bottom is 23.
 
-# 3
-# 7 4
-# 2 4 6
+#    3
+#   7 4
+#  2 4 6
 # 8 5 9 3
 
 # That is, 3 + 7 + 4 + 9 = 23.
@@ -28,6 +28,8 @@
 # NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route. However, Problem 67, is the same challenge with a triangle containing one-hundred rows; 
 # it cannot be solved by brute force, and requires a clever method! ;o)
 
+from termcolor import colored
+# import copy
 
 def getData(path):
     rows = []
@@ -40,24 +42,44 @@ def getData(path):
     # print(rows)
     return rows
 
+
 def findMax(rows,rowNum):
+    temp = 0
+
     for i in range(len(rows[rowNum])):
         print("before:rows[",rowNum,"][", i, "]=",rows[rowNum][i])
         rows[rowNum][i] += max(rows[rowNum+1][i], rows[rowNum+1][i+1])
-        print("after:rows[",rowNum,"][", i, "]=",rows[rowNum][i])
+        if rows[rowNum][i] >= temp:
+            temp = rows[rowNum][i]
+
+        print("after:rows[",rowNum,"][", i, "]=",colored(rows[rowNum][i], 'red'),"\n")
+
     if len(rows[rowNum]) == 1:
+
+        print("@",rows[rowNum][0])
         return rows[rowNum][0]
     else:
         print('*'*10 )
         return findMax(rows, rowNum-1)
 
+def pairs(lst):
+    i = iter(lst)
+    prev = next(i)
+    for item in i:
+        yield prev, item
+        prev = item 
+
 if __name__ == "__main__":
     # rows = getData('i18testdata.txt')
     rows = getData('i18data.txt')
-    print(rows)
-    mypaths = []
+
     thesum = 0
     print(findMax(rows, len(rows)-2))
+
+    # print(mypath)
+
+    # for i,j in pairs(mypath):
+    #     print(i,j)
 
         
 
