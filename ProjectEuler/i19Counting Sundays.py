@@ -11,3 +11,15 @@
 # And on leap years, twenty-nine.
 # A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
 # How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+def findSundays(start, end):
+    print(start, end)
+    import pandas as pd
+    alldays = pd.date_range(start,end,freq='D')
+    total = sum( theday.day == 1 and theday.weekday() == 6  for theday in alldays)
+    print(total)
+
+
+
+if __name__ == "__main__":
+    findSundays('1901/1/1','2000/12/31')    
