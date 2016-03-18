@@ -19,7 +19,15 @@ def findSundays(start, end):
     total = sum( theday.day == 1 and theday.weekday() == 6  for theday in alldays)
     print(total)
 
+def showSundays(start, end):
+    print(start, end)
+    import pandas as pd
+    alldays = pd.date_range(start,end,freq='D')
 
+    for theday in alldays:
+        if theday.day == 1 and theday.weekday() == 6:
+            print(theday)
 
 if __name__ == "__main__":
-    findSundays('1901/1/1','2000/12/31')    
+    findSundays('1901/1/1','2000/12/31') 
+    showSundays('1901/1/1','2000/12/31') 
