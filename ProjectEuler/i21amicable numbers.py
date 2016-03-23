@@ -17,6 +17,7 @@ def find_amicable(num):
     for i in range(1,num):
         thesum = sum(list(divisorGenerator(i)))
         mydict[i] = thesum
+        # 理解错误版本
         # if thesum not in mydict:
         #     mydict[thesum] = str(i)
         # else:
