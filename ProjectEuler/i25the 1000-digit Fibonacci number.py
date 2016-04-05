@@ -36,6 +36,14 @@ def fib(n):
     else:
         return fib(n-1) + fib(n-2)
 
+
+def memorize(n,f):
+    cache = {}
+    if n not in cache:
+        cache[n] = f(n)
+    return cache[n]
+
+
 def find(n):
     i = 0
     result  = fib(i)
@@ -48,13 +56,24 @@ def find(n):
         print('#',i,fib(i),len(str(fib(i))))
     print(i,fib(i),len(str(fib(i))))
 
+def find_v2(n):
+    i = 0
+    result  = memorize(fib,i)
+    mylen = len(str(result))
+    while mylen < n:
+        i += 1
+        result = fib(i)
+        mylen = len(str(result))
+        
+        print('#',i,fib(i),len(str(memorize(fib,i))))
+    print(i,fib(i),len(str(memorize(fib,i))))
 
 
 if __name__ == "__main__":
     tic = time.clock()
     # for i in range(0,20):
     #     print(i,fib(i),len(str(fib(i))))
-    find(3)
+    find_v2(3)
 
     toc = time.clock()
     print("time=",toc - tic)
