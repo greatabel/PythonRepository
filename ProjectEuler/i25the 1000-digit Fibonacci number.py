@@ -20,6 +20,7 @@
 # What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
 
 import time
+# http://ujihisa.blogspot.jp/2010/11/memoized-recursive-fibonacci-in-python.html
 
 # def permutaion(elements,divider):
 #     if len(elements) == 0:
@@ -37,12 +38,13 @@ def fib(n):
         return fib(n-1) + fib(n-2)
 
 
-def memorize(n,f):
-    cache = {}
-    if n not in cache:
-        cache[n] = f(n)
-    return cache[n]
-
+__fib_cache = {}
+def fib_v2(n):
+    if n in __fib_cache:
+        return __fib_cache[n]
+    else:
+        __fib_cache[n] = n if n < 2 else fib_v2(n-2) + fib_v2(n-1)
+        return __fib_cache[n]
 
 def find(n):
     i = 0
@@ -58,22 +60,22 @@ def find(n):
 
 def find_v2(n):
     i = 0
-    result  = memorize(fib,i)
+    result  = fib_v2(i)
     mylen = len(str(result))
     while mylen < n:
         i += 1
-        result = fib(i)
+        result = fib_v2(i)
         mylen = len(str(result))
-        
-        print('#',i,fib(i),len(str(memorize(fib,i))))
-    print(i,fib(i),len(str(memorize(fib,i))))
+        if mylen % 10 == 0:
+            print('#',i,fib_v2(i),len(str(fib_v2(i))))
+    print(i,fib_v2(i),len(str(fib_v2(i))))
 
 
 if __name__ == "__main__":
     tic = time.clock()
     # for i in range(0,20):
     #     print(i,fib(i),len(str(fib(i))))
-    find_v2(3)
+    find_v2(1000)
 
     toc = time.clock()
     print("time=",toc - tic)
