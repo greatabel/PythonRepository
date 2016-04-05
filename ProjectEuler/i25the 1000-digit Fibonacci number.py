@@ -28,12 +28,33 @@ import time
 #         for i in range(len(elements)):
 #             permutaion(elements[0:i] + elements[i+1:], divider + str(elements[i]))
 
+def fib(n):
+    if n == 0:
+        return 0
+    elif n ==1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+
+def find(n):
+    i = 0
+    result  = fib(i)
+    mylen = len(str(result))
+    while mylen < n:
+        i += 1
+        result = fib(i)
+        mylen = len(str(result))
+        
+        print('#',i,fib(i),len(str(fib(i))))
+    print(i,fib(i),len(str(fib(i))))
 
 
 
 if __name__ == "__main__":
     tic = time.clock()
-    
+    # for i in range(0,20):
+    #     print(i,fib(i),len(str(fib(i))))
+    find(3)
 
     toc = time.clock()
     print("time=",toc - tic)
