@@ -15,6 +15,7 @@
 
 
 # http://guozi149.me/foundations/math/516
+
 from decimal import Decimal
 
 max_index = 0
