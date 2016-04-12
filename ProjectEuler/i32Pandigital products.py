@@ -22,11 +22,29 @@ def isPandigital(string):
         return False
     return True
 
+# 数A*数B=数C,共计9位， 
+# 只可能是 1位*4位=4位， 2位*3位=4位 
 def find_allmatches(numbers):
-    print(numbers)
-    for i in range(0, int(math.pow(10,3))):
-        if isPandigital(str(i)):
-            print(i)
+    results = []
+
+    for i in range(1, 10):
+        for j in range(int(math.pow(10, 3)) , int(math.pow(10,4))):
+            combine = str(i) + str(j) + str(i * j)
+            if isPandigital(combine):
+                
+                if i * j not in results:
+                    results.append(i * j)
+                    print(str(i) , str(j) ,str(i * j))
+
+    for i in range(10, 100):
+        for j in range(100,1000):
+            combine = str(i) + str(j) + str(i * j)
+            if isPandigital(combine):
+                
+                if i * j not in results:
+                    results.append(i * j)
+                    print(str(i) , str(j) ,str(i * j))
+    return sum(results)
 
 
 
