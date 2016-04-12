@@ -8,3 +8,21 @@
 
 # HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
 
+import time
+
+def find_allways(numbers):
+    print(numbers)
+    
+
+
+if __name__ == "__main__":
+    tic = time.clock()
+    # for i in range(0,20):
+    #     print(i,fib(i),len(str(fib(i))))
+    # find_allpowers(5,5)
+    # find_allpowers(10000,4)
+    results = find_allways(list(range(1,10)))
+    print('#', results)
+
+    toc = time.clock()
+    print("time=",toc - tic)
