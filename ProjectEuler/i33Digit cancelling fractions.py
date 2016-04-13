@@ -10,8 +10,33 @@
 
 import time
 
-def find_allmatches(numbers):
+def get_digital(number):
     results = []
+    while number > 0:
+        result = number % 10
+        number = number // 10
+        results.append(result)
+    return results
+
+
+
+def find_allmatches(numbers):
+    for i in numbers:
+        for j in numbers:
+            if j != 0:
+                # print(i,"/", j)
+                ii = get_digital(i)
+                jj = get_digital(j)
+                commons = list(set(ii).intersection(jj))
+                if len(commons) != 0:
+                    # print(commons[0],ii,jj)
+                    ii.remove(commons[0])
+                    jj.remove(commons[0])
+                    if len(ii) > 0 and len(jj) > 0:
+                        print("i2/j2=",ii[0],"/",jj[0])
+                        if jj[0] != 0 and (ii[0] // jj[0] )==  ( i // j) :
+                            print( ii[0],"/", jj[0],"=", i,"/",j)
+
     
 if __name__ == "__main__":
     tic = time.clock()
@@ -19,7 +44,7 @@ if __name__ == "__main__":
     #     print(i,fib(i),len(str(fib(i))))
     # find_allpowers(5,5)
     # find_allpowers(10000,4)
-    results = find_allmatches(list(range(1,10)))
+    results = find_allmatches(list(range(1,100)))
     print('#', results)
 
     toc = time.clock()
