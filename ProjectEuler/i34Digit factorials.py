@@ -10,6 +10,8 @@ import time
 
 def get_digital(number):
     results = []
+    if number == 0:
+        results = [0]
     while number > 0:
         result = number % 10
         number = number // 10
@@ -24,12 +26,30 @@ def factorial_sum(num):
     for d in results:
         # print('d=', d)
         temp = 1
-        for i in range(1, d+1):
+        for i in range(0, d+1):
             # print("i=", i)
-            temp *= i
+            if i!=0:
+                temp *= i
         # print('temp=', temp)
         mysum += temp
     return mysum
+
+def mycache():
+    mydict = {}
+    for i in range(0,9+1):
+        mydict[i] = factorial_sum(i)
+    print("mycache:", mydict)
+    return mydict
+
+
+def factorial_sum_with_cache(num, cache):
+    results = get_digital(num)
+    # print('results1=', results)
+    mysum = 0
+    for d in results:        
+        mysum += cache[d]
+    return mysum
+
 
 def find_possible_limit():
     flag = True
@@ -44,18 +64,32 @@ def find_possible_limit():
     return -1
 
 
+# old:
+# mysum =  40730
+# time= 72.930729
 
-
+# # with cache:
+# mysum =  40730
+# time= 31.561978
 
 if __name__ == "__main__":
     tic = time.clock()
     limit = find_possible_limit()
+    # mysum = 0
+    # for i in range(3, 10**limit):
+    #     if factorial_sum(i) == i:
+    #         print(i)
+    #         mysum += i
+    #     if i % 10000 == 0:
+    #         print("i=", i)
+    # print('mysum = ', mysum)
+    mydict = mycache()
     mysum = 0
     for i in range(3, 10**limit):
-        if factorial_sum(i) == i:
+        if factorial_sum_with_cache(i, mydict) == i:
             print(i)
             mysum += i
-        if i % 10000 == 0:
+        if i % 100000 == 0:
             print("i=", i)
     print('mysum = ', mysum)
 
