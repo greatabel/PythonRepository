@@ -49,16 +49,10 @@ def find_possible_limit():
 
 if __name__ == "__main__":
     tic = time.clock()
-    # for i in range(0,20):
-    #     print(i,fib(i),len(str(fib(i))))
-    # find_allpowers(5,5)
-    # find_allpowers(10000,4)
     limit = find_possible_limit()
-    # print('#', result)
     mysum = 0
-    for i in range(0, 10**limit):
-
-        if i != 1 and i != 2 and factorial_sum(i) == i:
+    for i in range(3, 10**limit):
+        if factorial_sum(i) == i:
             print(i)
             mysum += i
         if i % 10000 == 0:
