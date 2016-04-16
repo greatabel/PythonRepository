@@ -72,6 +72,8 @@ def find_possible_limit():
 # mysum =  40730
 # time= 31.561978
 
+# there should mathmatical method shorten the time and bound
+
 if __name__ == "__main__":
     tic = time.clock()
     limit = find_possible_limit()
