@@ -16,6 +16,7 @@ def isPrime(num):
         flag = False
     for i in range(2, round(math.sqrt(num))+1):
         if num % i == 0:
+            # print(num ,'%',i )
             flag = False
     return flag
 
@@ -65,6 +66,9 @@ def find_prime(bound):
 #             temp.remove(e)
 #             res.extend([[e] + r for r in permutList(temp)])
 #     return res
+from itertools import permutations
+
+
 
 def isCircular(prime):
     prime = str(prime)
@@ -123,7 +127,8 @@ def find_circular_below(bound):
 
 if __name__ == "__main__":
     tic = time.clock()
-    # limit = find_circular_below(100)
+    # isCircular(971)
+    # limit = find_circular_below(1000)
     limit = find_circular_below(10**6)
 
     toc = time.clock()
