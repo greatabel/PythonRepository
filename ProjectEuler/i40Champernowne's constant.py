@@ -30,11 +30,6 @@ def  find():
         result *= int(myStr[10**i - 1])
     print(result)
 
-
-
-
-
-
 if __name__ == "__main__":
     tic = time.clock()
     find()

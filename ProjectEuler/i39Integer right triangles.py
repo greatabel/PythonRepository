@@ -18,14 +18,12 @@ def  find(bound):
                 if a**2 + b**2 == (p - a - b) ** 2:
                     print(a,b,p-a-b)
                     pdict[p] += 1
-                    
+
         print('p=',p,'count=',pdict[p])
     print('pdict=',pdict)
     
     # http://stackoverflow.com/questions/268272/getting-key-with-maximum-value-in-dictionary
     print(max(pdict, key=pdict.get), '#',pdict[max(pdict, key=pdict.get)])
-
-
 
 if __name__ == "__main__":
     tic = time.clock()

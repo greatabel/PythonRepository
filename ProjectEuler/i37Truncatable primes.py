@@ -47,7 +47,7 @@ if __name__ == "__main__":
                 icount += 1
         if icount == 11:
             break
-        
+                    
     print('isum=',isum,icount)
 
     toc = time.clock()
