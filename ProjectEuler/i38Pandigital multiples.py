@@ -14,12 +14,22 @@
 
 import time
 import math
+def  find():
+    # 918273645 is not the result ,show show start with 9, 9x is not, 9xx is not ,9xxx is possible
+    theresult = 0
+    for i in range(9000,10000):
+        istr = str(i) + str(i*2)
+        if "0" not in istr:
+            if len(set(istr)) == 9:
+                print(istr)
+                if int(istr) > theresult:
+                    theresult = int(istr)
+    print('result', theresult)
+
 
 if __name__ == "__main__":
-    isum = 0 
-    icount = 0
     tic = time.clock()
-    
+    find()
 
     toc = time.clock()
     print("time=",toc - tic)
