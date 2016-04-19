@@ -45,7 +45,7 @@ def main_process(rows):
         if value in triangles:
             print(value)
             mycount += 1
-    print('mycount=', mycount)
+    print(colored('mycount=', 'red'), mycount)
         # if value > imax:
         #     imax = value
         #     maxvalue = row
