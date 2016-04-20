@@ -28,11 +28,26 @@ def isPandigital(string):
     return True
 
 def main_process():
-    for i in range(1,1000//17 + 1):
-        print(17*i)
-    print('\n')
-    for j in range(1,1000//13 + 1):
-        print(13*j)
+    prossibles = []
+    for i in range(1,1000// 11 + 1):
+        temp = str(11 * i)
+        if len(temp) == 2:
+            temp = '0' + temp
+        # print('before:',temp)
+        for j in range(0,10):
+            # print('int(temp[1:]):',int(temp[1:]))
+            tempj = int(temp[1:]+ str(j) )
+            # print('tempj:',tempj)            
+            if tempj % 13 == 0:
+                temp1 = temp + str(j)
+                # print('temp1 % 13:',temp1,'tempj=',tempj)                
+                for k in range(0,10):
+                    tempk = int(temp1[2:]+ str(k) )
+                    if tempk % 17 == 0:
+                        temp2 = temp1 + str(k)
+                        print('temp2 % 17 :',temp2)
+
+
     print(colored('mycount=', 'red'), '#')
 
 if __name__ == "__main__":
