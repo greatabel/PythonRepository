@@ -11,9 +11,24 @@
 
 import time
 from termcolor import colored
+import math
 
+def Pentagonal(i):
+    n = i * (3*i - 1) *0.5
+    return n
+
+def isPentagonal(i):
+    r = ( math.sqrt(1 + 24 * i) + 1 ) / 6
+    # print('r=',r,i)
+    if int(r) == r:
+        print(True)
+        return True
+    else:
+        return False
 
 def main_process():
+    for i in range(1,13):
+        print(Pentagonal(i),i, isPentagonal(i))
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
