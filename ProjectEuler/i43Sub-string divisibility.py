@@ -28,7 +28,7 @@ def isPandigital(string):
     return True
 
 def main_process():
-    prossibles = []
+    d1_d5s = []
 
     for i in range(10,1000):
         d1d2d3 = str(i)
@@ -36,9 +36,18 @@ def main_process():
             d1d2d3 = '0' + d1d2d3
         for j in range(0,8,2):
             d1d2d3d4 = d1d2d3 + str(j)
-            print('d1d2d3d4:',d1d2d3d4)
+            if len(d1d2d3d4) == len(set(d1d2d3d4)):
+                # print('d1d2d3d4:',d1d2d3d4)
+                for d5 in range(0,10):
+                    temp = int(d1d2d3d4[2:] + str(d5))
+                    if temp % 3 == 0:
+                        d1_d5 = d1d2d3d4 + str(d5)
+                        if len(d1_d5) == len(set(d1_d5)) and not ('0' in d1_d5 and '5' in d1_d5):
+                            print('d1_d5:',d1_d5)
+                            d1_d5s.append(d1_d5)
+                            
 
-
+    d6_d10s = []
     for i in range(1,1000// 11 + 1):
         temp = str(11 * i)
         if len(temp) == 2:
@@ -58,9 +67,22 @@ def main_process():
                         if int(temp2[0]) == 5 or int(temp2[0]) == 0:
                             if len(temp2) == len(set(temp2)):
                                 print('d6d7d8d9d10 :',temp2)
+                                d6_d10s.append(temp2)
+    # print(len(d1_d5s),len(d6_d10s))
+    results = []
+    for d1_d5 in d1_d5s:
+        for d6_d10 in d6_d10s:
+            temp = d1_d5 + d6_d10
+            # print('temp:',temp)
+            if len(temp) == len(set(temp)) and int(temp[4:7]) % 7 == 0 :
+                
+                if int(temp) not in results:
+                    print(temp)
+                    results.append(int(temp))
 
 
-    print(colored('mycount=', 'red'), '#')
+
+    print(colored('mycount=', 'red'), sum(results))
 
 if __name__ == "__main__":
     tic = time.clock()
