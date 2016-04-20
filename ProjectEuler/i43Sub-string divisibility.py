@@ -30,7 +30,14 @@ def isPandigital(string):
 def main_process():
     prossibles = []
 
-    
+    for i in range(10,1000):
+        d1d2d3 = str(i)
+        if len(d1d2d3) == 2:
+            d1d2d3 = '0' + d1d2d3
+        for j in range(0,8,2):
+            d1d2d3d4 = d1d2d3 + str(j)
+            print('d1d2d3d4:',d1d2d3d4)
+
 
     for i in range(1,1000// 11 + 1):
         temp = str(11 * i)
