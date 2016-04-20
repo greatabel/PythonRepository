@@ -29,6 +29,9 @@ def isPandigital(string):
 
 def main_process():
     prossibles = []
+
+    for i in range(0)
+
     for i in range(1,1000// 11 + 1):
         temp = str(11 * i)
         if len(temp) == 2:
@@ -45,7 +48,7 @@ def main_process():
                     tempk = int(temp1[2:]+ str(k) )
                     if tempk % 17 == 0:
                         temp2 = temp1 + str(k)
-                        print('temp2 % 17 :',temp2)
+                        print('d6d7d8d9d10 :',temp2)
 
 
     print(colored('mycount=', 'red'), '#')
