@@ -26,11 +26,39 @@ def Hexagonal(i):
 
 
 def main_process():
-    for i in range(1,10):
-        print('T:(',i,')',Triangle(i))
-        print('P:(',i,')',Pentagonal(i))
-        print('H:(',i,')',Hexagonal(i))
-        print('\n')
+    # for i in range(1,10):
+    #     print('T:(',i,')',Triangle(i))
+    #     print('P:(',i,')',Pentagonal(i))
+    #     print('H:(',i,')',Hexagonal(i))
+    #     print('\n')
+    i = 1
+    flag = True
+    result = 0
+    t_para = 286
+    p_para = 166
+    h_para = 144
+    t = Triangle(t_para)
+    p = Pentagonal(p_para)
+    h = Hexagonal(h_para)
+    print('@',t,p,h)
+    while flag:
+        imax = max(t,p,h)
+        # print('imax=',imax)
+        if t < imax:
+            t_para += 1
+            t = Triangle(t_para)
+        elif p < imax:
+            p_para += 1
+            p = Pentagonal(p_para )
+        elif h < imax:
+            h_para += 1
+            h = Hexagonal(h_para )
+        else:
+            print(t_para,p_para,h_para, '#:', t)
+            flag = False
+            break
+
+
 
     print(colored('mycount=', 'red'), 'results')
 
