@@ -15,7 +15,7 @@ import math
 
 def Pentagonal(i):
     n = i * (3*i - 1) *0.5
-    return n
+    return int(n)
 
 def isPentagonal(i):
     r = ( math.sqrt(1 + 24 * i) + 1 ) / 6
@@ -27,9 +27,22 @@ def isPentagonal(i):
         return False
 
 def main_process():
-    for i in range(1,13):
-        print(Pentagonal(i),i, isPentagonal(i))
-    print(colored('mycount=', 'red'), 'results')
+    i = 1
+    flag = True
+    result = 0
+    while flag:
+        i += 1
+        n = Pentagonal(i)
+        for j in range(i-1,0,-1):
+            print('j=',j)
+            m = Pentagonal(j)
+            print("n,m",n,m)
+            if isPentagonal(n -m ) and isPentagonal(n + m):
+                result = n-m
+                flag = False
+                break
+
+    print(colored('mycount=', 'red'), result)
 
 if __name__ == "__main__":
     tic = time.clock()
