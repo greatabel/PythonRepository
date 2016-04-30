@@ -8,6 +8,7 @@
 
 
 import time
+import math
 from termcolor import colored
 
 def get_digital(number):
@@ -20,7 +21,7 @@ def get_digital(number):
         results.append(result)
     # print('results=', results)
     return results
-    
+
 def isPrime(num):
     # print('num=',num)
     flag = True
@@ -58,6 +59,10 @@ def find_prime(bound):
     return mylist
 
 def main_process():
+    primes = find_prime(1000)
+    for p in primes:
+        print('p=',p, get_digital(p))
+
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
