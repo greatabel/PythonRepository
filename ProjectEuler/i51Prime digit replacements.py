@@ -58,10 +58,62 @@ def find_prime(bound):
     mylist.sort()
     return mylist
 
+def replace(s1, n):
+    """Replace repeating digits"""
+    L1 = []
+    for i in range(1, 10):
+        y = str(i)
+        x = s1.replace(n, y)
+        L1.append(x)
+    return L1
+
+def allPrime(x,count):
+    L2 = []
+    for number in x:
+        if isPrime(int(number)):
+            L2.append(int(number))
+        else:
+            continue
+    if len(L2) == count:
+        print("result = ", L2)
+        return True
+
+def step(s, key):
+    for digit in s:
+        if digit == key:
+            x = replace(s, key)
+            if allPrime(x,8):
+                return True
+
+def find_group(prime):
+    s = ''
+    s1 = str(prime)
+    s = s1[0:-1]
+    # print("s=",s,"s1=",s1)
+    d = {}
+    for i in s:
+        d[i] = s.count(i)
+    # print("d=",d)
+    for k,v in d.items():
+        # print("k,v ",k,v)
+        if step(s1, k):
+            return True
+            break
+        else:
+            continue
+
+
+
 def main_process():
-    primes = find_prime(1000)
+    primes = find_prime(1000000)
+    print("finished primes")
     for p in primes:
-        print('p=',p, get_digital(p))
+        # print('p=',p, get_digital(p))
+        if find_group(p):
+            print('end')
+            break
+        else:
+            continue
 
     print(colored('mycount=', 'red'), 'results')
 
