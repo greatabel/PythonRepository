@@ -15,15 +15,22 @@
 # It is not until n = 23, that a value exceeds one-million: 23C10 = 1144066.
 
 # How many, not necessarily distinct, values of  nCr, for 1 ≤ n ≤ 100, are greater than one-million?
-
-
-
 import time
 from termcolor import colored
+from math import factorial
 
+def ncr(n,r):
+    return factorial(n) / (factorial(r) * factorial(n-r))
 
 def main_process():
-    print(colored('mycount=', 'red'), 'results')
+    count = 0
+    for x in range(1,100+1):
+        for y in range(0,x):
+            if ncr(x, y) > 10**6:
+                count += 1
+                print(x,y)
+
+    print(colored('mycount=', 'red'), count)
 
 if __name__ == "__main__":
     tic = time.clock()
