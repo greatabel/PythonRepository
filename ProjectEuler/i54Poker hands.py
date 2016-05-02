@@ -198,7 +198,7 @@ def main_process():
     print(p1, p2, ties)
     print("The answer is ", p1)
 
-    print(colored('mycount=', 'red'), 'results')
+    # print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
     tic = time.clock()

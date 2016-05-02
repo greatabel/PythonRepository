@@ -18,8 +18,6 @@
 
 # NOTE: Wording was modified slightly on 24 April 2007 to emphasise the theoretical nature of Lychrel numbers.
 
-
-
 import time
 from termcolor import colored
 
