@@ -23,9 +23,31 @@
 import time
 from termcolor import colored
 
+def reverse(num):
+    # print('before reversedInt:',num)
+    numStr = str(num)
+    reversedInt = int(numStr[::-1])
+    # print('after reversedInt=', reversedInt)
+    return reversedInt
+
+def isLychrel(num):
+    term = num + reverse(num)
+    print(term)
+    for i in range(25):
+        rev_term = reverse(term)
+        if term != rev_term:
+            term = term + rev_term
+        else:
+            return False
+    return True
+
 
 def main_process():
-    print(colored('mycount=', 'red'), 'results')
+    count = 0
+    for i in range(0,10001):
+        if isLychrel(i):
+            count += 1
+    print(colored('mycount=', 'red'), count)
 
 if __name__ == "__main__":
     tic = time.clock()
