@@ -11,14 +11,29 @@
 import time
 from termcolor import colored
 
+def sum_digits(n):
+    s = 0
+    while n:
+        s += n % 10
+        n //= 10
+    return s
 
-def main_process():
-    print(colored('mycount=', 'red'), 'results')
+def main_process(bounda,boundb):
+    imax = 0
+    for a in range(2,bounda):
+        print('a=',a)
+        tempa = a 
+        for b in range(2,boundb):
+            tempa *= a
+            dsum = sum_digits(tempa)
+            imax = max(imax, dsum)
+
+    print(colored('mycount=', 'red'), imax)
 
 if __name__ == "__main__":
     tic = time.clock()
     
-    main_process()
+    main_process(100,100)
 
     toc = time.clock()
     print("time=",toc - tic)
