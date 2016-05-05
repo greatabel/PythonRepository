@@ -19,14 +19,34 @@
 import time
 from termcolor import colored
 
+# # We have \frac{3}{2},\frac{7}{5},\frac{17}{12},\frac{41}{29},\frac{99}{70},\frac{239}{169}…
+#  n_{k+1} = n_k +  2d_k
 
-def main_process():
-    print(colored('mycount=', 'red'), 'results')
+#  d_{k+1} = n_k  + d_k
+
+# n_{k +1} = n_k  +  2d_k
+# d_{k +1} = n_{k 1} - d_k
+
+
+
+def main_process(bound):
+    count = 0
+    ni = 3
+    di = 2
+    for i in range(0,bound):
+        ni = ni + 2 * di
+        di = ni - di
+        print(ni,"/", di)
+        if len(str(ni)) > len(str(di)):
+            print("longer:",ni,"/", di)
+            count += 1
+
+    print(colored('mycount=', 'red'), count)
 
 if __name__ == "__main__":
     tic = time.clock()
     
-    main_process()
+    main_process(1000)
 
     toc = time.clock()
     print("time=",toc - tic)
