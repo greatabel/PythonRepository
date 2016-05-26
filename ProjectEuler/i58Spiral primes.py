@@ -22,7 +22,20 @@ from termcolor import colored
 
 
 def main_process():
-    print(colored('mycount=', 'red'), 'results')
+    all_corners = []
+    for i in range(0,7):
+        square = (i+1)*(i+1)
+        turn = [square - 3*i, square - 2*i, square - i, square]
+        if (square - 3*i) not in all_corners:
+            all_corners.append(square - 3*i)
+        if (square - 2*i) not in all_corners:
+            all_corners.append(square - 2*i)
+        if (square - i) not in all_corners:
+            all_corners.append(square - i)
+        if (square ) not in all_corners:
+            all_corners.append(square )
+        print(turn)
+    print(colored('mycount=', 'red'), all_corners)
 
 if __name__ == "__main__":
     tic = time.clock()
