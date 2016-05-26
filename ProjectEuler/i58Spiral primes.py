@@ -19,23 +19,50 @@
 
 import time
 from termcolor import colored
+import math
 
+def isPrime(num):
+    # print('num=',num)
+    flag = True
+    if num == 1:
+        flag = False
+    for i in range(2, round(math.sqrt(num))+1):
+        if num % i == 0:
+            flag = False
+    # print('flag=',flag)
+    return flag
 
 def main_process():
-    all_corners = []
-    for i in range(0,7):
-        square = (i+1)*(i+1)
-        turn = [square - 3*i, square - 2*i, square - i, square]
-        if (square - 3*i) not in all_corners:
-            all_corners.append(square - 3*i)
+    all_corners = [1]
+    prime_count = 0
+    avg = 1
+    for i in range(1,10):
+        square = (2*i+1)*(2*i+1)
+        turn = [square - 6*i, square - 4*i, square - 2*i, square]
+        if (square - 6*i) not in all_corners:
+            all_corners.append(square - 6*i)
+            if isPrime(square - 6*i):
+                prime_count += 1
+        if (square - 4*i) not in all_corners:
+            all_corners.append(square - 4*i)
+            if isPrime(square - 4*i):
+                prime_count += 1
         if (square - 2*i) not in all_corners:
             all_corners.append(square - 2*i)
-        if (square - i) not in all_corners:
-            all_corners.append(square - i)
+            if isPrime(square - 2*i):
+                prime_count += 1
         if (square ) not in all_corners:
             all_corners.append(square )
+            if isPrime(square):
+                prime_count += 1
         print(turn)
-    print(colored('mycount=', 'red'), all_corners)
+        avg = prime_count/len(all_corners)
+        print(prime_count,len(all_corners),'avg=',avg,(2*i + 1))
+        if avg < 0.1:
+            print('find',2*i + 1)
+            break
+
+    # print(colored('mycount=', 'red'), all_corners)
 
 if __name__ == "__main__":
     tic = time.clock()
