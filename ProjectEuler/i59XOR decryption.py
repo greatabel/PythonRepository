@@ -21,7 +21,29 @@ from termcolor import colored
 
 
 def main_process():
+    myfile = open('i59_cipher.txt').read()
+    myEncodes = [int(s) for s in myfile.split(',')]
+    # print(myEncodes)
+    guess(myEncodes)
     print(colored('mycount=', 'red'), 'results')
+
+def decrypt(ciphertext ,key):
+    plain = ""
+    for i in range(len(ciphertext)):
+        letter = ciphertext[i]^ord(key[i%3])
+        plain+=chr(letter)
+    return plain
+
+def guess(text):
+    for i in range(97,123):
+        for j in range(97,123):
+            for k in range(97,123):
+                key = chr(i) + chr(j) + chr(k)
+                plain = decrypt(text, key)
+                if plain.find(' the ')!=-1 and plain.find(' but ')!=1:
+                    print(plain)
+                    print('answers:',sum([ord(c) for c in plain]))
+
 
 if __name__ == "__main__":
     tic = time.clock()
