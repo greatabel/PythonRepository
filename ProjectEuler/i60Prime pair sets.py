@@ -75,14 +75,17 @@ def main_process():
             for k in range(j+1, len(p)):
                 if not check([p[i],p[j],p[k]]): continue
                 for l in range(k+1, len(p)):
-                    if not check([p[i],p[j],p[k],p[l]]): continue
-                    print('4:',p[i],p[j],p[k],p[l])
+                    if not check([p[i],p[j],p[k],p[l]]): 
+                        continue
+                    else:
+                        print('4:',p[i],p[j],p[k],p[l])
+                        
                     for m in range(l+1, len(p)):
                         if not check([p[i],p[j],p[k],p[l],p[m]]): 
                             continue
                         else:
                             print(p[i],p[j],p[k],p[l],p[m],'sum=',(p[i] + p[j] + p[k] + p[l] + p[m]))
-                            break
+                            return
                         
 
     print(colored('mycount=', 'red'), 'results')
