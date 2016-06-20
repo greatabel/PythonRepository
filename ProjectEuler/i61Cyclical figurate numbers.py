@@ -17,9 +17,68 @@
 
 import time
 from termcolor import colored
+import itertools
 
+
+triangle = []
+square = []
+pentagonal = []
+hexagonal = []
+heptagonal = []
+octagonal = []
+
+def triangleF(n):
+    return n * (n + 1) // 2
+def squareF(n):
+    return n * n
+def pentagonalF(n):
+    return n * (3 * n - 1) // 2
+def hexagonalF(n):
+    return n * (2 * n - 1)
+def heptagonalF(n):
+    return n * (5 * n - 3) // 2
+def octagonalF(n):
+    return n * (3 * n - 2)
+
+def isCyc(n,m):
+    if ( n%m == int(m/100)):
+        return True
+    else:
+        return False
+
+def find_cyclicals(haystack, needle):
+    cyclicals = []
+    for item in haystack:
+        if isCyc(needle, item):
+            cyclicals.append(item)
+    return cyclicals
 
 def main_process():
+    for i in range(45, 140+1):
+        triangle.append(triangleF(i))
+
+    for i in range(32, 99+1):
+        square.append(squareF(i))
+
+    for i in range(26, 81+1):
+        pentagonal.append(pentagonalF(i))
+
+    for i in range(23, 70+1):
+        hexagonal.append(hexagonalF(i))
+
+    for i in range(21, 63+1):
+        heptagonal.append(heptagonalF(i))
+
+    for i in range(19, 58+1):
+        octagonal.append(octagonalF(i))
+
+    shapes = [triangle, square, pentagonal, hexagonal, heptagonal, octagonal]
+    # print(shapes)
+    for i in shapes:
+        print(len(i))
+    
+
+
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
