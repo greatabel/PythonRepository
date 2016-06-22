@@ -41,7 +41,7 @@ def octagonalF(n):
     return n * (3 * n - 2)
 
 def isCyc(n,m):
-    if ( n%m == int(m/100)):
+    if ( n%100 == int(m/100)):
         return True
     else:
         return False
@@ -73,9 +73,48 @@ def main_process():
         octagonal.append(octagonalF(i))
 
     shapes = [triangle, square, pentagonal, hexagonal, heptagonal, octagonal]
+
+    myfilter = []
     # print(shapes)
-    for i in shapes:
-        print(len(i))
+    permutations = list(itertools.permutations(range(0,6)))
+    print('permutaions:', permutations,'len:',len(permutations))
+    for turn in permutations:
+        print('turn:',turn)
+        for i0 in shapes[turn[0]]:
+            target = i0
+            stack = [i0]
+            # print('target:', target)
+            for i1 in find_cyclicals(shapes[turn[1]], target):
+                stack.append(i1)
+            if len(stack)==2:
+                print('stack i1',stack)
+                for i2 in find_cyclicals(shapes[turn[2]], i1):
+                    stack.append(i2)
+                if len(stack)==3:
+                    print('stack i2',stack)
+                    for i3 in find_cyclicals(shapes[turn[3]], i2):
+                        stack.append(i3)
+                    if len(stack)==4:
+                        print('stack i3',stack)
+                        for i4 in find_cyclicals(shapes[turn[4]], i3):
+                            stack.append(i4)
+                        if len(stack)==5:
+                            print('stack i4',stack)
+                            for i5 in find_cyclicals(shapes[turn[5]], i4):
+                                stack.append(i5)
+                            if len(stack)==6:
+                                print('stack i5',stack)
+                                if isCyc(i5, i0):
+                                    myfilter.append(stack)
+
+        print(len(myfilter))
+        print(myfilter)
+        for i in myfilter:
+            print(sum(i))
+
+
+
+
     
 
 
