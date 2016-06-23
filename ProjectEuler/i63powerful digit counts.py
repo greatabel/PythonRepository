@@ -10,10 +10,22 @@
 
 import time
 from termcolor import colored
-
+from math import pow
 
 def main_process():
-    print(colored('mycount=', 'red'), 'results')
+    count = 0
+    for i in range(1,100):
+        for j in range(1,50):
+            test = int(pow(i,j))
+            if len(str(test)) == j:
+                print(test,j)
+                count += 1
+            if len(str(test)) > j:
+                break
+        # print("i:",i)
+
+
+    print(colored('mycount=', 'red'), count)
 
 if __name__ == "__main__":
     tic = time.clock()
