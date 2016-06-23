@@ -6,10 +6,6 @@
 # Find the smallest cube for which exactly five permutations of its digits are cube.
 
 
-
-
-
-
 import time
 from termcolor import colored
 from collections import defaultdict
