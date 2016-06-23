@@ -10,16 +10,24 @@
 
 
 
-
-
-
-
-
 import time
 from termcolor import colored
+from collections import defaultdict
 
+def cube(x): 
+    return x**3
 
 def main_process():
+    cubes = defaultdict(list)
+    for i in range(1,9000):
+        c = cube(i)
+        digits = ''.join(sorted([d for d in str(c)]))
+        cubes[digits].append(c)
+    print(len(cubes))
+    for k,v in list(cubes.items()):
+        # print(k,v)
+        if len(v) == 5:
+            print(k,int(min(v))**(1./3.),'min=',min(v),'v=',v)
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
