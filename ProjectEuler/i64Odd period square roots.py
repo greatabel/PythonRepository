@@ -126,14 +126,34 @@
 
 import time
 from termcolor import colored
+from math import sqrt
+
+L = 10000
+odd_period = 0
+
+
 
 
 def main_process():
-    print(colored('mycount=', 'red'), 'results')
+    global odd_period 
+    for N in range(2, L+1):
+        r = limit = int(sqrt(N))
+        if limit**2 == N: 
+            continue
+        k, period = 1, 0
+        while k !=1 or period == 0:
+            k = (N - r * r) // k
+            r = (limit + r) // k * k - r
+            period += 1
+        if period % 2 == 1: 
+            odd_period += 1
+
+
+    print(colored('mycount=', 'red'), odd_period)
 
 if __name__ == "__main__":
     tic = time.clock()
-    
+
     main_process()
 
     toc = time.clock()
