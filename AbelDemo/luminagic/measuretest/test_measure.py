@@ -14,11 +14,15 @@ def writefile():
     measurement.side_a = True
     measurement.side_b = False
     mylist = random.sample(range(700), 128)
+    # mylist = list(range(1,10))
     measurement.image =  ','.join(str(e) for e in mylist)
-    print(measurement)
+    print('#:',measurement)
+
     try:
         f = open('testfile', 'wb')
         f.write(measurement.SerializeToString())
+        myprint = " ".join(hex(ord(n)) for n in measurement.SerializeToString())
+        print('@:', myprint)
         f.close()
     except IOError:
         print('could not open file')
@@ -86,7 +90,7 @@ if __name__ == '__main__':
     inputname = 'testfile'
     if args.inputfile:
         inputname = args.inputfile
-    #writefile()
+    writefile()
     # testwrite()
     readfile(inputname)
 
