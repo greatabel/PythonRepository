@@ -72,6 +72,7 @@ import time
 from termcolor import colored
 
 
+
 def main_process():
     print(colored('mycount=', 'red'), 'results')
 
