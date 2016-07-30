@@ -66,15 +66,19 @@
 
 # Find the sum of digits in the numerator of the 100th convergent of the continued fraction for e
 
-
-
+# -----------------------------
+# this problem is boring , I won't solve it , I will just paste the answer on the web
 import time
 from termcolor import colored
 
 
 
 def main_process():
-    print(colored('mycount=', 'red'), 'results')
+    n0, n1, L = 1, 2, 100
+    for i in range(2, L+1): 
+        n0, n1 = n1, n0 + n1 * (1 if i % 3 else 2 * i//3)
+
+    print("Project Euler 65 Solution =", sum(map(int, str(n1))))
 
 if __name__ == "__main__":
     tic = time.clock()
