@@ -15,7 +15,6 @@
 # 82 – 7×32 = 1
 
 # Hence, by considering minimal solutions in x for D ≤ 7, the largest x is obtained when D=5.
-
 # Find the value of D ≤ 1000 in minimal solutions of x for which the largest value of x is obtained.
 
 
