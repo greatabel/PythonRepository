@@ -21,17 +21,44 @@
 import time
 from termcolor import colored
 
-def the_fomula(x,y,d):
-    return x**2 - d * y**2 - 1 == 0
-
+import math
 def main_process():
-    for i in range(2,7+1):
-        print("D=",i)
-        for j in range(1,10):
-            for k in range(1,10):
-                if the_fomula(j,k,i):
-                    print(j,k,i)
-    print(colored('mycount=', 'red'), 'results')
+    maxn=1
+    maxD=2
+    for D in range(2,1001):
+        tmp=math.sqrt(D)
+        tmp=int(tmp)
+        if tmp*tmp==D:
+            continue
+
+        m=0
+        d=1
+        a=tmp
+        #print(a)
+        n1=1
+        d1=0
+        num=a
+        den=1
+
+        while num*num-D*den*den!=1:
+            m=int(a*d-m)
+            d=int((D-m*m)/d)
+            a=int((tmp+m)/d)
+
+            n2=n1
+            n1=num
+            d2=d1
+            d1=den
+
+            num=int(a*n1+n2)
+            den=int(a*d1+d2)
+            #print('num = ',num)
+            #print('den = ',den)
+            #print ('result = ',num*num-D*den*den)
+        if num >maxn:
+            maxn=num
+            maxD=D
+    print(maxD)
 
 if __name__ == "__main__":
     tic = time.clock()
