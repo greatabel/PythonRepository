@@ -15,8 +15,6 @@
 # routes every second it would take over twenty billion years to check them all. There is an efficient algorithm to solve it. ;o)
 
 
-
-
 import time
 from termcolor import colored
 
