@@ -26,18 +26,33 @@ def file_handle(filename):
     # print(rows[:10])
     return rows
 
-def method1(rows):
+def method1(origin_rows):
+    import copy
+    rows = copy.deepcopy(origin_rows)
     for i, j in [(i,j) for i in range(len(rows)-2,-1,-1) for j in range(i+1)]:
         rows[i][j] +=  max([rows[i+1][j],rows[i+1][j+1]])
     print(colored('method1 ='+str(rows[0][0]), 'red'), 'results')
 
 def method2(rows):
-    print(colored('method2 =', 'red'), 'results')
+    result = PathDynamic(rows)
+    print(colored('method2 ='+ str(result), 'red'), 'results')
+
+def PathDynamic(triangle):
+  lastrow = len(triangle)-1
+  if lastrow > 0:
+    for i, val in enumerate(triangle[lastrow-1]):
+      triangle[lastrow-1][i] = int(val) + max(int(triangle[lastrow][i]), int(triangle[lastrow][i+1]))
+    triangle.pop()
+    return PathDynamic(triangle)
+  else:
+    return triangle[0][0]
 
 def main_process():
-    rows = file_handle('p067_triangle.txt')
-    method1(rows)
-    method2(rows)
+    origin_rows = file_handle('p067_triangle.txt')
+
+    method1(origin_rows)
+
+    method2(origin_rows)
 
 
 if __name__ == "__main__":
