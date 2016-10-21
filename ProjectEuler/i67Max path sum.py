@@ -23,12 +23,18 @@ def file_handle(filename):
     FILE = open(filename,'r')
     for blob in FILE:
         rows.append([int(i) for i in blob.split(" ")])
-    print(rows[:10])
+    # print(rows[:10])
+    return rows
 
+def method1(rows):
+    for i, j in [(i,j) for i in range(len(rows)-2,-1,-1) for j in range(i+1)]:
+        rows[i][j] +=  max([rows[i+1][j],rows[i+1][j+1]])
+    print(colored('method1 ='+str(rows[0][0]), 'red'), 'results')
 
 def main_process():
-    file_handle('p067_triangle.txt')
-    print(colored('mycount=', 'red'), 'results')
+    rows = file_handle('p067_triangle.txt')
+    method1(rows)
+
 
 if __name__ == "__main__":
     tic = time.clock()
