@@ -31,9 +31,13 @@ def method1(rows):
         rows[i][j] +=  max([rows[i+1][j],rows[i+1][j+1]])
     print(colored('method1 ='+str(rows[0][0]), 'red'), 'results')
 
+def method2(rows):
+    print(colored('method2 =', 'red'), 'results')
+
 def main_process():
     rows = file_handle('p067_triangle.txt')
     method1(rows)
+    method2(rows)
 
 
 if __name__ == "__main__":
