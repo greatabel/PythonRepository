@@ -18,8 +18,16 @@
 import time
 from termcolor import colored
 
+def file_handle(filename):
+    rows = []
+    FILE = open(filename,'r')
+    for blob in FILE:
+        rows.append([int(i) for i in blob.split(" ")])
+    print(rows[:10])
+
 
 def main_process():
+    file_handle('p067_triangle.txt')
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
