@@ -24,9 +24,10 @@ import re
 regex = r'/mapt/book/Web Development/9781784393656/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 results = re.findall(regex, src)
 t = list(set(results))
-
+t.sort()
 for item in t:
     print('#:',item)
+print('url count:', len(t))
 
 print('in load')
 # step 2
