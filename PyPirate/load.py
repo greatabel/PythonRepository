@@ -33,32 +33,39 @@ print('url count:', len(t))
 print('in load')
 # step 2
 # driver = webdriver.Chrome() # if you want to use chrome, replace Firefox() with Chrome()
-driver = webdriver.Firefox()
+
 # driver = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])
-pre_url = "https://www.packtpub.com/mapt/book/Web Development/9781784393656/"
-test_url  = pre_url + "1"
-driver.get(test_url) # load the web page
+pre_url = "https://www.packtpub.com"
+test_url = "https://www.packtpub.com/mapt/book/Web Development/9781784393656/1"
+
 
 
 # WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.TAG_NAME, "h2")))
+counter = 0
+for item in t[0:2]:
+    try:
+        counter += 1
+        driver = webdriver.Firefox()
+        driver.get(pre_url+item) # load the web page
+        element = WebDriverWait(driver, 12).until(
+            EC.presence_of_element_located((By.ID, "reader-content"))
+        )
+        # waits till the element with the specific id appears
+        # src = driver.page_source # gets the html source of the page
+        # print('#'*20,len(src),src[0:150],'*'*10)
+        # Html_file= open("filename.html","w")
+        # Html_file.write(src)
+        # Html_file.close()
+        shotname = str(counter) +'test.png'
+        print(shotname)
+        driver.save_screenshot(shotname)
+        driver.quit()
+        # save_me = ActionChains(driver).key_down(Keys.CONTROL)\
+        #      .key_down('s').key_up(Keys.CONTROL).key_up('s')
+        # save_me.perform()
 
-try:
-    element = WebDriverWait(driver, 15).until(
-        EC.presence_of_element_located((By.ID, "reader-content"))
-    )
-    # waits till the element with the specific id appears
-    src = driver.page_source # gets the html source of the page
-    print('#'*20,len(src),src[0:150],'*'*10)
-    Html_file= open("filename.html","w")
-    Html_file.write(src)
-    Html_file.close()
-    driver.save_screenshot('screenie.png')
-    # save_me = ActionChains(driver).key_down(Keys.CONTROL)\
-    #      .key_down('s').key_up(Keys.CONTROL).key_up('s')
-    # save_me.perform()
-
-finally:
-    driver.quit()
+    finally:
+        driver.quit()
 
 
 
