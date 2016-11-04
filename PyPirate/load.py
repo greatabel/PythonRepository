@@ -38,6 +38,13 @@ print('in load')
 pre_url = "https://www.packtpub.com"
 test_url = "https://www.packtpub.com/mapt/book/Web Development/9781784393656/1"
 
+driver = webdriver.Firefox()
+# for websites that need you to login to access the information
+# elem = driver.find_element_by_id("email") # Find the email input field of the login form
+# elem.send_keys("user@example.com") # Send the users email
+# elem = driver.find_element_by_id("pwd") # Find the password field of the login form
+# elem.send_keys("userpwd") # send the users password
+# elem.send_keys(Keys.RETURN) # press the enter key
 
 
 # WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.TAG_NAME, "h2")))
@@ -59,7 +66,7 @@ for item in t[0:2]:
         shotname = str(counter) +'test.png'
         print(shotname)
         driver.save_screenshot(shotname)
-        driver.quit()
+        # driver.quit()
         # save_me = ActionChains(driver).key_down(Keys.CONTROL)\
         #      .key_down('s').key_up(Keys.CONTROL).key_up('s')
         # save_me.perform()
