@@ -36,23 +36,39 @@ print('in load')
 
 # driver = webdriver.PhantomJS(service_args=['--ignore-ssl-errors=true'])
 pre_url = "https://www.packtpub.com"
-test_url = "https://www.packtpub.com/mapt/book/Web Development/9781784393656/1"
-
+test_url = "https://www.packtpub.com/mapt"
+#  https://www.packtpub.com/mapt/book/Web Development/9781784393656/1
 driver = webdriver.Firefox()
 # for websites that need you to login to access the information
-# elem = driver.find_element_by_id("email") # Find the email input field of the login form
-# elem.send_keys("user@example.com") # Send the users email
-# elem = driver.find_element_by_id("pwd") # Find the password field of the login form
-# elem.send_keys("userpwd") # send the users password
-# elem.send_keys(Keys.RETURN) # press the enter key
+driver.get(test_url) 
 
+
+driver.find_element_by_css_selector('.btn.btn-warning.navbar-btn.mr15.ml15').click()
+# driver.switch_to_window(driver.window_handles[-1])
+
+
+
+print('driver.title=', driver.title)
+element = WebDriverWait(driver, 12).until(
+            EC.presence_of_element_located((By.ID, "exampleInputPassword1"))
+        )
+email = driver.find_element_by_id("exampleInputEmail1") # Find the email input field of the login form
+email.click()
+print('email=',email)
+email.send_keys("greatabel1@126.com") # Send the users email
+pwd = driver.find_element_by_id("exampleInputPassword1") # Find the password field of the login form
+pwd.click()
+pwd.send_keys("1048576") # send the users password
+# elem.send_keys(Keys.RETURN) # press the enter key
+driver.find_element_by_name("submit").click()
+print('login')
 
 # WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.TAG_NAME, "h2")))
 counter = 0
 for item in t[0:2]:
     try:
         counter += 1
-        driver = webdriver.Firefox()
+        # driver = webdriver.Firefox()
         driver.get(pre_url+item) # load the web page
         element = WebDriverWait(driver, 12).until(
             EC.presence_of_element_located((By.ID, "reader-content"))
@@ -72,7 +88,9 @@ for item in t[0:2]:
         # save_me.perform()
 
     finally:
-        driver.quit()
+        # driver.quit()
+        print('in finally')
+driver.quit()
 
 
 
