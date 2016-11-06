@@ -52,15 +52,24 @@ print('driver.title=', driver.title)
 element = WebDriverWait(driver, 12).until(
             EC.presence_of_element_located((By.ID, "exampleInputPassword1"))
         )
-email = driver.find_element_by_id("exampleInputEmail1") # Find the email input field of the login form
-email.click()
+
+
+
+email = driver.find_element_by_id("wrapper").find_element_by_id("exampleInputEmail1") # Find the email input field of the login form
 print('email=',email)
-email.send_keys("greatabel1@126.com") # Send the users email
-pwd = driver.find_element_by_id("exampleInputPassword1") # Find the password field of the login form
-pwd.click()
-pwd.send_keys("1048576") # send the users password
+driver.execute_script("$(arguments[0]).click(); $(arguments[0]).value='greatabel1@126.com'", email)
+# email.click()
+
+# email.send_keys("greatabel1@126.com") # Send the users email
+pwd = driver.find_element_by_id("wrapper").find_element_by_id("exampleInputPassword1") # Find the password field of the login form
+driver.execute_script("$(arguments[0]).click(); $(arguments[0]).value='1048576'", pwd)
+print('pwd=',pwd)
+# pwd.click()
+# pwd.send_keys("1048576") # send the users password
 # elem.send_keys(Keys.RETURN) # press the enter key
-driver.find_element_by_name("submit").click()
+# driver.find_element_by_name("submit").click()
+submit = driver.find_element_by_id("wrapper").find_elements_by_class_name('btn btn-primary btn-block btn-lg') # Find the password field of the login form
+driver.execute_script("$(arguments[0]).click();",submit)
 print('login')
 
 # WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.TAG_NAME, "h2")))
