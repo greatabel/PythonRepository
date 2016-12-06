@@ -31,14 +31,14 @@ def main_process(n):
     all_possilble = list(itertools.permutations(range(1,n+1), n))
     matches = []
     for l in all_possilble:
-        test = is_gong(l)
+        test = is_gong6(l)
         if test is not None and test not in matches:
             matches.append(test)
     matches.sort()
     print(matches)
     print(colored('mycount=', 'red'), 'results')
 
-def is_gong(l):
+def is_gong6(l):
     sum_I = l[0]+l[1]+l[2]
     sum_II = l[2]+l[3]+l[4]
     sum_III = l[1]+l[4]+l[5]
