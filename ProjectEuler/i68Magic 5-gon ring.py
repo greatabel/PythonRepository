@@ -32,8 +32,9 @@ def main_process(n):
     matches = []
     for l in all_possilble:
         test = is_gong(l)
-        if test is not None:
+        if test is not None and test not in matches:
             matches.append(test)
+    matches.sort()
     print(matches)
     print(colored('mycount=', 'red'), 'results')
 
@@ -42,9 +43,16 @@ def is_gong(l):
     sum_II = l[2]+l[3]+l[4]
     sum_III = l[1]+l[4]+l[5]
     if sum_I == sum_II and sum_II == sum_III:
-        print(l[0],l[1],l[2],'#',l[3],l[2],l[4],'#',l[5],l[4],l[1])
-        return int(str(l[0])+str(l[1])+str(l[2])+str(l[3])+\
+        if l[0] < l[3] and l[0] < l[5]:
+            # print(l[0],l[1],l[2],'#',l[3],l[2],l[4],'#',l[5],l[4],l[1])
+            return int(str(l[0])+str(l[1])+str(l[2])+str(l[3])+\
                 str(l[2])+str(l[4])+str(l[5])+str(l[4])+str(l[1]))
+        if l[3] < l[0] and l[3] < l[5]:
+            return int(str(l[3])+str(l[2])+str(l[4])+str(l[5])+\
+                str(l[4])+str(l[1])+str(l[0])+str(l[1])+str(l[2]))
+        if l[5] < l[0] and l[5] < l[3]:
+            return int(str(l[5])+str(l[4])+str(l[1])+str(l[0])+\
+                str(l[1])+str(l[2])+str(l[3])+str(l[2])+str(l[4]))             
     else:
         return None
 
