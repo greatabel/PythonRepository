@@ -31,7 +31,7 @@ def main_process(n):
     all_possilble = list(itertools.permutations(range(1,n+1), n))
     matches = []
     for l in all_possilble:
-        test = is_gong6(l)
+        test = is_gong10(l)
         if test is not None and test not in matches:
             matches.append(test)
     matches.sort()
@@ -56,10 +56,27 @@ def is_gong6(l):
     else:
         return None
 
+def is_gong10(l):
+    if is_right_10(l):
+        return to10string(l)
+
+def is_right_10(l):
+    seed = l[9] + l[4] + l[0]
+    for i in range(5, 9):
+        if (l[i] + l[i-5] + l[i-4]) != seed:
+            return False
+    return True
+
+def to10string(l):
+    triples = [(l[i], l[i-5], l[i-4]) for i in range(5,9)] + [(l[9], l[4], l[0])]
+    pivot = triples.index(min(triples))
+    triples = triples[pivot:] + triples[:pivot]
+    return ''.join(str(triple[i]) for triple in triples for i in range(len(triple)))
+
 if __name__ == "__main__":
     tic = time.clock()
     
-    main_process(6)
+    main_process(10)
 
     toc = time.clock()
     print("time=",toc - tic)
