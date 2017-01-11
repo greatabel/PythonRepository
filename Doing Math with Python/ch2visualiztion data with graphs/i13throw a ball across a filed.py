@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import math
 
+g = 9.8
 
 def frange(start, final, increment):
     numbers = []
@@ -14,7 +15,7 @@ def draw_graph(x, y):
     plt.xlabel('x-coordinate')
     plt.ylabel('y-coordinate')
     plt.title('Projectile motion at different initial velocities(速度) and angles(角度)')
-    # plt.show()
+    plt.show()
 
 def draw_trajectory(u, theta, t_flight):
     x = []
@@ -27,4 +28,4 @@ def draw_trajectory(u, theta, t_flight):
     draw_graph(x, y)
 
 if __name__ == "__main__":
-    # draw_graph(10, 10)
+    draw_trajectory(10, 0.1, 5)
