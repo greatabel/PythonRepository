@@ -53,6 +53,16 @@ def main():
         print(dotted_line)
         print("\033[1m" + "Entering hut %d..." % idx + "\033[0m", end=' ')
 
+        # Determine and announce the winner
+        if huts[idx-1] == 'enemy':
+            print("\033[1m" + "YOU LOSE :( Better luck next time!" +
+                  "\033[0m")
+        else:
+            print("\033[1m" + "Congratulations! YOU WIN!!!" + "\033[0m")
+
+        
+        print(dotted_line)
+        keep_playing = input("Play again? Yes(y)/No(n):")
 
 if __name__ == "__main__":
     main()
