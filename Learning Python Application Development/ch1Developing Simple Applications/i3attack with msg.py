@@ -23,6 +23,12 @@ def main():
 
     print(textwrap.fill(msg, width=width))
 
+    print("\033[1m" + "Mission:" + "\033[0m")
+    print("\tChoose a hut where Sir Foo can rest...")
+    print("\033[1m" + "TIP:" + "\033[0m")
+    print("Be careful as there are enemies lurking around!")
+    print(dotted_line)
+
     for i in range(0,10):
         print(random.choice(occupants))
 
