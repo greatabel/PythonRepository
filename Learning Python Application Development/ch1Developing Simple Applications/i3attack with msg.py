@@ -21,7 +21,7 @@ def main():
     " a detour. As he approached the village, he saw five huts. There "
     "was no one to be seen around. Hesitantly, he  decided to enter..")
 
-    print(msg)
+    print(textwrap.fill(msg, width=width))
 
     for i in range(0,10):
         print(random.choice(occupants))
