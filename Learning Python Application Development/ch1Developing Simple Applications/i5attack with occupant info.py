@@ -39,6 +39,19 @@ def main():
         msg = "\033[1m" + "Choose a hut number to enter (1-5): " + "\033[0m"
         user_choice = input("\n" + msg)
         idx = int(user_choice)
+        
+        # Print the occupant info
+        print("Revealing the occupants...")
+        # print('*'*5, idx, huts[idx-1])
+        msg = ""
+        for i in range(len(huts)):
+            occupant_info = "<%d:%s>"%(i+1, huts[i])
+            if i + 1 == idx:
+                occupant_info = "\033[1m" + occupant_info + "\033[0m"
+            msg += occupant_info + " "
+        print("\t" + msg)
+        print(dotted_line)
+        print("\033[1m" + "Entering hut %d..." % idx + "\033[0m", end=' ')
 
 
     for i in range(0,10):
