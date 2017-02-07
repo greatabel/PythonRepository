@@ -20,6 +20,13 @@ def show_theme_message(width):
           )
     print(textwrap.fill(msg, width=width))
 
+def show_game_mission():
+    print("\033[1m" + "Mission:" + "\033[0m")
+    print("\tChoose a hut where Sir Foo can rest...")
+    print("\033[1m" + "TIP:" + "\033[0m")
+    print("Be careful as there are enemies lurking around!")
+    print_dotted_line()
+
 def main():
     keep_playing = 'y'
 
@@ -27,12 +34,7 @@ def main():
 
     width = 72
     show_theme_message(width)
-
-    print("\033[1m" + "Mission:" + "\033[0m")
-    print("\tChoose a hut where Sir Foo can rest...")
-    print("\033[1m" + "TIP:" + "\033[0m")
-    print("Be careful as there are enemies lurking around!")
-    print_dotted_line()
+    show_game_mission()
 
     while keep_playing == 'y':
         huts = []
