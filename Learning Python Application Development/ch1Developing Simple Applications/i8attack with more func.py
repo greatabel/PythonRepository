@@ -57,7 +57,15 @@ def process_user_choice():
     idx = int(user_choice)
     return idx
 
-def main():
+def enter_hut(idx, huts):
+    # Determine and announce the winner
+    if huts[idx-1] == 'enemy':
+        print_bold("YOU LOSE :( Better luck next time!")
+    else:
+        print_bold("Congratulations! YOU WIN!!!")
+    print_dotted_line()
+
+def run_application():
     keep_playing = 'y'
     width = 72
     show_theme_message(width)
@@ -67,18 +75,9 @@ def main():
         huts = occupy_huts()
         idx = process_user_choice()
         reveal_occupants(idx, huts)
-
-        print("\033[1m" + "Entering hut %d..." % idx + "\033[0m", end=' ')
-
-        # Determine and announce the winner
-        if huts[idx-1] == 'enemy':
-            print("\033[1m" + "YOU LOSE :( Better luck next time!" +
-                  "\033[0m")
-        else:
-            print("\033[1m" + "Congratulations! YOU WIN!!!" + "\033[0m")
-
-        print_dotted_line()
+        print_bold("Entering hut %d..." % idx)
+        enter_hut(idx, huts)
         keep_playing = input("Play again? Yes(y)/No(n):")
 
 if __name__ == "__main__":
-    main()
+    run_application()
