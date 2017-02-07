@@ -1,6 +1,8 @@
 import random
 import textwrap
 
+def print_bold(msg, end='\n'):
+    print("\033[1m" + msg + "\033[0m", end=end)
 
 def print_dotted_line(width=72):
     print('-'*width)
@@ -21,9 +23,9 @@ def show_theme_message(width):
     print(textwrap.fill(msg, width=width))
 
 def show_game_mission():
-    print("\033[1m" + "Mission:" + "\033[0m")
+    print_bold("Mission:")
     print("\tChoose a hut where Sir Foo can rest...")
-    print("\033[1m" + "TIP:" + "\033[0m")
+    print_bold("TIP:")
     print("Be careful as there are enemies lurking around!")
     print_dotted_line()
 
@@ -57,9 +59,6 @@ def process_user_choice():
 
 def main():
     keep_playing = 'y'
-
-
-
     width = 72
     show_theme_message(width)
     show_game_mission()
