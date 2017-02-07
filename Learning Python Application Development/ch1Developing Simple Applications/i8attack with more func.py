@@ -48,6 +48,13 @@ def reveal_occupants(idx, huts):
     print("\t" + msg)
     print_dotted_line()
 
+def process_user_choice():
+    # Prompt user to select a hut
+    msg = "\033[1m" + "Choose a hut number to enter (1-5): " + "\033[0m"
+    user_choice = input("\n" + msg)
+    idx = int(user_choice)
+    return idx
+
 def main():
     keep_playing = 'y'
 
@@ -59,11 +66,7 @@ def main():
 
     while keep_playing == 'y':
         huts = occupy_huts()
-
-        # Prompt user to select a hut
-        msg = "\033[1m" + "Choose a hut number to enter (1-5): " + "\033[0m"
-        user_choice = input("\n" + msg)
-        idx = int(user_choice)
+        idx = process_user_choice()
         reveal_occupants(idx, huts)
 
         print("\033[1m" + "Entering hut %d..." % idx + "\033[0m", end=' ')
