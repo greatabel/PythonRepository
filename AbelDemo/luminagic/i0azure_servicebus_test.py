@@ -20,7 +20,7 @@ for i in range(5):
     time.sleep(1)
 
 time.sleep(1)
-message = bus_service.receive_queue_message('wechat.subscription.exp')
+# message = bus_service.receive_queue_message('wechat.subscription.exp')
 while 1:
     message = bus_service.receive_queue_message('wechat.subscription.exp')
     if message.body == None:
