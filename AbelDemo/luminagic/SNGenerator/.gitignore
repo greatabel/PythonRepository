@@ -1,0 +1,15 @@
+sns_temp
+__pycache__
+
+.gradle/
+build/
+
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
