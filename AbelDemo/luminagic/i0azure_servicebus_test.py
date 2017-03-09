@@ -13,7 +13,9 @@ bus_service = ServiceBusService(
 
 # bus_service.create_queue('taskqueue')
 for i in range(5):
-    msg_str = 'Test Message %s' % (time.ctime(time.time()))
+    msg_str = 'Follow#oQ_DVvyaYU_iFEpJCI5WW9lLkvG4@%s' % (time.ctime(time.time()))
+    if i % 2== 0:
+            msg_str = 'UnFollow#oQ_DVvyaYU_iFEpJCI5WW9lLkvG4@%s' % (time.ctime(time.time()))
     msg = Message(str.encode(msg_str))
     print('test',msg_str)
     bus_service.send_queue_message('wechat.subscription.exp', msg)
@@ -21,13 +23,13 @@ for i in range(5):
 
 time.sleep(1)
 # message = bus_service.receive_queue_message('wechat.subscription.exp')
-while 1:
-    message = bus_service.receive_queue_message('wechat.subscription.exp')
-    if message.body == None:
-        break
-    print(message.body == None)
-    print('receive--> message','#'*10,message.body)
-    # print(message,dump(message),'#'*10,message.body)
-    message.delete()
+# while 1:
+#     message = bus_service.receive_queue_message('wechat.subscription.exp')
+#     if message.body == None:
+#         break
+#     print(message.body == None)
+#     print('receive--> message','#'*10,message.body)
+#     # print(message,dump(message),'#'*10,message.body)
+#     message.delete()
 
 
