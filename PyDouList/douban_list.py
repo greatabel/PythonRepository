@@ -2,7 +2,7 @@ from pathlib import Path
 import re
 import os
 
-from  detail_doulist import single_doulist_handle, deal_with_folder_html
+from  detail_doulist import single_doulist_save_html, deal_with_folder_all_htmls
 import myconfig
 from common import persistent_list_to_local, read_persistentedlist_from_local, get_html,\
                    save_to_localfile,read_from_localfile
@@ -47,9 +47,9 @@ def main():
     
     if not os.path.exists(myconfig.directory):
         os.makedirs(myconfig.directory)
-        for doulistname, doulist in doulist_list.items():
-            single_doulist_handle(doulistname, doulist, myconfig.directory)
-    deal_with_folder_html(myconfig.directory)
+        for doulistname, single_doulist in doulist_list.items():
+            single_doulist_save_html(doulistname, single_doulist, myconfig.directory)
+    deal_with_folder_all_htmls(myconfig.directory)
 
 
 
