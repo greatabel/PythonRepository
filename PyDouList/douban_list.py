@@ -10,6 +10,7 @@ import pprint
 
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
 doulist_prex = 'https://www.douban.com/doulist/'
+# I ignore @@@ in .gitignore
 # filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
 filename01 = '@@@01my_all_doulist#'
 blacklist = ['Fashion-Old', 'abel的日记','magzine']
@@ -67,18 +68,16 @@ def read_persistentedlist_from_local(filename):
     return data
 
 def deal_with_doulist_url():
-    # I ignore @@@ in .gitignore
-    file01_path = Path("./" + filename01)
-    content = ''
-    if not file01_path.is_file():
-        content = get_html(doulist_page)
-        save_to_localfile(filename01, content)
-    else:
-        content = read_from_localfile(filename01)
-
     pickle01_path = Path("./" + filename01 + '.mypickle')
     if not pickle01_path.is_file():
-        persistent_list_to_local(filename01 + '.mypickle',extract_doulist(content))
+        file01_path = Path("./" + filename01)
+        content = ''
+        if not file01_path.is_file():
+            content = get_html(doulist_page)
+            save_to_localfile(filename01, content)
+        else:
+            content = read_from_localfile(filename01)
+        persistent_list_to_local(filename01 + '.mypickle' ,extract_doulist(content))
     read_persistentedlist_from_local(filename01 + '.mypickle')
 
 def main():
