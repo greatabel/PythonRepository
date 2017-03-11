@@ -16,8 +16,8 @@ def single_doulist_handle(name, url, directory, scrawler_pagelimit=3):
         sleep(1)
 
 def single_page(fileurl):
-    # book = DoubanBook('test', 'abel', '2017-03-03')
-    # book.displayDoubanBook()
+    book = DoubanBook('test', 'abel', '2017-03-03')
+    book.displayDoubanBook()
 
 def deal_with_folder_html(directory):
     print(directory)

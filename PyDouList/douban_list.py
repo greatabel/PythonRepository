@@ -1,6 +1,4 @@
-
 from pathlib import Path
-import datetime # NOQA
 import re
 import os
 
@@ -46,12 +44,12 @@ def deal_with_doulist_url():
 
 def main():
     doulist_list = deal_with_doulist_url()
-    directory = datetime.datetime.today().strftime('%Y-%m-%d')
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    
+    if not os.path.exists(myconfig.directory):
+        os.makedirs(myconfig.directory)
         for doulistname, doulist in doulist_list.items():
-            single_doulist_handle(doulistname, doulist, directory)
-    deal_with_folder_html(directory)
+            single_doulist_handle(doulistname, doulist, myconfig.directory)
+    deal_with_folder_html(myconfig.directory)
 
 
 

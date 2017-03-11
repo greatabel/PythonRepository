@@ -1,3 +1,5 @@
+import datetime # NOQA
+
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
 doulist_prex = 'https://www.douban.com/doulist/'
 
@@ -6,3 +8,4 @@ doulist_prex = 'https://www.douban.com/doulist/'
 
 filename01 = '@@@01my_all_doulist#'
 blacklist = ['Fashion-Old', 'abel的日记', 'magzine']
+directory = datetime.datetime.today().strftime('%Y-%m-%d')
