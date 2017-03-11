@@ -14,10 +14,8 @@ def get_html(url):
         data = response.read().decode('utf-8')
         print('len(data)=',len(data))
     except HTTPError as e:
-        # do something
         print('Error code: ', e.code)
     except URLError as e:
-        # do something
         print('Reason: ', e.reason)
     return data
 
@@ -26,6 +24,7 @@ def save_to_localfile(filename, content):
         f.write(content)
 
 def main():
+    # I ignore @@@ in .gitignore
     filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
     file01 = Path("./" + filename01)
     if not file01.is_file():
