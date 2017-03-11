@@ -4,6 +4,8 @@ from urllib.error import URLError, HTTPError
 from pathlib import Path
 import datetime
 import re
+import pickle
+import pprint
 
 
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
@@ -35,6 +37,7 @@ def read_from_localfile(filename):
 def extract_doulist(content):
     # regex = r'https://www.douban.com/doulist/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+</a>'
     # http://stackoverflow.com/questions/18129041/python-regex-search-for-string-which-starts-and-ends-with-the-given-text
+    dic = {}
     regex = r''+ doulist_prex + '.+(?=</a)'
     results = re.findall(regex, content)
     t = list(set(results))
@@ -44,7 +47,22 @@ def extract_doulist(content):
         counter += 1
         print(counter,'#:',item)
         print(item.split("/")[-2]+'   '+item.split(">")[-1])
+        dic[item.split(">")[-1]] = doulist_prex + item.split("/")[-2]
     print('url count:', len(t))
+    print(dic)
+    return dic
+
+def persistent_list_to_local(filename, dic):
+    # http://www.cnblogs.com/pzxbc/archive/2012/03/18/2404715.html
+    output = open(filename, 'wb')
+    pickle.dump(dic, output)
+    output.close()
+
+def read_persistentedlist_from_local(filename):
+    pkl_file = open(filename, 'rb')
+    data = pickle.load(pkl_file)
+    pprint.pprint(data)
+    return data
 
 def deal_with_doulist_url():
     # I ignore @@@ in .gitignore
@@ -56,7 +74,10 @@ def deal_with_doulist_url():
     else:
         content = read_from_localfile(filename01)
 
-    extract_doulist(content)
+    pickle01_path = Path("./" + filename01 + '.mypickle')
+    if not pickle01_path.is_file():
+        persistent_list_to_local(filename01 + '.mypickle',extract_doulist(content))
+    read_persistentedlist_from_local(filename01 + '.mypickle')
 
 def main():
     deal_with_doulist_url()
