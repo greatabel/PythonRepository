@@ -1,7 +1,13 @@
+import os
 import pickle
 import pprint
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
+
+
+def save_to_localfile_with_dir(directory, filename, content):
+    with open(os.path.join(directory, filename), 'wb') as f:
+        f.write(content)
 
 
 def save_to_localfile(filename, content):
