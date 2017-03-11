@@ -4,7 +4,7 @@ import datetime # NOQA
 import re
 import os
 
-from  single_doulist import single_doulist_handle
+from  detail_doulist import single_doulist_handle, deal_with_folder_html
 import myconfig
 from common import persistent_list_to_local, read_persistentedlist_from_local, get_html,\
                    save_to_localfile,read_from_localfile
@@ -49,8 +49,10 @@ def main():
     directory = datetime.datetime.today().strftime('%Y-%m-%d')
     if not os.path.exists(directory):
         os.makedirs(directory)
-    for doulistname, doulist in doulist_list.items():
-        single_doulist_handle(doulistname, doulist, directory)
+        for doulistname, doulist in doulist_list.items():
+            single_doulist_handle(doulistname, doulist, directory)
+    deal_with_folder_html(directory)
+
 
 
 if __name__ == "__main__":

@@ -6,9 +6,14 @@ from urllib.error import URLError, HTTPError
 
 
 def save_to_localfile_with_dir(directory, filename, content):
+    # http://stackoverflow.com/questions/11700593/creating-files-and-directories-via-python
     with open(os.path.join(directory, filename), 'wb') as f:
         f.write(content)
 
+def read_from_localfile_with_dir(directory, filename):
+    with open(os.path.join(directory, filename), 'r') as myfile:
+        content = myfile.read()
+    return content
 
 def save_to_localfile(filename, content):
     with open(filename, 'wt') as f:
