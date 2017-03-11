@@ -7,6 +7,9 @@ import re
 
 
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
+doulist_prex = 'https://www.douban.com/doulist/'
+filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
+
 
 def get_html(url):
     try:
@@ -31,7 +34,8 @@ def read_from_localfile(filename):
 
 def extract_doulist(content):
     # regex = r'https://www.douban.com/doulist/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+</a>'
-    regex = r'https://www.douban.com/doulist/.+(?=</a)'
+    # http://stackoverflow.com/questions/18129041/python-regex-search-for-string-which-starts-and-ends-with-the-given-text
+    regex = r''+ doulist_prex + '.+(?=</a)'
     results = re.findall(regex, content)
     t = list(set(results))
     t.sort()
@@ -44,7 +48,6 @@ def extract_doulist(content):
 
 def deal_with_doulist_url():
     # I ignore @@@ in .gitignore
-    filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
     file01_path = Path("./" + filename01)
     content = ''
     if not file01_path.is_file():
