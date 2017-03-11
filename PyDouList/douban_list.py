@@ -6,14 +6,10 @@ import datetime
 import re
 import pickle
 import pprint
+import single_doulist
+import myconfig
 
 
-doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
-doulist_prex = 'https://www.douban.com/doulist/'
-# I ignore @@@ in .gitignore
-# filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
-filename01 = '@@@01my_all_doulist#'
-blacklist = ['Fashion-Old', 'abel的日记','magzine']
 
 def get_html(url):
     try:
@@ -40,7 +36,7 @@ def extract_doulist(content):
     # regex = r'https://www.douban.com/doulist/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+</a>'
     # http://stackoverflow.com/questions/18129041/python-regex-search-for-string-which-starts-and-ends-with-the-given-text
     dic = {}
-    regex = r''+ doulist_prex + '.+(?=</a)'
+    regex = r''+ myconfig.doulist_prex + '.+(?=</a)'
     results = re.findall(regex, content)
     t = list(set(results))
     t.sort()
@@ -49,8 +45,8 @@ def extract_doulist(content):
         counter += 1
         # print(counter,'#:',item)
         print(item.split("/")[-2]+'   '+item.split(">")[-1])
-        if item.split(">")[-1] not in blacklist:
-            dic[item.split(">")[-1]] = doulist_prex + item.split("/")[-2]
+        if item.split(">")[-1] not in myconfig.blacklist:
+            dic[item.split(">")[-1]] = myconfig.doulist_prex + item.split("/")[-2]
     print('url count:', len(t))
     print(dic)
     return dic
@@ -68,20 +64,20 @@ def read_persistentedlist_from_local(filename):
     return data
 
 def deal_with_doulist_url():
-    pickle01_path = Path("./" + filename01 + '.mypickle')
+    pickle01_path = Path("./" + myconfig.filename01 + '.mypickle')
     if not pickle01_path.is_file():
-        file01_path = Path("./" + filename01)
+        file01_path = Path("./" + myconfig.filename01)
         content = ''
         if not file01_path.is_file():
-            content = get_html(doulist_page)
-            save_to_localfile(filename01, content)
+            content = get_html(myconfig.doulist_page)
+            save_to_localfile(myconfig.filename01, content)
         else:
-            content = read_from_localfile(filename01)
-        persistent_list_to_local(filename01 + '.mypickle' ,extract_doulist(content))
-    read_persistentedlist_from_local(filename01 + '.mypickle')
+            content = read_from_localfile(myconfig.filename01)
+        persistent_list_to_local(myconfig.filename01 + '.mypickle' ,extract_doulist(content))
+    read_persistentedlist_from_local(myconfig.filename01 + '.mypickle')
 
 def main():
-    deal_with_doulist_url()
+    doulist_list = deal_with_doulist_url()
 
 if __name__ == "__main__":
     main()
