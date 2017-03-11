@@ -10,8 +10,9 @@ import pprint
 
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
 doulist_prex = 'https://www.douban.com/doulist/'
-filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
-
+# filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
+filename01 = '@@@01my_all_doulist#'
+blacklist = ['Fashion-Old', 'abel的日记','magzine']
 
 def get_html(url):
     try:
@@ -45,9 +46,10 @@ def extract_doulist(content):
     counter = 0
     for item in t:
         counter += 1
-        print(counter,'#:',item)
+        # print(counter,'#:',item)
         print(item.split("/")[-2]+'   '+item.split(">")[-1])
-        dic[item.split(">")[-1]] = doulist_prex + item.split("/")[-2]
+        if item.split(">")[-1] not in blacklist:
+            dic[item.split(">")[-1]] = doulist_prex + item.split("/")[-2]
     print('url count:', len(t))
     print(dic)
     return dic
