@@ -6,12 +6,12 @@ class DoubanBook:
         self.been_read_date = been_read_date
         self.readen_order = -1
         # to indicate whether match file at local
-        slef.matched_file = False
+        self.matched_file = False
 
     def set_readen_order(self, readen_order):
         self.readen_order = readen_order
 
-   def set_matched_file(self):
+    def set_matched_file(self):
         self.matched_file = True
 
     def displayDoubanBook(self):

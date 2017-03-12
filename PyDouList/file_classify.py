@@ -1,6 +1,14 @@
 import os
 import myconfig
+from difflib import SequenceMatcher
 
+def similar(a, b):
+    if a == b :
+        return 1
+    if (a in b) or (b in a):
+        # 加上这个可能出错，需要检查
+        return 0.666
+    return SequenceMatcher(None, a, b).ratio()
 
 def get_files(file_wait_to_process_directory, file_outupt_directory):
     count = 0
@@ -15,11 +23,36 @@ def get_files(file_wait_to_process_directory, file_outupt_directory):
             file_dic[filename] = os.path.join(fpathe,f)
     return file_dic
 
+def file_transform(file, from_directory, to_directory):
+    from_file = os.path.join(from_directory, file)
+    to_file = os.path.join(to_directory, file)
+    # to move only files, not folders
+    if os.path.isfile(from_directory):
+        if not os.path.exists(to_directory):
+            os.makedirs(to_directory)
+        os.rename(from_directory, to_directory)
 
 def classify_handler(detailDic):
+    counter = 0
     file_dic = get_files(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
     for key, single_doulist in detailDic.items():
         print('\n' + key + '\n')
+
         for book in single_doulist:
-            book.displayDoubanBook()
+            similarity = 0
+            filenameA = ''
+            for filename, filepath in file_dic.items():
+                temp_similarity = similar(book.name.replace('”','').lower(), filename.replace('”','').lower())
+                if temp_similarity > similarity:
+                    similarity = temp_similarity
+                    filenameA = filename
+                    
+                    # print(similarity, 'counter=', counter,
+                    #     'douban name=', book.name, '#'*5,'filename=', filename)
+            if similarity > 0.61:
+                counter += 1
+                # print(similarity,'counter=', counter, book.name,'#',filenameA )
+            elif book.been_read_date > '2016-06-01':
+                print('>'*5, ' miss find:', book.name)
+            # book.displayDoubanBook()
 
