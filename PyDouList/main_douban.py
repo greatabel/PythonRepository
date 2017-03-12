@@ -6,6 +6,7 @@ from  detail_doulist import single_doulist_save_html, deal_with_folder_all_htmls
 import myconfig
 from common import persistent_list_to_local, read_persistentedlist_from_local, get_html,\
                    save_to_localfile,read_from_localfile
+from file_classify import classify_handler
 
 
 def extract_doulist(content):
@@ -58,6 +59,7 @@ def main():
         print('\n' + key + '\n')
         for book in single_doulist:
             book.displayDoubanBook()
+    classify_handler(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
 
 
 if __name__ == "__main__":

@@ -79,5 +79,3 @@ def deal_with_folder_all_htmls(directory):
         else:
             dic[item] = books
     persistent_list_to_local(myconfig.filename02 + '.mypickle', dic, directory)
-
-
