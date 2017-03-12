@@ -58,18 +58,37 @@ def single_page(content):
         books.append(book)
     return books
 
+def circulate_readen_order(dic_for_sort_readen_order, detailDic):
+    # https://edumaven.com/python-programming/sort-dictionary-by-value
+    sorted_names = sorted(dic_for_sort_readen_order, key=dic_for_sort_readen_order.__getitem__, reverse=True)
+    read_order = 0
+    dic_name_order = {}
+    for k in sorted_names:
+        dic_name_order[k] = read_order 
+        read_order += 1
+    for key, single_doulist in detailDic.items():
+        for idx, book in enumerate(single_doulist):
+            if book.name in dic_name_order:
+                single_doulist[idx].set_readen_order(dic_name_order[book.name])
+                # single_doulist[idx].displayDoubanBook()
+
+
 def deal_with_folder_all_htmls(directory):
     print(directory)
     filelist = glob.glob( directory + "/*")
     filelist.sort()
     counter = 0
     dic = {}
+    dic_for_sort_readen_order = {}
+
     for item in filelist:
         # item = item.split("/")[-1]
         counter += 1
         print(counter,item)
         content = read_from_localfile(item)
         books = single_page(content)
+        for book in books:
+            dic_for_sort_readen_order[book.name] = book.been_read_date
         start = item.index('#')
         item = item[:start]
         # 合并多页
@@ -78,4 +97,7 @@ def deal_with_folder_all_htmls(directory):
             dic[item] = dic[item] + books
         else:
             dic[item] = books
+    print('dic_for_sort_readen_order:len=',len(dic_for_sort_readen_order))
+    circulate_readen_order(dic_for_sort_readen_order, dic)
+
     persistent_list_to_local(myconfig.filename02 + '.mypickle', dic, directory)

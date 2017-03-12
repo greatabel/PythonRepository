@@ -55,11 +55,8 @@ def main():
     if not pickle02_path.is_file():
         deal_with_folder_all_htmls(myconfig.directory)
     detailDic = read_persistentedlist_from_local(myconfig.filename02 + '.mypickle', myconfig.directory)
-    for key, single_doulist in detailDic.items():
-        print('\n' + key + '\n')
-        for book in single_doulist:
-            book.displayDoubanBook()
-    classify_handler(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
+
+    classify_handler(detailDic)
 
 
 if __name__ == "__main__":
