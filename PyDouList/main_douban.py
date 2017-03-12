@@ -29,9 +29,9 @@ def extract_doulist(content):
 
 
 def deal_with_doulist_url():
-    pickle01_path = Path("./" + myconfig.filename01 + '.mypickle')
+    pickle01_path = Path(myconfig.filename01 + '.mypickle')
     if not pickle01_path.is_file():
-        file01_path = Path("./" + myconfig.filename01)
+        file01_path = Path(myconfig.filename01)
         content = ''
         if not file01_path.is_file():
             content = get_html(myconfig.doulist_page)
@@ -49,8 +49,15 @@ def main():
         os.makedirs(myconfig.directory)
         for doulistname, single_doulist in doulist_list.items():
             single_doulist_save_html(doulistname, single_doulist, myconfig.directory)
-    deal_with_folder_all_htmls(myconfig.directory)
 
+    pickle02_path = Path( myconfig.directory + "/" + myconfig.filename02 + '.mypickle')
+    if not pickle02_path.is_file():
+        deal_with_folder_all_htmls(myconfig.directory)
+    detailDic = read_persistentedlist_from_local(myconfig.filename02 + '.mypickle', myconfig.directory)
+    for key, single_doulist in detailDic.items():
+        print('\n' + key + '\n')
+        for book in single_doulist:
+            book.displayDoubanBook()
 
 
 if __name__ == "__main__":

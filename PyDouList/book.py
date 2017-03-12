@@ -6,5 +6,5 @@ class DoubanBook:
         self.been_read_date = been_read_date
 
     def displayDoubanBook(self):
-          print("Name :", '#'+self.name,  ", author:", '#'+self.author,
-            ",publish_date:",'#'+self.publish_date, ',been_read_date=',self.been_read_date)
+          print("Name :", '#'+self.name+'#',  ", author:", '#'+self.author+'#',
+            ",publish_date:",'#'+self.publish_date+'#', ',been_read_date=','#'+self.been_read_date+'#')
