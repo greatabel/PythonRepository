@@ -69,6 +69,14 @@ def deal_with_folder_all_htmls(directory):
         print(counter,item)
         content = read_from_localfile(item)
         books = single_page(content)
-        dic[item] = books
-    print(dic)
+        start = item.index('#')
+        item = item[:start]
+        # 合并多页
+        if item in dic:
+            # print(item ,' already exist')
+            dic[item] = dic[item] + books
+        else:
+            dic[item] = books
+
+    print(len(dic))
 
