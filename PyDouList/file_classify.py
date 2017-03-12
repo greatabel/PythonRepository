@@ -17,8 +17,9 @@ def get_files(file_wait_to_process_directory, file_outupt_directory):
 
 
 def classify_handler(detailDic):
+    file_dic = get_files(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
     for key, single_doulist in detailDic.items():
         print('\n' + key + '\n')
         for book in single_doulist:
             book.displayDoubanBook()
-    get_files(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
+
