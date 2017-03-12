@@ -4,7 +4,8 @@ import os
 from bs4 import BeautifulSoup
 
 from common import persistent_list_to_local, read_persistentedlist_from_local, get_html,\
-                   save_to_localfile_with_dir,read_from_localfile
+                   save_to_localfile, read_from_localfile
+import myconfig
 from book import DoubanBook
 
 def single_doulist_save_html(name, url, directory, scrawler_pagelimit=3):
@@ -13,7 +14,7 @@ def single_doulist_save_html(name, url, directory, scrawler_pagelimit=3):
     for i in range(0,scrawler_pagelimit):
         print(url + '/?start=' + str(index) + '&sort=time&sub_type=')
         content = get_html(url + '/?start=' + str(index) + '&sort=time&sub_type=')
-        save_to_localfile_with_dir(directory, '@@@02' + name + '#page' + str(i), content)
+        save_to_localfile('@@@02' + name + '#page' + str(i), content, directory)
         index += 25
         sleep(1)
 
@@ -77,6 +78,6 @@ def deal_with_folder_all_htmls(directory):
             dic[item] = dic[item] + books
         else:
             dic[item] = books
+    persistent_list_to_local(myconfig.filename02 + '.mypickle', dic, directory)
 
-    print(len(dic))
 

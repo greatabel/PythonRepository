@@ -7,5 +7,6 @@ doulist_prex = 'https://www.douban.com/doulist/'
 # filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
 
 filename01 = '@@@01my_all_doulist#'
+filename02 = '@@@02my_all_detail_doulist#'
 blacklist = ['Fashion-Old', 'abel的日记', 'magzine']
 directory = datetime.datetime.today().strftime('%Y-%m-%d')

@@ -5,36 +5,37 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
 
-def save_to_localfile_with_dir(directory, filename, content):
+def save_to_localfile(filename, content, directory='./'):
     # http://stackoverflow.com/questions/11700593/creating-files-and-directories-via-python
     with open(os.path.join(directory, filename), 'wb') as f:
         f.write(content)
 
-def read_from_localfile_with_dir(directory, filename):
+def read_from_localfile(filename, directory='./'):
     with open(os.path.join(directory, filename), 'r') as myfile:
         content = myfile.read()
     return content
 
-def save_to_localfile(filename, content):
-    with open(filename, 'wt') as f:
-        f.write(content)
+# def save_to_localfile(filename, content):
+#     with open(filename, 'wt') as f:
+#         f.write(content)
 
 
-def read_from_localfile(filename):
-    with open(filename, "r") as myfile:
-        content = myfile.read()
-    return content
+# def read_from_localfile(filename):
+#     with open(filename, "r") as myfile:
+#         content = myfile.read()
+#     return content
 
 
-def persistent_list_to_local(filename, dic):
+def persistent_list_to_local(filename, dic, directory='./'):
     # http://www.cnblogs.com/pzxbc/archive/2012/03/18/2404715.html
-    output = open(filename, 'wb')
+    print('filename=',filename,'dic=',len(dic), 'directory=', directory)
+    output = open(os.path.join(directory, filename), 'wb')
     pickle.dump(dic, output)
     output.close()
 
 
-def read_persistentedlist_from_local(filename):
-    pkl_file = open(filename, 'rb')
+def read_persistentedlist_from_local(filename, directory='./'):
+    pkl_file = open(os.path.join('./' + directory + '/', filename), 'rb')
     data = pickle.load(pkl_file)
     pprint.pprint(data)
     return data
