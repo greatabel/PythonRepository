@@ -1,6 +1,7 @@
 import os
 import myconfig
 from difflib import SequenceMatcher
+import zhconv
 
 def similar(a, b):
     if a == b :
@@ -32,6 +33,26 @@ def file_transform(file, from_directory, to_directory):
             os.makedirs(to_directory)
         os.rename(from_directory, to_directory)
 
+def remove_str_part(istr,start_mark, end_mark):
+    start = istr.find(start_mark)
+    end = istr.find(end_mark)
+    if start != -1 and end != -1:
+        remove_part = istr[start:end+1]
+        istr = istr.replace(remove_part,'')
+    return istr
+
+def format_str_for_compare(istr):
+    istr = remove_str_part(istr, '(', ')')
+    istr = remove_str_part(istr, '（', '）')
+    chs = ['”', '“', '《','》']
+    for ch in chs:
+        istr = istr.replace(ch,'')
+    istr = istr.replace('：',":")    
+    istr = istr.lower()
+    # https://pypi.python.org/pypi/zhconv 繁体转换简体
+    istr = zhconv.convert(istr, 'zh-cn')
+    return istr
+
 def classify_handler(detailDic):
     counter = 0
     file_dic = get_files(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
@@ -42,7 +63,7 @@ def classify_handler(detailDic):
             similarity = 0
             filenameA = ''
             for filename, filepath in file_dic.items():
-                temp_similarity = similar(book.name.replace('”','').lower(), filename.replace('”','').lower())
+                temp_similarity = similar(format_str_for_compare(book.name), format_str_for_compare(filename))
                 if temp_similarity > similarity:
                     similarity = temp_similarity
                     filenameA = filename
@@ -53,6 +74,8 @@ def classify_handler(detailDic):
                 counter += 1
                 # print(similarity,'counter=', counter, book.name,'#',filenameA )
             elif book.been_read_date > '2016-06-01':
-                print('>'*5, ' miss find:', book.name)
+                print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
+
+
             # book.displayDoubanBook()
 
