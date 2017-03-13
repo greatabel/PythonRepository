@@ -51,9 +51,10 @@ def remove_str_part(istr,start_mark, end_mark):
 def format_str_for_compare(istr):
     istr = remove_str_part(istr, '(', ')')
     istr = remove_str_part(istr, '（', '）')
-    chs = ['”', '“', '《','》','.','·','：',":","'"]
-    for ch in chs:
+    for ch in ['”', '“', '《','》']:
         istr = istr.replace(ch,'')
+    for ch in ['.','·','：',":","'"]:
+        istr = istr.replace(ch, ' ')
     istr = istr.replace('Ⅱ','II')
     istr = istr.lower()
     # https://pypi.python.org/pypi/zhconv 繁体转换简体
@@ -88,8 +89,9 @@ def classify_handler(detailDic):
                 file_transform(filepathA, myconfig.file_wait_to_process_directory, 
                     myconfig.file_outupt_directory, key.rsplit('/', 1)[1].replace('@@@02',''))
 
-                if similarity < 0.7 and similarity != 0.666:
-                    print(similarity,'counter=', counter, book.name,'#',filenameA,book.been_read_date )
+                # if similarity < 0.7 and similarity != 0.666:
+            else:
+                print(similarity,'failed counter=', counter, book.name,'#',filenameA,book.been_read_date )
     print('counter=', counter,'dou_counter=', dou_counter)
             # elif book.been_read_date > '2016-06-01':
             #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
