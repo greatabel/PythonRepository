@@ -20,8 +20,9 @@ def get_files(file_wait_to_process_directory, file_outupt_directory):
         filename, file_ext = os.path.splitext(f)
         if file_ext in myconfig.white_extension_name:
             count += 1
-            print(count, filename, '#',file_ext,'#',os.path.join(fpathe,f))
+            # print(count, filename, '#',file_ext,'#',os.path.join(fpathe,f))
             file_dic[filename] = os.path.join(fpathe,f)
+    print('local file count=', count)
     return file_dic
 
 def file_transform(file, from_directory, to_directory):
@@ -72,9 +73,10 @@ def classify_handler(detailDic):
                     #     'douban name=', book.name, '#'*5,'filename=', filename)
             if similarity > 0.61:
                 counter += 1
-                # print(similarity,'counter=', counter, book.name,'#',filenameA )
-            elif book.been_read_date > '2016-06-01':
-                print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
+                print(similarity,'counter=', counter, book.name,'#',filenameA )
+                
+            # elif book.been_read_date > '2016-06-01':
+            #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
 
 
             # book.displayDoubanBook()
