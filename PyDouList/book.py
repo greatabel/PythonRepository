@@ -7,9 +7,13 @@ class DoubanBook:
         self.readen_order = -1
         # to indicate whether match file at local
         self.matched_file = False
+        self.category = ''
 
     def set_readen_order(self, readen_order):
         self.readen_order = readen_order
+        
+    def set_category(self, category):
+        self.category = category
 
     def set_matched_file(self):
         self.matched_file = True

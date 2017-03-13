@@ -3,7 +3,7 @@ import glob
 import os
 from bs4 import BeautifulSoup
 
-from common import persistent_list_to_local, read_persistentedlist_from_local, get_html,\
+from common import persistent_list_to_local, get_html,\
                    save_to_localfile, read_from_localfile
 import myconfig
 from book import DoubanBook

@@ -3,6 +3,8 @@ from difflib import SequenceMatcher
 import zhconv
 import myconfig
 from file_transform import file_transform
+
+
 def similar(a, b):
     if a == b :
         return 1
@@ -47,7 +49,7 @@ def format_str_for_compare(istr):
     istr = zhconv.convert(istr, 'zh-cn')
     return istr
 
-def classify_handler(detailDic):
+def classify_handler(detailDic, similarity_bound = 0.61):
     counter = 0
     dou_counter = 0
     file_dic = get_files(myconfig.file_wait_to_process_directory)
@@ -68,7 +70,7 @@ def classify_handler(detailDic):
                     
                     # print(similarity, 'counter=', counter,
                     #     'douban name=', book.name, '#'*5,'filename=', filename)
-            if similarity > 0.61:
+            if similarity > similarity_bound:
                 counter += 1
                 # print(similarity,'counter=', counter, book.name,'#',filenameA,book.been_read_date )
 
@@ -78,7 +80,7 @@ def classify_handler(detailDic):
                 # if similarity < 0.7 and similarity != 0.666:
             else:
                 print(similarity,'failed counter=', counter, book.name,'#',filenameA,book.been_read_date )
-    print('counter=', counter,'dou_counter=', dou_counter)
+    print('matched counter=', counter,'dou_counter=', dou_counter)
             # elif book.been_read_date > '2016-06-01':
             #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
             # book.displayDoubanBook()
