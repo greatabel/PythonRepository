@@ -1,8 +1,8 @@
 import os
-import myconfig
 from difflib import SequenceMatcher
 import zhconv
-
+import myconfig
+from file_transform import file_transform
 def similar(a, b):
     if a == b :
         return 1
@@ -25,20 +25,6 @@ def get_files(file_wait_to_process_directory):
     print('local file count=', count)
     return file_dic
 
-def file_transform(filepath, from_directory, to_directory, doulist_category):
-    from_file = filepath
-    print('doulist_category', doulist_category)
-    to_file = to_directory + '/' + doulist_category +\
-             '/' + filepath.rsplit('/', 1)[1]
-
-    # print(from_file,' --> ',to_file)
-    # to move only files, not folders
-    if os.path.isfile(from_file):
-        if not os.path.exists(to_directory):
-            os.makedirs(to_directory)
-        if not os.path.exists(to_directory +'/' + doulist_category):
-            os.makedirs(to_directory +'/' + doulist_category)
-        os.rename(from_file, to_file)
 
 def remove_str_part(istr,start_mark, end_mark):
     start = istr.find(start_mark)
