@@ -8,10 +8,10 @@ def similar(a, b):
         return 1
     if (a in b) or (b in a):
         # 加上这个可能出错，需要检查
-        return 0.666
+        return 0.777
     return SequenceMatcher(None, a, b).ratio()
 
-def get_files(file_wait_to_process_directory, file_outupt_directory):
+def get_files(file_wait_to_process_directory):
     count = 0
     file_dic = {}
     #  遍历所有文件，文件夹
@@ -25,14 +25,20 @@ def get_files(file_wait_to_process_directory, file_outupt_directory):
     print('local file count=', count)
     return file_dic
 
-def file_transform(file, from_directory, to_directory):
-    from_file = os.path.join(from_directory, file)
-    to_file = os.path.join(to_directory, file)
+def file_transform(filepath, from_directory, to_directory, doulist_category):
+    from_file = filepath
+    print('doulist_category', doulist_category)
+    to_file = to_directory + '/' + doulist_category +\
+             '/' + filepath.rsplit('/', 1)[1]
+
+    # print(from_file,' --> ',to_file)
     # to move only files, not folders
-    if os.path.isfile(from_directory):
+    if os.path.isfile(from_file):
         if not os.path.exists(to_directory):
             os.makedirs(to_directory)
-        os.rename(from_directory, to_directory)
+        if not os.path.exists(to_directory +'/' + doulist_category):
+            os.makedirs(to_directory +'/' + doulist_category)
+        os.rename(from_file, to_file)
 
 def remove_str_part(istr,start_mark, end_mark):
     start = istr.find(start_mark)
@@ -45,10 +51,10 @@ def remove_str_part(istr,start_mark, end_mark):
 def format_str_for_compare(istr):
     istr = remove_str_part(istr, '(', ')')
     istr = remove_str_part(istr, '（', '）')
-    chs = ['”', '“', '《','》']
+    chs = ['”', '“', '《','》','.','·','：',":","'"]
     for ch in chs:
         istr = istr.replace(ch,'')
-    istr = istr.replace('：',":")    
+    istr = istr.replace('Ⅱ','II')
     istr = istr.lower()
     # https://pypi.python.org/pypi/zhconv 繁体转换简体
     istr = zhconv.convert(istr, 'zh-cn')
@@ -56,25 +62,35 @@ def format_str_for_compare(istr):
 
 def classify_handler(detailDic):
     counter = 0
-    file_dic = get_files(myconfig.file_wait_to_process_directory, myconfig.file_outupt_directory)
+    dou_counter = 0
+    file_dic = get_files(myconfig.file_wait_to_process_directory)
     for key, single_doulist in detailDic.items():
         print('\n' + key + '\n')
 
         for book in single_doulist:
+            dou_counter += 1
             similarity = 0
             filenameA = ''
+            filepathA = ''
             for filename, filepath in file_dic.items():
                 temp_similarity = similar(format_str_for_compare(book.name), format_str_for_compare(filename))
                 if temp_similarity > similarity:
                     similarity = temp_similarity
                     filenameA = filename
+                    filepathA = filepath
                     
                     # print(similarity, 'counter=', counter,
                     #     'douban name=', book.name, '#'*5,'filename=', filename)
             if similarity > 0.61:
                 counter += 1
-                print(similarity,'counter=', counter, book.name,'#',filenameA )
-                
+                # print(similarity,'counter=', counter, book.name,'#',filenameA,book.been_read_date )
+
+                file_transform(filepathA, myconfig.file_wait_to_process_directory, 
+                    myconfig.file_outupt_directory, key.rsplit('/', 1)[1].replace('@@@02',''))
+
+                if similarity < 0.7 and similarity != 0.666:
+                    print(similarity,'counter=', counter, book.name,'#',filenameA,book.been_read_date )
+    print('counter=', counter,'dou_counter=', dou_counter)
             # elif book.been_read_date > '2016-06-01':
             #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
 

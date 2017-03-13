@@ -55,7 +55,8 @@ def single_page(content):
 
         book = DoubanBook(bookName, bookAuthor, bookPubDate, been_read_date)
         # book.displayDoubanBook()
-        books.append(book)
+        if book.been_read_date >= myconfig.last_async_time:
+            books.append(book)
     return books
 
 def circulate_readen_order(dic_for_sort_readen_order, detailDic):

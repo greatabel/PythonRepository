@@ -49,7 +49,8 @@ def main():
     if not os.path.exists(myconfig.directory):
         os.makedirs(myconfig.directory)
         for doulistname, single_doulist in doulist_list.items():
-            single_doulist_save_html(doulistname, single_doulist, myconfig.directory)
+            single_doulist_save_html(doulistname, single_doulist, 
+                                     myconfig.directory, myconfig.scrawler_pagelimit)
 
     pickle02_path = Path( myconfig.directory + "/" + myconfig.filename02 + '.mypickle')
     if not pickle02_path.is_file():
