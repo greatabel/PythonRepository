@@ -2,7 +2,7 @@ import os
 
 def file_transform(filepath, from_directory, to_directory, doulist_category):
     from_file = filepath
-    print('doulist_category', doulist_category)
+    # print('doulist_category', doulist_category)
     to_file = to_directory + '/' + doulist_category +\
              '/' + filepath.rsplit('/', 1)[1]
 

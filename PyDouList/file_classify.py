@@ -81,7 +81,5 @@ def classify_handler(detailDic):
     print('counter=', counter,'dou_counter=', dou_counter)
             # elif book.been_read_date > '2016-06-01':
             #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
-
-
             # book.displayDoubanBook()
 
