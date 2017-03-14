@@ -10,8 +10,9 @@ def record_generator():
         for idx, book in enumerate(single_doulist):
             # book.displayDoubanBook()
             books.append(book)
-    # books.sort(key=lambda x: x.readen_order, reverse=True)
-    books.sort(key=lambda x: x.readen_order)
+    books.sort(key=lambda x: x.readen_order, reverse=True)
+    bookrecord_place = myconfig.file_wait_to_process_directory + '/' + myconfig.origin_bookrecords
     for book in books:
         book.displayDoubanBook()
+
     return ""

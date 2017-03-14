@@ -5,6 +5,8 @@ file_wait_to_process_directory = '/Users/wanchang/Downloads/Study/alreadyReaden_
 # 你想要整理之后书籍文件夹和读书记录的目录
 file_outupt_directory = '/Users/wanchang/Downloads/Study/alreadyReaden_Result'
 
+# 原来的读书记录文件名字  文件放到书籍存放目录
+origin_bookrecords = 'bookrecord.csv'
 
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
 doulist_prex = 'https://www.douban.com/doulist/'
