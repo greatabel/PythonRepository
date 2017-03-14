@@ -71,11 +71,12 @@ def circulate_readen_order(dic_for_sort_readen_order, detailDic):
         for idx, book in enumerate(single_doulist):
             if book.name in dic_name_order:
                 single_doulist[idx].set_readen_order(dic_name_order[book.name])
+                single_doulist[idx].set_category(key.rsplit('/', 1)[1].replace('@@@02',''))
+                
                 # single_doulist[idx].displayDoubanBook()
 
 
 def deal_with_folder_all_htmls(directory):
-    print(directory)
     filelist = glob.glob( directory + "/*")
     filelist.sort()
     counter = 0

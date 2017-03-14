@@ -56,7 +56,7 @@ def classify_handler(detailDic, similarity_bound = 0.61):
     for key, single_doulist in detailDic.items():
         print('\n' + key + '\n')
 
-        for book in single_doulist:
+        for idx, book in enumerate(single_doulist):
             dou_counter += 1
             similarity = 0
             filenameA = ''
