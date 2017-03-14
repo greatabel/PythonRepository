@@ -19,8 +19,11 @@ class DoubanBook:
         self.matched_file = True
 
     def displayDoubanBook(self):
-          print("Name :", '#'+self.name+'#',  ", author:", '#'+self.author+'#',
-            ",publish_date:",'#'+self.publish_date
-            +'#', ',been_read_date=','#'+self.been_read_date
-            ,'readen_order =',str(self.readen_order),'category=', self.category,
-            'matched_file=',self.matched_file )
+          print('\nname:', self.name,
+                '\nauthor:', self.author,
+                '\npublish_date:',self.publish_date,
+                '\nbeen_read_date:',self.been_read_date,
+                '\nreaden_order:',str(self.readen_order),
+                '\ncategory:', self.category,
+                '\nmatched_file:',self.matched_file 
+               )
