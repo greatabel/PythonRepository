@@ -21,4 +21,4 @@ filename02 = '@@@02my_all_detail_doulist#'
 blacklist = ['Fashion-Old', 'abel的日记', 'magzine']
 white_extension_name = ['.pdf', '.epub', '.mobi', '.txt']
 
-directory = (datetime.datetime.today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d')
+directory = (datetime.datetime.today() - datetime.timedelta(days=3)).strftime('%Y-%m-%d')

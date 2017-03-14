@@ -61,7 +61,8 @@ def single_page(content):
 
 def circulate_readen_order(dic_for_sort_readen_order, detailDic):
     # https://edumaven.com/python-programming/sort-dictionary-by-value
-    sorted_names = sorted(dic_for_sort_readen_order, key=dic_for_sort_readen_order.__getitem__, reverse=True)
+    sorted_names = sorted(dic_for_sort_readen_order, key=dic_for_sort_readen_order.__getitem__)
+    # sorted_names = sorted(dic_for_sort_readen_order, key=dic_for_sort_readen_order.__getitem__, reverse=True)
     read_order = 0
     dic_name_order = {}
     for k in sorted_names:
@@ -72,7 +73,7 @@ def circulate_readen_order(dic_for_sort_readen_order, detailDic):
             if book.name in dic_name_order:
                 single_doulist[idx].set_readen_order(dic_name_order[book.name])
                 single_doulist[idx].set_category(key.rsplit('/', 1)[1].replace('@@@02',''))
-                
+
                 # single_doulist[idx].displayDoubanBook()
 
 
