@@ -82,7 +82,8 @@ def classify_handler(detailDic, similarity_bound = 0.61):
             else:
                 print(similarity,'failed counter=', counter, book.name,'#',filenameA,book.been_read_date )
     print('matched counter=', counter,'dou_counter=', dou_counter)
-    persistent_list_to_local(myconfig.filename02 + '.mypickle', detailDic, myconfig.directory)
+    # persistent_list_to_local(myconfig.filename02 + '.mypickle', detailDic, myconfig.directory)
+    
             # elif book.been_read_date > '2016-06-01':
             #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
             # book.displayDoubanBook()
