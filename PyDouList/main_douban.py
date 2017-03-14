@@ -7,6 +7,7 @@ import myconfig
 from common import persistent_list_to_local, read_persistentedlist_from_local, get_html,\
                    save_to_localfile,read_from_localfile
 from file_classify import classify_handler
+from reading_record_generator import record_generator
 
 
 def extract_doulist(content):
@@ -25,7 +26,6 @@ def extract_doulist(content):
         if item.split(">")[-1] not in myconfig.blacklist:
             dic[item.split(">")[-1]] = myconfig.doulist_prex + item.split("/")[-2]
     print('url count:', len(t))
-    print(dic)
     return dic
 
 
@@ -57,11 +57,11 @@ def main():
         deal_with_folder_all_htmls(myconfig.directory)
     detailDic = read_persistentedlist_from_local(myconfig.filename02 + '.mypickle', myconfig.directory)
     classify_handler(detailDic)
-    detailDic = read_persistentedlist_from_local(myconfig.filename02 + '.mypickle', myconfig.directory)
-    for key, single_doulist in detailDic.items():
-        print('\n###' + key + '\n')
-        for idx, book in enumerate(single_doulist):
-            book.displayDoubanBook()
+    # detailDic = read_persistentedlist_from_local(myconfig.filename02 + '.mypickle', myconfig.directory)
+    # for key, single_doulist in detailDic.items():
+    #     print('\n###' + key + '\n')
+    #     for idx, book in enumerate(single_doulist):
+    #         book.displayDoubanBook()
 
 if __name__ == "__main__":
     main()
