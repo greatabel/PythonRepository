@@ -3,6 +3,7 @@ from difflib import SequenceMatcher
 import zhconv
 import myconfig
 from file_transform import file_transform
+from common import persistent_list_to_local
 
 
 def similar(a, b):
@@ -75,11 +76,13 @@ def classify_handler(detailDic, similarity_bound = 0.61):
                 # print(similarity,'counter=', counter, book.name,'#',filenameA,book.been_read_date )
                 file_transform(filepathA, myconfig.file_wait_to_process_directory, 
                     myconfig.file_outupt_directory, key.rsplit('/', 1)[1].replace('@@@02',''))
+                single_doulist[idx].set_matched_file()
 
                 # if similarity < 0.7 and similarity != 0.666:
             else:
                 print(similarity,'failed counter=', counter, book.name,'#',filenameA,book.been_read_date )
     print('matched counter=', counter,'dou_counter=', dou_counter)
+    persistent_list_to_local(myconfig.filename02 + '.mypickle', detailDic, myconfig.directory)
             # elif book.been_read_date > '2016-06-01':
             #     print('>'*5, ' miss find:', book.name,format_str_for_compare(book.name), book.been_read_date)
             # book.displayDoubanBook()

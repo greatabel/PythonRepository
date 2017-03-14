@@ -22,4 +22,5 @@ class DoubanBook:
           print("Name :", '#'+self.name+'#',  ", author:", '#'+self.author+'#',
             ",publish_date:",'#'+self.publish_date
             +'#', ',been_read_date=','#'+self.been_read_date
-            ,'readen_order =',str(self.readen_order),'category=', self.category )
+            ,'readen_order =',str(self.readen_order),'category=', self.category,
+            'matched_file=',self.matched_file )
