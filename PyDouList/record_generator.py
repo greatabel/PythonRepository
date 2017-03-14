@@ -15,6 +15,7 @@ def record_generator():
             books.append(book)
     books.sort(key=lambda x: x.readen_order, reverse=True)
     bookrecord_place = myconfig.file_wait_to_process_directory + '/' + myconfig.origin_bookrecords
+    print('bookrecord_place=',bookrecord_place)
     if Path(bookrecord_place).is_file():
         origin_bookrecords = read_from_localfile(bookrecord_place)
         print('len(origin_bookrecords)=',len(origin_bookrecords))
