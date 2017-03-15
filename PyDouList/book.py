@@ -11,7 +11,7 @@ class DoubanBook:
 
     def set_readen_order(self, readen_order):
         self.readen_order = readen_order
-        
+
     def set_category(self, category):
         self.category = category
 
@@ -19,11 +19,10 @@ class DoubanBook:
         self.matched_file = True
 
     def displayDoubanBook(self):
-        print(  '\nreaden_order:',str(self.readen_order),
-                '\nname:', self.name,
-                '\nauthor:', self.author,
-                '\npublish_date:',self.publish_date,    
-                '\nbeen_read_date:',self.been_read_date,          
-                '\ncategory:', self.category,
-                '\nmatched_file:',self.matched_file 
-               )
+        print('\nreaden_order:', str(self.readen_order),
+              '\nname:', self.name,
+              '\nauthor:', self.author,
+              '\npublish_date:', self.publish_date,
+              '\nbeen_read_date:', self.been_read_date,
+              '\ncategory:', self.category,
+              '\nmatched_file:', self.matched_file)
