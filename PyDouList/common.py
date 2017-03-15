@@ -8,7 +8,7 @@ import csv
 
 def save_to_localfile(filename, content, directory='./'):
     # http://stackoverflow.com/questions/11700593/creating-files-and-directories-via-python
-    with open(os.path.join(directory, filename), 'wb') as f:
+    with open(os.path.join(directory, filename), 'w') as f:
         f.write(content)
 
 def read_from_localfile(filename, directory='./'):
@@ -88,7 +88,7 @@ def get_html(url):
         request = Request(url, None, {"User-Agent": "Mozilla/5.0 AppleWebKit/537.36"})
         response = urlopen(request)
         data = response.read().decode('utf-8')
-        print('len(data)=', len(data))
+        print('len(data)=', len(data),type(data))
     except HTTPError as e:
         print('Error code: ', e.code)
     except URLError as e:

@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from shutil import copyfile
 from common import persistent_list_to_local, read_persistentedlist_from_local,\
                    csv_printer_from_localfile_and_return_last_row,\
                    csv_writer_book_to_local
@@ -27,7 +28,7 @@ def record_generator():
         print(books[0].been_read_date ,'#'*5, last_been_read_date)
         if books[0].been_read_date >= last_been_read_date:
             csv_writer_book_to_local(books, int(last_readen_order), bookrecord_place)
-            os.rename(bookrecord_place, bookrecord_target)
+            copyfile(bookrecord_place, bookrecord_target)
     # for book in books:
     #     book.displayDoubanBook()
 

@@ -74,8 +74,7 @@ def classify_handler(detailDic, similarity_bound = 0.61):
             if similarity > similarity_bound:
                 counter += 1
                 # print(similarity,'counter=', counter, book.name,'#',filenameA,book.been_read_date )
-                file_transform(filepathA, myconfig.file_wait_to_process_directory, 
-                    myconfig.file_outupt_directory, key.rsplit('/', 1)[1].replace('@@@02',''))
+                file_transform(filepathA, myconfig.file_outupt_directory, key.rsplit('/', 1)[1].replace('@@@02',''))
                 single_doulist[idx].set_matched_file()
 
                 # if similarity < 0.7 and similarity != 0.666:

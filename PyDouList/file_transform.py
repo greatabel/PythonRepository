@@ -1,6 +1,6 @@
 import os
 
-def file_transform(filepath, from_directory, to_directory, doulist_category):
+def file_transform(filepath, to_directory, doulist_category):
     from_file = filepath
     # print('doulist_category', doulist_category)
     to_file = to_directory + '/' + doulist_category +\
