@@ -55,7 +55,7 @@ def single_page(content):
 
         book = DoubanBook(bookName, bookAuthor, bookPubDate, been_read_date)
         # book.displayDoubanBook()
-        if book.been_read_date >= myconfig.last_async_time:
+        if book.been_read_date > myconfig.last_async_time:
             books.append(book)
     return books
 
@@ -100,6 +100,8 @@ def deal_with_folder_all_htmls(directory):
             dic[item] = dic[item] + books
         else:
             dic[item] = books
+    # for i in books:
+    #     i.displayDoubanBook()
     print('dic_for_sort_readen_order:len=',len(dic_for_sort_readen_order))
     circulate_readen_order(dic_for_sort_readen_order, dic)
 
