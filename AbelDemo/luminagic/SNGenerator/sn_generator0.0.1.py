@@ -5,6 +5,11 @@ import random
 from string import ascii_uppercase, ascii_lowercase, digits
 import subprocess
 
+import PIL
+from PIL import ImageFont
+from PIL import Image
+from PIL import ImageDraw
+
 color_dic = {
     # we may add in future
     'Purple': 'P',
@@ -26,7 +31,7 @@ sn_config = {
     'sha_digits': 5,
     'source_digits': 24
 }   
-sn_prefix_url = 'https://app-exp.meomo.cn/#!/register/' 
+sn_prefix_url = 'https://app-test.meomo.cn/#!/register/' 
 
 def sha(pw,salt):                     
     pw_bytes = pw.encode('utf-8')
@@ -104,8 +109,16 @@ def sn_generator():
         print(print_sn)
         bashCommand = "myqr "+ print_sn + " -n "+ sn + ".jpg  -d ./sns"
         output = subprocess.check_output(['bash','-c', bashCommand])
+        add_text_to_image(sn)
 
 
+def add_text_to_image(sn):
+    font = ImageFont.truetype("/System/Library/Fonts/Helvetica.dfont", 20)
+    img = Image.open("./sns/"+sn + ".jpg")
+    draw = ImageDraw.Draw(img)
+    draw.text((45,5), "S/N:"+sn, (10), font=font)
+    draw = ImageDraw.Draw(img)
+    img.save("./sns/"+sn + ".jpg")
 
 if __name__ == '__main__':
     # python3 sn_generator0.0.1.py -color="Green" -pdate='2017-02-15' -sku='B' -num=50 -vendor='Meomo'
