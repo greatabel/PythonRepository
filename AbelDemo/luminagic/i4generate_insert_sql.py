@@ -1,6 +1,6 @@
 def main():
     print('-'*20,'\n'*5)
-    patient_id =  55
+    patient_id =  38
     for i in range(1,12):
         for j in range(1,30):
             print("insert into measures(`data`,`created_date`,`patient_id`,`right_eye`) values({0},'2016-{1}-{2} 00:00:00',{3},{4});"\
