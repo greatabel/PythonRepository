@@ -9,7 +9,7 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 
 pyenv activate sharingan
 echo "$(python --version)"
-export FLASK_APP=/Users/wanchang/Downloads/bitbucket/sharingan
+export FLASK_APP=/Users/wanchang/Downloads/bitbucket/sharingan/app.py
 echo $FLASK_APP
 cd /Users/wanchang/Downloads/bitbucket/sharingan
 

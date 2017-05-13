@@ -11,20 +11,23 @@ bus_service = ServiceBusService(
     shared_access_key_value='AFOA06OWcNUsDQyi8jHuqIhumuV5QN+jObsfv5QhNBM=',
     host_base='.servicebus.chinacloudapi.cn')
 
-# bus_service.create_queue('taskqueue')
-for i in range(5):
+# queue_name = 'temp_queue'
+queue_name = 'wechat.subscription.exp'
+bus_service.create_queue('temp_queue')
+for i in range(15):
     msg_str = 'Follow#oQ_DVvyaYU_iFEpJCI5WW9lLkvG4@%s' % (time.ctime(time.time()))
     if i % 2== 0:
             msg_str = 'UnFollow#oQ_DVvyaYU_iFEpJCI5WW9lLkvG4@%s' % (time.ctime(time.time()))
     msg = Message(str.encode(msg_str))
-    print('test',msg_str)
-    bus_service.send_queue_message('wechat.subscription.exp', msg)
+    print('push to queue: ',msg_str)
+    bus_service.send_queue_message(queue_name, msg)
     time.sleep(1)
 
-time.sleep(1)
-# message = bus_service.receive_queue_message('wechat.subscription.exp')
+# time.sleep(1)
+# # message = bus_service.receive_queue_message(queue_name)
+# message = bus_service.receive_queue_message(queue_name)
 # while 1:
-#     message = bus_service.receive_queue_message('wechat.subscription.exp')
+#     message = bus_service.receive_queue_message(queue_name)
 #     if message.body == None:
 #         break
 #     print(message.body == None)

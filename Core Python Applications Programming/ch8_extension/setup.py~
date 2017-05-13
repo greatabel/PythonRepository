@@ -1,5 +1,0 @@
-from distutils.core import setp,Extension
-
-MOD='Extest'
-setup(name=MOD,ext_modules=[
-  Extension(MOD,source=['Extest2.c'])])
