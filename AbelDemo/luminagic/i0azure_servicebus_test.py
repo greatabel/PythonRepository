@@ -11,9 +11,9 @@ bus_service = ServiceBusService(
     shared_access_key_value='AFOA06OWcNUsDQyi8jHuqIhumuV5QN+jObsfv5QhNBM=',
     host_base='.servicebus.chinacloudapi.cn')
 
-# queue_name = 'temp_queue'
-queue_name = 'wechat.subscription.exp'
-bus_service.create_queue('temp_queue')
+queue_name = 'temp_queue'
+# queue_name = 'wechat.subscription.exp'
+# bus_service.create_queue('temp_queue')
 for i in range(15):
     msg_str = 'Follow#oQ_DVvyaYU_iFEpJCI5WW9lLkvG4@%s' % (time.ctime(time.time()))
     if i % 2== 0:
