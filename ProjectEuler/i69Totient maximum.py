@@ -8,8 +8,14 @@ def coprime2(a, b):
 
 # https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0
 def main_process():
-    # for i in range(10):
-    #     print(i+1, coprime2(i+1, 10))
+
+    for i in range(2, 10+1):
+        count_cprime2 = 0
+        for j in range(i):
+            if coprime2(i, j+1):
+                count_cprime2 += 1
+                # print(i+1, j+1)
+        print(i, '#', count_cprime2)
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
