@@ -1,6 +1,8 @@
 from scapy.all import * #Import Scapy
 from datetime import datetime
 
+# 在osx 命令行下：
+#  networksetup -listnetworkserviceorder
 
 interface = 'en0' #Interface to sniff
 filter_bpf = 'udp and port 53' #BPF filter to filter udp packets in port 53
