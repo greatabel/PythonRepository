@@ -23,3 +23,6 @@ except socket.error as e:
    sys.exit()
 
 print('Message to the server send successfully')
+data = tcp_socket.recv(BUFFER_SIZE)
+tcp_socket.close()
+print("Response from server:", data)
