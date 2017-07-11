@@ -3,7 +3,7 @@ import sys
 TCP_IP = '127.0.0.1'
 TCP_PORT = 8090 #Reserve a port
 BUFFER_SIZE = 1024
-MESSAGE_TO_SERVER = "Hello, World!"
+MESSAGE_TO_SERVER = b"Hello, World!"
 
 try:
    #Create an AF_INET (IPv4), STREAM socket (TCP)
