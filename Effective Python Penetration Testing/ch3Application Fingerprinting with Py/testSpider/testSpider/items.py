@@ -1,16 +1,27 @@
 # -*- coding: utf-8 -*-
 
-# Define here the models for your scraped items
-#
-# See documentation in:
-# http://doc.scrapy.org/en/latest/topics/items.html
-
 # scrapy genspider pactpub pactpub.com
+# scrapy crawl pactpub --output results.json
 
-import scrapy
+from scrapy.spiders import Spider
+from scrapy.selector import Selector
+from pprint import pprint
+from testSpider.items import TestspiderItem
 
 
-class TestspiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class PactpubSpider(Spider):
+    name = "pactpub"
+    allowed_domains = ["pactpub.com"]
+    start_urls = (
+        'https://www.pactpub.com/all',
+    )
+
+    def parse(self, response):
+    res = Selector(response)
+    items = []
+    for sel in res.xpath('//div[@class="book-block"]'):
+        item = TestspiderItem()
+
+        item['book'] = sel.xpath('//div[@class="book-block-title"]/text()').extract()
+        items.append(item)
+    return items
