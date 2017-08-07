@@ -6,10 +6,12 @@ from scapy.all import *
 # sudo python3 i10OS\ fingerprinting.py 
 
 
+
 ans,unans=srloop(IP(dst="192.168.0.1")/TCP(dport=80,flags="S"))
 temp = 0
 for s,r in ans:
     temp = r[TCP].seq - temp
     print( str(r[TCP].seq) + "\t+" + str(temp) )
+
 
 
