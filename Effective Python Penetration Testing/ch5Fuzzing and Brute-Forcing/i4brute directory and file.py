@@ -2,6 +2,9 @@ import urllib
 import urllib.request
 import threading
 import queue
+import urllib.parse
+from urllib.request import Request, urlopen
+import urllib.error
 
 threads           = 50     # Be aware that a large number of threads can cause a denial of service!!!
 target_url        = "http://www.example.com"
@@ -47,20 +50,20 @@ def dir_bruteforce(extensions=None):
         # iterate over our list of attempts        
         for brute in attempt_list:
             
-            url = "%s%s" % (target_url,urllib.quote(brute))
+            url = "%s%s" % (target_url,urllib.parse.quote(brute))
             
             try:
-                headers = {}
-                headers["User-Agent"] = user_agent
-                r = urllib.Request(url,headers=headers)
+                # headers = {}
+                # headers["User-Agent"] = user_agent
+                r = Request(url)
+                r.add_header("User-Agent",user_agent)               
                 
-                
-                response = urllib2.urlopen(r)
+                response = urlopen(r)
                 
                 if len(response.read()):
                     print("[%d] => %s" % (response.code,url))
                     
-            except urllib2.HTTPError as e:
+            except urllib.error.HTTPError as e:
 
                 if e.code != 404:
                     print("!!! %d => %s" % (e.code,url) )
