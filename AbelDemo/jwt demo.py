@@ -4,6 +4,9 @@ from datetime import datetime
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 
+# https://github.com/jpadilla/pyjwt/pull/197/files
+# https://pyjwt.readthedocs.io/en/latest/
+
 private_key_pem = b'''
 -----BEGIN RSA PRIVATE KEY-----
 MIICXgIBAAKBgQDBCeVu627zFZ1JH9/Wi/J/bs6zC3bUFl0ASfE6XHGxyPTAPXgJ
@@ -55,5 +58,6 @@ message = {
 # assert message == jwt.decode(encoded, 'secret', algorithms=['HS256'])
 
 encoded = jwt.encode(message, private_key, algorithm='RS256')
+print('-'*20, type(encoded),'-'*20, encoded)
 decoded = jwt.decode(encoded, public_key, algorithms=['RS256'])
 print(decoded)
