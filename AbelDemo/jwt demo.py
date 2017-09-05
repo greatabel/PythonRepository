@@ -55,10 +55,10 @@ print('public_key->',   public_key)
 mytime = datetime.datetime.utcnow() + datetime.timedelta(10,10)
 message = {
     'usr': 10002,
-    'name': 'abel',
+    'name': 'mockname',
     'iat': mytime,
     'exp': mytime,
-    'iss': '凯旋广州公司',
+    'iss': '模拟凯旋广州公司',
     'rnd': 10
 }
 
