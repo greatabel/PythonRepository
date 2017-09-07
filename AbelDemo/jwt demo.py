@@ -59,6 +59,7 @@ message = {
     'iat': mytime,
     'exp': mytime,
     'iss': '模拟凯旋广州公司',
+    'aud': 'meomo',
     'rnd': 10
 }
 
@@ -68,5 +69,5 @@ message = {
 
 encoded = jwt.encode(message, private_key, algorithm='RS256')
 print('-'*20, type(encoded),'-'*20,'\n', encoded,'\n'*2)
-decoded = jwt.decode(encoded, public_key, algorithms=['RS256'])
+decoded = jwt.decode(encoded, public_key, audience='meomo', algorithms=['RS256'])
 print(decoded)
