@@ -26,6 +26,10 @@ class NewVisitorTest(unittest.TestCase):
             inputbox.get_attribute('placeholder'),
             'Enter a to-do item'
         )
+        # 为解决这个send_keys 不work
+        # pip3.5 install --upgrade selenium
+        # brew upgrade geckodriver
+        time.sleep(3)
         inputbox.send_keys('Buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
