@@ -18,11 +18,13 @@ class HomePageTest(TestCase):
         self.assertEqual(found.func, home_page)
 
     def test_home_page_returns_correct_html(self):
-        request = HttpRequest()
-        response = home_page(request)
+        response = self.client.get('/')
         html = response.content.decode('utf8')
-        expected_html = render_to_string('home.html')
-        self.assertEqual(html, expected_html)
+        self.assertTrue(html.startswith('<html>'))
+        self.assertIn('<title>To-Do lists</title>', html)
+        self.assertTrue(html.strip().endswith('</html>'))
+
+        self.assertTemplateUsed(response, 'home.html')
         # self.assertTrue(html.startswith('<html>'))
         # self.assertIn('<title>To-Do lists</title>', html)
         # self.assertTrue(html.strip().endswith('</html>'))
