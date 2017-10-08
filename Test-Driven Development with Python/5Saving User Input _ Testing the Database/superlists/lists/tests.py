@@ -11,6 +11,10 @@ from lists.models import Item
 #     def test_bad_maths(self):
 #         self.assertEqual(1 + 1, 3)
 class HomePageTest(TestCase):
+    
+    def test_only_saves_items_when_necessary(self): 
+        self.client.get('/')
+        self.assertEqual(Item.objects.count(), 0)
 
     def test_uses_home_template(self):
         response = self.client.get('/')
