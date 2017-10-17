@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib.patches import Ellipse
 
-from scipy.optimize import fsolve
+# from scipy.optimize import fsolve
 
 import time
 from termcolor import colored
@@ -22,12 +22,14 @@ def ellipse(t, a, b):
 
 def product_ellipse_test_data(a, b, data_count):
     points = [ellipse(t, a, b) for t in np.linspace(0, 2*pi, data_count)]
+    print('points->', points)
     x, y = [np.array(v) for v in list(zip(*points))]
     # print(x[1],x[2], y[1], y[2], '#'*10, type(x), type(y))
     noise = np.random.rand(data_count)/10
     x += noise
     y += noise
     # print('noise->', noise)
+    print('#'*10,'type(x)=' ,type(x),type(y), x, y)
     return x, y
 
 def fit_ellipse(x, y):
@@ -79,7 +81,7 @@ def caculate(A, B, C, D ,E ,F):
     return a, b, angle
 
 if __name__ == '__main__':
-    x, y = product_ellipse_test_data(10, 5, 100)
+    x, y = product_ellipse_test_data(10, 5, 6)
     # print('test data->', x, y)
 
     # print(x[1],x[2], y[1], y[2],'#'*20)
@@ -89,7 +91,7 @@ if __name__ == '__main__':
     print(' A, B, C, D, E, F->',  A, B, C, D, E, F)
     i1,i2,i3,i4 = fit_ellipse_simplify(x, y)
     # i1,i2,i3,i4 = i1/i4,i2/i4,i3/i4,i4/i4
-    print(colored('##', 'red'),'i1,i2,i3,i4 ->',  i1,i2,i3,i4 )
+    print(colored('##', 'red'),'i1,i2,i3,i4 ->',  i1,i2,i3,i4)
 
     a, b , angle = caculate(i1, i2, i3, 0, 0, i4)
     # a, b , angle = caculate(A, B, C, D, E, F)
