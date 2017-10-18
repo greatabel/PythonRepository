@@ -1,6 +1,6 @@
 """ Module B - Provides text processing functions to user """
 
-import i3_a_text as a
+import i3_a_text_bad as a
 
 def common(string1, string2):
     """ Return common words across strings1 1 & 2 """

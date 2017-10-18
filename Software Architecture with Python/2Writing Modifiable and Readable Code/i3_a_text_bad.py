@@ -1,6 +1,6 @@
 """ Module A  - Provides string processing functions """
 
-import i3_b_text as b
+import i3_b_text_bad as b
 
 
 def ntimes(string, char):
