@@ -17,12 +17,25 @@ def ellipse(t, a, b):
     # return a*cos(t), b*sin(t)
     a1 = a*cos(t)
     b1 = b*sin(t)
+    a2 = a1*cos(pi * 5/6)-b1*sin(pi*5/6)
+    b2 = b1*cos(pi*5/6)+a1*sin(pi*5/6)
+    r = sqrt(a2 ** 2 + b2 ** 2)
+    angle = atan(b2 / a2)
+    # if a2 < 0:
+    #     angle += pi
+    # if a2 > 0 and b2 < 0:
+    #     angle += 2*pi
 
-    return a1*cos(pi/2)-b1*sin(pi/2),b1*cos(pi/2)+a1*sin(pi/2)
+    print('#'*5, 'angle=',angle*180/pi, 'r=',r, 'a2=', a2, 'b2=',b2)
+    # return a1*cos(pi/2)-b1*sin(pi/2),b1*cos(pi/2)+a1*sin(pi/2)
+    # return a1*cos(pi/3)-b1*sin(pi/3),b1*cos(pi/3)+a1*sin(pi/3)
+    return a2, b2
 
 def product_ellipse_test_data(a, b, data_count):
     points = [ellipse(t, a, b) for t in np.linspace(0, 2*pi, data_count)]
     print('points->', points)
+    # points = [(10.0, 0.0), (-3.2999999999999985, 5.7157676649772959),
+    #  (-3.3000000000000029, -5.7157676649772933)]
     x, y = [np.array(v) for v in list(zip(*points))]
     # print(x[1],x[2], y[1], y[2], '#'*10, type(x), type(y))
     noise = np.random.rand(data_count)/10
@@ -81,8 +94,8 @@ def caculate(A, B, C, D ,E ,F):
     return a, b, angle
 
 if __name__ == '__main__':
-    x, y = product_ellipse_test_data(10, 5, 6)
-    # print('test data->', x, y)
+    x, y = product_ellipse_test_data(10, 5, 8)
+    print('test data->', x, y)
 
     # print(x[1],x[2], y[1], y[2],'#'*20)
     tic = time.clock()
@@ -95,7 +108,7 @@ if __name__ == '__main__':
 
     a, b , angle = caculate(i1, i2, i3, 0, 0, i4)
     # a, b , angle = caculate(A, B, C, D, E, F)
-    print('a,b, angle->', a, b, angle)
+    print('a,b, angle->', a, b, angle,angle *180/pi)
     # def func(i):
     #         a, b, t = i[0], i[1], i[2]
     #         return (
