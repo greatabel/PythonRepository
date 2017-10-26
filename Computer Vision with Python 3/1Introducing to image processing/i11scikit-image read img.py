@@ -8,4 +8,4 @@ io.show()
 img = io.imread('images/image.jpg')
 print(img.shape)
 
-io.save("images/new_image.jpg", img)
+io.imsave("images/new_image.jpg", img)
