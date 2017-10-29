@@ -47,7 +47,7 @@ for feature in lbp_features:
     print("p.shape, q.shape>", p.shape, q.shape)
     # print(colored('p =>', 'red'), p,'#'*10, q)
     filter_idx = np.logical_and(p != 0, q != 0)
-    print(type(filter_idx), '@'*20, filter_idx)
+    # print(type(filter_idx), '@'*20, filter_idx)
     score = np.sum(p[0][filter_idx] * np.log2(p[0][filter_idx] / q[filter_idx]))
     if score < min_score:
         min_score = score
