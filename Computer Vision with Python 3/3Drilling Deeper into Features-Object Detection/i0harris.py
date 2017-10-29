@@ -6,7 +6,7 @@ from skimage.feature import corner_harris, corner_subpix, corner_peaks
 #Read an image
 image = imread('images/image.jpg')
 image = rgb2gray(image)
-
+# print('height=', image.shape[0])
 #Compute the Harris corners in the image. This returns a corner measure response for each pixel in the image
 corners = corner_harris(image)
 
@@ -20,5 +20,6 @@ fig, ax = plt.subplots()
 ax.imshow(image, interpolation='nearest', cmap=plt.cm.gray)
 ax.plot(coords[:, 1], coords[:, 0], '.b', markersize=3)
 ax.plot(coords_subpix[:, 1], coords_subpix[:, 0], '+r', markersize=15)
-ax.axis((0, 615, 925, 0))
+
+ax.axis((0,  image.shape[1],  image.shape[0], 0))
 plt.show()
