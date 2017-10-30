@@ -1,3 +1,4 @@
+# http://scikit-learn.org/stable/auto_examples/linear_model/plot_iris_logistic.html
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import linear_model, datasets
