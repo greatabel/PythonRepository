@@ -15,7 +15,12 @@ def np_r_demo():
 # np_r_demo()
 
 # data
-np.random.seed(1)
+
+np.random.seed(4)
 
 X = np.r_[np.random.randn(20, 2), np.random.randn(20, 2) + [4, 4]]
-# print(X, X.shape)
+# allows for graphs with width > height without distorting the aspect rati
+X[:, 1] = X[:, 1] / 2.0
+
+y = np.r_[np.zeros(20), np.ones(20)]
+print(y)
