@@ -5,8 +5,8 @@ from sklearn.linear_model import LogisticRegression
 mnist = datasets.load_digits()
 
 images = mnist.images
-# print(type(images), images.shape)
-# print(images[0][0], images[1][0],images[2][1])
+print(type(images), images.shape)
+# print(images[0])
 
 # import matplotlib.pyplot as plt
 # plt.gray() 
@@ -17,9 +17,10 @@ data_size = len(images)
 
 #Preprocessing images
 images = images.reshape(len(images), -1)
+print(type(images), images.shape)
 labels = mnist.target
 
-# print(type(labels), labels.shape, labels[0:20])
+print('labels=',type(labels), labels.shape, labels[0:20])
 
 #Initialize Logistic Regression
 LR_classifier = LogisticRegression(C=0.01, penalty='l1', tol=0.01)
