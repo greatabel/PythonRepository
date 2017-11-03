@@ -10,3 +10,7 @@ images = mnist.data
 labels = mnist.target
 
 print('len(images)=', len(images))
+
+# print(images[0],'\n')
+images = normalize(images, norm='l2')
+# print(images[0])
