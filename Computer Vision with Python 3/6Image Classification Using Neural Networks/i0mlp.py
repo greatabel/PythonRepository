@@ -11,9 +11,11 @@ labels = mnist.target
 
 # print('len(images)=', len(images))
 
+
 # print(images[0],'\n')
 images = normalize(images, norm='l2')
 # print(images[0])
+
 images_train, images_test, labels_train, labels_test =\
     train_test_split(images, labels, test_size=0.25, random_state=17)
 
