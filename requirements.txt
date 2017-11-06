@@ -1,3 +1,4 @@
+bs4
 cryptography
 flake8
 Flask
@@ -31,9 +32,10 @@ redis
 requests
 responses
 six
-scikit-learn==0.19.1
+scikit-learn
 scipy
 sympy
 tensorflow
 SQLAlchemy
 Werkzeug
+zhconv
