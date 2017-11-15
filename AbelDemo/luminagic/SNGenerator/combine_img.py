@@ -1,23 +1,34 @@
-import numpy as np
-import PIL
+import os
 from PIL import Image
 
+# https://gist.github.com/glombard/7cd166e311992a828675
 
-list_im =  [
+files =  [
     'sns/M0BGDK15000101PLOWCHD52329b30.jpg', 
     'sns/M0BGDK15000301ST9VEMKZUV41ca4.jpg',
     'sns/M0BGDK15000401MGWCC5NKLPdc207.jpg',
-    'sns/M0BGDK15000501YJHQGEFWQE8769d.jpg']
-imgs    = [ PIL.Image.open(i) for i in list_im ]
-# pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)
-min_shape = sorted( [(np.sum(i.size), i.size ) for i in imgs])[0][1]
-imgs_comb = np.hstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
+    'sns/M0BGDK15000501YJHQGEFWQE8769d.jpg',
+    'sns/M0BGDK15000701YOINHTDLKJ93641.jpg',
+    'sns/M0BGDK15000801YG5EVA4ZK1b3569.jpg',
+    'sns/M0BGDK15000101PLOWCHD52329b30.jpg', 
+    'sns/M0BGDK15000301ST9VEMKZUV41ca4.jpg',
+    'sns/M0BGDK15000401MGWCC5NKLPdc207.jpg',
+    'sns/M0BGDK15000501YJHQGEFWQE8769d.jpg',
+    'sns/M0BGDK15000701YOINHTDLKJ93641.jpg',
+    'sns/M0BGDK15000801YG5EVA4ZK1b3569.jpg'
+    ]
 
-# save that beautiful picture
-imgs_comb = PIL.Image.fromarray( imgs_comb)
-imgs_comb.save( 'sns/Trifecta.jpg' )    
+result = Image.new("RGB", (1200, 1600))
 
-# for a vertical stacking it is simple: use vstack
-imgs_comb = np.vstack( (np.asarray( i.resize(min_shape) ) for i in imgs ) )
-imgs_comb = PIL.Image.fromarray( imgs_comb)
-imgs_comb.save( 'sns/Trifecta_vertical.jpg' )
+for index, file in enumerate(files):
+  path = os.path.expanduser(file)
+  img = Image.open(path)
+  img.thumbnail((400, 400), Image.ANTIALIAS)
+  print('index=', index)
+  x = index // 4 * 400
+  y = index % 4 * 400
+  w, h = img.size
+  print('pos {0},{1} size {2},{3}'.format(x, y, w, h))
+  result.paste(img, (x, y, x + w, y + h))
+
+result.save('sns/image.jpg')
