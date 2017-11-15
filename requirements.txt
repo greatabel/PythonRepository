@@ -16,10 +16,12 @@ Mako
 MarkupSafe
 matplotlib
 mccabe
+myqr
 numpy
 nose
 pep8-naming
 pandas
+pillow
 pycodestyle
 pyflakes
 PyMySQL
