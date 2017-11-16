@@ -116,7 +116,7 @@ def add_text_to_image(sn):
     font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
     img = Image.open("./sns/"+sn + ".jpg")
     draw = ImageDraw.Draw(img)
-    draw.text((45,5), "S/N:"+sn, (10), font=font)
+    draw.text((55,5), "S/N:"+sn, (10), font=font)
     draw = ImageDraw.Draw(img)
     img.save("./sns/"+sn + ".jpg")
 
