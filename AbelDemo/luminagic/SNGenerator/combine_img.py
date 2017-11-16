@@ -22,29 +22,6 @@ files.remove("sns/bg.jpg")
 chunks = [files[x:x+12] for x in range(0, len(files), 12)]
 
 
-
-# files =  [
-#     'sns/M0BGDK16000101HVIMGWTTZN4ca56.jpg',
-#     'sns/M0BGDK160002014XR620EKNSa664e.jpg',
-#     'sns/M0BGDK160003016TYVE4QXFKa62aa.jpg',
-#     'sns/M0BGDK16000401WWZPTDLF7Lec8a0.jpg',
-#     'sns/M0BGDK16000501G24CPGSK3W06f11.jpg',
-#     'sns/M0BGDK16000601Z3UNSEG8E444515.jpg',
-#     'sns/M0BGDK160007010EYLS1YDMI3ab87.jpg',
-#     'sns/M0BGDK16000801CPEJT7ANYUa92da.jpg',
-#     'sns/M0BGDK16000901BOJUOETFTZc42c9.jpg',
-#     'sns/M0BGDK16001001UHT15VED3Je4ca8.jpg',
-#     'sns/M0BGDK16001101J9BOG3EET42e18a.jpg',
-#     'sns/M0BGDK16001201KVGUE3GAQO17b1d.jpg',
-#     'sns/M0BGDK16001301V3P4IZE2OB2d669.jpg',
-#     'sns/M0BGDK160014013BIP2R1MHL5571b.jpg',
-#     'sns/M0BGDK16001501I1YUPHFDK487f99.jpg',
-#     'sns/M0BGDK16001601A1XECWOD721cec3.jpg',
-#     'sns/M0BGDK16001701YLRCJOWUP91db0d.jpg',
-#     'sns/M0BGDK160018018VFTDD3XQL3af51.jpg',
-#     'sns/M0BGDK16001901YLKZJN0NVV2bea3.jpg',
-#     'sns/M0BGDK16002001YEWBR2R8A6cff9c.jpg'
-#     ]
 for pageindex, files in enumerate(chunks):
   print(pageindex, files)
   scale = 400
