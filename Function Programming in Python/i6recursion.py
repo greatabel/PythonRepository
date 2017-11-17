@@ -15,5 +15,15 @@ def factorialR(N):
     assert isinstance(N, int) and N >= 1
     return 1 if N <= 1 else N * factorialR(N-1)
 
-n = factorialR(5)
-print("factorialR=", n)
+def factorialI(N):
+    "Iterative factorial function"
+    assert isinstance(N, int) and N >= 1
+    product = 1
+    while N >= 1:
+        product *= N
+        N -= 1
+    return product
+
+nr = factorialR(5)
+ni = factorialI(5)
+print("factorialR=", nr, "factorialI=", ni)
