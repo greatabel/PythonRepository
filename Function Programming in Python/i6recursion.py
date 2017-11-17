@@ -9,3 +9,11 @@ def running_sum(numbers, start=0):
 numbers = list(range(10))
 print('numbers=', numbers)
 running_sum(numbers)
+
+def factorialR(N):
+    "Recursive factorial function"
+    assert isinstance(N, int) and N >= 1
+    return 1 if N <= 1 else N * factorialR(N-1)
+
+n = factorialR(5)
+print("factorialR=", n)
