@@ -1,5 +1,6 @@
 bs4
 cryptography
+dlib
 flake8
 Flask
 Flask-Caching
