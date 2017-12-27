@@ -34,6 +34,7 @@ pytz
 redis
 requests
 responses
+simplejson
 six
 scikit-learn
 scipy
