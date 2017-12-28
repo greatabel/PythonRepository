@@ -34,6 +34,7 @@ pytz
 redis
 requests
 responses
+seaborn
 simplejson
 six
 scikit-learn
