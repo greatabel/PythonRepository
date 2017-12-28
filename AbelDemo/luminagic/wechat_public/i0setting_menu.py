@@ -24,6 +24,26 @@ d = json.loads(r.text)
 ACCESS_TOKEN = d['access_token']
 print(ACCESS_TOKEN)
 
+
+# https://segmentfault.com/q/1010000002663185
+headers = {'Content-Type': 'application/json', "charset": "utf-8"}
+
+url_grouplist = 'https://api.weixin.qq.com/cgi-bin/groups/get?access_token=' + ACCESS_TOKEN
+# group_json = {
+#                   "begin": 0,
+#                   "count": 10
+#              }
+# json_string = simplejson.dumps(group_json, ensure_ascii=False).encode('utf8')
+r_group = requests.get(url_grouplist,  headers=headers)
+dev_group_id = -1
+groups = json.loads(r_group.text)['groups']
+for item in groups:
+    if item['name'] == 'dev':
+        dev_group_id = item['id']
+print('dev_group_id=', dev_group_id)
+
+
+
 menu_json = {
     "button": [
         {
@@ -53,7 +73,13 @@ menu_json = {
 
                  }, 
             ]
-        }, 
+        }
+    ]
+}
+
+conditional_menu_json = {
+    "button": [
+
         {
             "name": "开发", 
             "sub_button": [
@@ -83,11 +109,17 @@ menu_json = {
                  }, 
             ]
         }
-    ]
+    ],
+    "matchrule":{ "tag_id": dev_group_id}
 }
-# https://segmentfault.com/q/1010000002663185
-headers = {'Content-Type': 'application/json', "charset": "utf-8"}
+
 url_menu = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' + ACCESS_TOKEN
+url_condition_menu = 'https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=' + ACCESS_TOKEN
+
 json_string = simplejson.dumps(menu_json, ensure_ascii=False).encode('utf8')
+condition_json_string = simplejson.dumps(conditional_menu_json, ensure_ascii=False).encode('utf8')
+#  设置menu
 r1 = requests.post(url_menu, data=json_string, headers=headers)
 print('r1.text = ', r1.text)
+r2 = requests.post(url_condition_menu, data=condition_json_string, headers=headers)
+print('r1.text = ', r2.text)
