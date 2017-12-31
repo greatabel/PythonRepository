@@ -1,6 +1,7 @@
 bs4
 cryptography
 dlib
+facebook-wda
 flake8
 Flask
 Flask-Caching

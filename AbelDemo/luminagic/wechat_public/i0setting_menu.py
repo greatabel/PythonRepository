@@ -19,7 +19,7 @@ url_get_token = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_crede
 r = requests.get(url_get_token)
 d = json.loads(r.text)
 
-
+# print('d=', d)
 
 ACCESS_TOKEN = d['access_token']
 print(ACCESS_TOKEN)
@@ -79,7 +79,34 @@ menu_json = {
 
 conditional_menu_json = {
     "button": [
+        {
+            "type": "view",
+            "name": "MeoMo测量",
+            "url": "http://app.meomo.cn"
+        },
+        {
+            "name": "客户服务", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "售后服务", 
+                    "url": "http://www.meomo.cn/#faq"
 
+                 }, 
+                {
+                    "type": "view", 
+                    "name": "APP下载", 
+                    "url": "http://www.meomo.cn/#app"
+
+                 }, 
+                {
+                    "type": "view", 
+                    "name": "在线专家咨询", 
+                    "url": "http://www.meomo.cn/#_8"
+
+                 }, 
+            ]
+        },
         {
             "name": "开发", 
             "sub_button": [
@@ -122,4 +149,4 @@ condition_json_string = simplejson.dumps(conditional_menu_json, ensure_ascii=Fal
 r1 = requests.post(url_menu, data=json_string, headers=headers)
 print('r1.text = ', r1.text)
 r2 = requests.post(url_condition_menu, data=condition_json_string, headers=headers)
-print('r1.text = ', r2.text)
+print('r2.text = ', r2.text)
