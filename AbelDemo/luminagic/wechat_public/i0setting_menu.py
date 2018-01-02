@@ -49,7 +49,7 @@ menu_json = {
         {
             "type": "view",
             "name": "MeoMo测量",
-            "url": "http://app.meomo.cn"
+            "url": "https://app.meomo.cn"
         },
         {
             "name": "客户服务", 
@@ -82,7 +82,7 @@ conditional_menu_json = {
         {
             "type": "view",
             "name": "MeoMo测量",
-            "url": "http://app.meomo.cn"
+            "url": "https://app.meomo.cn"
         },
         {
             "name": "客户服务", 
@@ -113,19 +113,19 @@ conditional_menu_json = {
                 {
                     "type": "view", 
                     "name": "Test", 
-                    "url": "http://app-test.meomo.cn/"
+                    "url": "https://app-test.meomo.cn"
 
                  }, 
                 {
                     "type": "view", 
                     "name": "Dev", 
-                    "url": "http://app-dev.meomo.cn/"
+                    "url": "https://app-dev.meomo.cn"
 
                  }, 
                 {
                     "type": "view", 
                     "name": "Exp", 
-                    "url": "http://app-exp.meomo.cn/"
+                    "url": "https://app-exp.meomo.cn"
 
                  }, 
                 {
