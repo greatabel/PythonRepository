@@ -9,7 +9,10 @@ import PIL
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
+import shutil
+import os
 
+mypath = 'SNS/sns'
 color_dic = {
     # we may add in future
     'Purple': 'P',
@@ -31,7 +34,8 @@ sn_config = {
     'sha_digits': 5,
     'source_digits': 24
 }   
-sn_prefix_url = 'https://app-test.meomo.cn/#!/register/' 
+# sn_prefix_url = 'https://app-test.meomo.cn/#!/register/'
+sn_prefix_url = 'https://app.meomo.cn/#!/register/'
 
 def sha(pw,salt):                     
     pw_bytes = pw.encode('utf-8')
@@ -107,19 +111,23 @@ def sn_generator():
     for sn in sn_list:
         print_sn = sn_prefix_url + sn
         print(print_sn)
-        bashCommand = "myqr "+ print_sn + " -n "+ sn + ".jpg  -d ./sns"
+        bashCommand = "myqr "+ print_sn + " -n "+ sn + ".jpg  -d ./SNS/sns"
         output = subprocess.check_output(['bash','-c', bashCommand])
         add_text_to_image(sn)
 
 
 def add_text_to_image(sn):
     font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 20)
-    img = Image.open("./sns/"+sn + ".jpg")
+    img = Image.open( mypath + "/"+sn + ".jpg")
     draw = ImageDraw.Draw(img)
     draw.text((55,5), "S/N:"+sn, (10), font=font)
     draw = ImageDraw.Draw(img)
-    img.save("./sns/"+sn + ".jpg")
+    img.save( mypath + "/"+sn + ".jpg")
 
-if __name__ == '__main__':
+if __name__ == '__main__':    
+    if os.path.isdir(mypath):
+        shutil.rmtree('SNS/sns')
+    if not os.path.isdir(mypath):
+        os.makedirs(mypath)
     # python3 i0sn_generator0.0.1.py -color="Green" -pdate='2018-01-19' -sku='B' -num=50 -vendor='Meomo'
     sn_generator()

@@ -14,7 +14,7 @@ def overlay(originalImg):
   l_img[y_offset:y_offset+s_img.shape[0], x_offset:x_offset+s_img.shape[1]] = s_img
   cv2.imwrite(originalImg, l_img)
 
-files = sorted(glob.glob("sns/*.jpg"))
+files = sorted(glob.glob("SNS/sns/*.jpg"))
 # files.remove("sns/bg.jpg")
 
 # sorted(mylist, key=lambda name: int(name[10:17]) if  name else -1 )
@@ -39,4 +39,4 @@ for pageindex, files in enumerate(chunks):
     print('pos {0},{1} size {2},{3}'.format(x, y, w, h))
     result.paste(img, (x, y, x + w, y + h))
 
-  result.save('sns/'+str(pageindex) +'page.jpg')
+  result.save('SNS/'+str(pageindex) +'page.jpg')
