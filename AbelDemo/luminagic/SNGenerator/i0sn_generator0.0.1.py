@@ -13,6 +13,7 @@ import shutil
 import os
 
 mypath = 'SNS/sns'
+mysns_file = 'SNS/sn.txt'
 color_dic = {
     # we may add in future
     'Purple': 'P',
@@ -35,7 +36,7 @@ sn_config = {
     'source_digits': 24
 }   
 # sn_prefix_url = 'https://app-test.meomo.cn/#!/register/'
-sn_prefix_url = 'https://app.meomo.cn/#!/register/'
+sn_prefix_url = 'https://app.meomo.cn/#/register/'
 
 def sha(pw,salt):                     
     pw_bytes = pw.encode('utf-8')
@@ -108,6 +109,13 @@ def sn_generator():
     print(parser_result.sku, parser_result.color, parser_result.pdate)
     sn_list = genereate_devicetoken(parser_result)
     # print(sn_list)
+    if os.path.isfile(mysns_file):
+        os.remove(mysns_file)
+    mode = 'a' if os.path.exists(mysns_file) else 'w'
+    with open(mysns_file, mode) as f:
+        for sn in sn_list:
+            f.write(sn+'\n')
+
     for sn in sn_list:
         print_sn = sn_prefix_url + sn
         print(print_sn)
@@ -129,5 +137,6 @@ if __name__ == '__main__':
         shutil.rmtree('SNS/sns')
     if not os.path.isdir(mypath):
         os.makedirs(mypath)
+
     # python3 i0sn_generator0.0.1.py -color="Green" -pdate='2018-01-19' -sku='B' -num=50 -vendor='Meomo'
     sn_generator()

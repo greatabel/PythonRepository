@@ -1,6 +1,6 @@
 import csv
 import sql_generator_config
-
+import os
 
 def read_file(filename):
     sns = []
@@ -10,7 +10,7 @@ def read_file(filename):
     return sns
 
 def generate_sql(sns):
-    sql = ""
+    sql = "use sharingan;\n"
     for sn in sns:
         source = 'Meomo'
         if len(sn) == 12:
@@ -24,10 +24,14 @@ WHERE NOT EXISTS (\
     return sql
 
 if __name__ == '__main__':
-    sns = read_file('sn_demo.txt')
+    sns = read_file('SNS/sn.txt')
     sql = generate_sql(sns)
     print(sql)
-    with open('insert_demo.sql', 'wt') as f:
+    sql_file = 'SNS/insert.sql'
+    if os.path.isfile(sql_file):
+        os.remove(sql_file)
+    mode = 'a' if os.path.exists(sql_file) else 'w'
+    with open(sql_file, mode) as f:
         f.write(sql)
 
 
