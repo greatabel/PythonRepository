@@ -8,14 +8,14 @@ import cv2
 
 def overlay(originalImg):
   s_img = cv2.imread(originalImg)
-  l_img = cv2.imread("sns/bg.jpg")
+  l_img = cv2.imread("Resources/bg.jpg")
   x_offset=130
   y_offset=210
   l_img[y_offset:y_offset+s_img.shape[0], x_offset:x_offset+s_img.shape[1]] = s_img
   cv2.imwrite(originalImg, l_img)
 
 files = sorted(glob.glob("sns/*.jpg"))
-files.remove("sns/bg.jpg")
+# files.remove("sns/bg.jpg")
 
 # sorted(mylist, key=lambda name: int(name[10:17]) if  name else -1 )
 # print(mylist)

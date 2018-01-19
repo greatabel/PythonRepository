@@ -121,5 +121,5 @@ def add_text_to_image(sn):
     img.save("./sns/"+sn + ".jpg")
 
 if __name__ == '__main__':
-    # python3 sn_generator0.0.1.py -color="Green" -pdate='2017-02-15' -sku='B' -num=50 -vendor='Meomo'
+    # python3 i0sn_generator0.0.1.py -color="Green" -pdate='2018-01-19' -sku='B' -num=50 -vendor='Meomo'
     sn_generator()
