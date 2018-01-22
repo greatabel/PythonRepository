@@ -8,7 +8,8 @@ pip3 install --upgrade -r requirements.txt
 Are all codes and extensions related to list of 
 http://www.douban.com/doulist/608714/
 
-folder of "01Learn Python The Hard Way" are all codes and extensions related to:
+# folder of "01Learn Python The Hard Way" 
+are all codes and extensions related to:
 http://book.douban.com/subject/10486432/ in list of 
 http://www.douban.com/doulist/608714/
 
