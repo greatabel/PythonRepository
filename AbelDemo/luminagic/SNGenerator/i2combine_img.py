@@ -5,13 +5,14 @@ import glob
 import cv2
 
 
-
 def overlay(originalImg):
   s_img = cv2.imread(originalImg)
   l_img = cv2.imread("Resources/bg.jpg")
   x_offset=130
   y_offset=210
+
   l_img[y_offset:y_offset+s_img.shape[0], x_offset:x_offset+s_img.shape[1]] = s_img
+  l_img = cv2.resize(l_img,(900,900))
   cv2.imwrite(originalImg, l_img)
 
 files = sorted(glob.glob("SNS/sns/*.jpg"))
@@ -24,8 +25,8 @@ chunks = [files[x:x+12] for x in range(0, len(files), 12)]
 
 for pageindex, files in enumerate(chunks):
   print(pageindex, files)
-  scale = 400
-  result = Image.new("RGB", (scale*3, scale*4))
+  scale = 800
+  result = Image.new("CMYK", (scale*3, scale*4))
 
   for index, file in enumerate(files):
     overlay(file)
