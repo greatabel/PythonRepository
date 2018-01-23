@@ -1,6 +1,7 @@
 import threading
 import time
 
+
 exit_Flag = 0
 
 def print_time(threadName, delay, counter):
@@ -9,7 +10,7 @@ def print_time(threadName, delay, counter):
         if exit_Flag:
             thread.exit()
         time.sleep(delay)
-        print ("%s: %s" % (threadName, time.ctime(time.time())))
+        print ("%s: %s" % (threadName, time.ctime(time.time()) ))
         counter -= 1
 
 class myThread(threading.Thread):
@@ -23,6 +24,7 @@ class myThread(threading.Thread):
         print ("Starting " + self.name + "\n")
         print_time(self.name, self.counter, 5)
         print ("Exiting " + self.name + "\n")
+
 
 if __name__ == "__main__":
     print("Start Main Thread")
