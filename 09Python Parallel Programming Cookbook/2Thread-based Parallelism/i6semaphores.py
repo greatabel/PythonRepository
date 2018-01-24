@@ -6,12 +6,15 @@ semaphore = threading.Semaphore(0)
 
 def consumer():
     print("consumer is waiting")
+    semaphore.acquire()
+    print ("Consumer notify : consumed item number %s " %item)
 
 def producer():
     global item
     time.sleep(1.5)
     item = random.randint(0, 100)
     print ("producer notify : producted item number %s" %item)
+    semaphore.release()
 
 if __name__ == '__main__':
     for i in range (5):
