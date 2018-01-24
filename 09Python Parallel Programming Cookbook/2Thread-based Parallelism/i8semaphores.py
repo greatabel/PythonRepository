@@ -3,6 +3,9 @@ import time
 import logging
 from random import random
 
+# http://www.bogotobogo.com/python/Multithread/
+# python_multithreading_Synchronization_Semaphore_Objects_Thread_Pool.php
+
 logging.basicConfig(level=logging.DEBUG,
                     format='(%(threadName)-9s) %(message)s',)
 
