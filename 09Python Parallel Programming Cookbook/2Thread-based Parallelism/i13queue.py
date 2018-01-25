@@ -8,10 +8,26 @@ class producer(Thread):
         Thread.__init__(self)
         self.queue = queue
 
+    def run(self):
+        for i in range(10):
+            item = random.randint(0, 256)
+            self.queue.put(item)
+            print ('Producer notify : item N° %d appended to queue by %s \n'\
+                    % (item, self.name))
+            time.sleep(0.2)
+
 class consumer(Thread):
     def __init__(self, queue):
         Thread.__init__(self)
         self.queue = queue
+
+    def run(self):
+        while True:
+            item = self.queue.get()
+            print ('Consumer notify : %d popped from queue by %s'\
+                   % (item, self.name))
+            self.queue.task_done()
+
 
 if __name__ == '__main__':
         queue = Queue()
