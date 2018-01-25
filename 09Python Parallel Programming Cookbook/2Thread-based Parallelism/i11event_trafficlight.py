@@ -1,4 +1,5 @@
 import time
+import datetime
 import threading
 from threading import Thread, Event
 import random
@@ -20,15 +21,16 @@ class VehicleThread(Thread):
         time.sleep(random.randrange(1, 10))
 
         # prints arrival time of car at intersection
-        print("%s arrived at %s" % \
-              (self.getName(), time.ctime(time.time())) )
+        print("%s 到达 at %s" % \
+              (self.getName(), now_time()) )
+
 
         # wait for green light
         self.threadEvent.wait()
 
         # displays time that car departs intersection
-        print( "%s passes through intersection at %s" % \
-              (self.getName(), time.ctime(time.time())) )
+        print( "%s 穿过 🚥 at %s" % \
+              (self.getName(), now_time()) )
 
 
 def main():
@@ -37,7 +39,7 @@ def main():
     
     # creates and starts ten Vehicle threads
     for i in range(1, 11):
-        vehicleThreads.append(VehicleThread("Vehicle" + str(i),
+        vehicleThreads.append(VehicleThread("🚗" + str(i),
                                             greenLight))
     
     for vehicle in vehicleThreads:
@@ -46,13 +48,15 @@ def main():
     while threading.activeCount() > 1:
         # sets the Event's flag to false -- block all incoming vehicles
         greenLight.clear()
-        print(colored("RED LIGHT! at", "red"), time.ctime(time.time()) )
+        print(colored("RED LIGHT! at", "red", attrs=['reverse', 'blink']), now_time())
         time.sleep(3)
     
         # sets the Event's flag to true -- awaken all waiting vehicles
-        print(colored("GREEN LIGHT! at", "green"), time.ctime(time.time()) )
+        print(colored("GREEN LIGHT! at", "green", attrs=['reverse', 'blink']), now_time() )
         greenLight.set()
         time.sleep(1)
 
+def now_time():
+    return datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
 if __name__ == '__main__':
     main()
