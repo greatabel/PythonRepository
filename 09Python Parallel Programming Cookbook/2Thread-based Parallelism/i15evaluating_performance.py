@@ -28,8 +28,12 @@ def show_results(func_name, results):
     print ("%-23s %4.6f seconds"\
                % (func_name, results))
 
+# def function_to_run():
+#     pass
 def function_to_run():
-    pass
+    a, b = 0, 1
+    for i in range(10000):
+        a, b = b , a + b
 
 if __name__ == "__main__":
      import sys
