@@ -25,6 +25,7 @@ pep8-naming
 pandas
 pillow
 pycodestyle
+pycryptodome
 pyflakes
 PyMySQL
 python-dateutil
