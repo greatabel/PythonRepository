@@ -69,14 +69,14 @@ emailname = 'movoto1@126.com'
 driver.execute_script("$(arguments[0]).click(); $(arguments[0]).val('xiaoming8@hotmail.com')", email)
 # email.click()
 sleep(3)
-# email.send_keys("greatabel1@126.com") # Send the users email
+# email.send_keys("gr@126.com") # Send the users email
 pwd = driver.find_element_by_id("wrapper").find_element_by_id("exampleInputPassword1") # Find the password field of the login form
-# driver.execute_script("$(arguments[0]).click(); $(arguments[0]).value='abel1024'", pwd)
+# driver.execute_script("$(arguments[0]).click(); $(arguments[0]).value='abcd'", pwd)
 driver.execute_script("$(arguments[0]).click(); $(arguments[0]).val('abel1234')", pwd)
 print('pwd=',pwd)
 sleep(3)
 # pwd.click()
-# pwd.send_keys("1048576") # send the users password
+# pwd.send_keys("12") # send the users password
 # elem.send_keys(Keys.RETURN) # press the enter key
 # driver.find_element_by_name("submit").click()
 submit = driver.find_element_by_id("wrapper").find_element_by_css_selector('.btn.btn-primary.btn-block.btn-lg') # Find the password field of the login form
