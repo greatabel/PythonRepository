@@ -43,6 +43,7 @@ https://book.douban.com/subject/27182231/
 # 11Computer Vision with Python 3
 https://book.douban.com/subject/27184753/
 
+# others
 <b>folder of ProjectEuler:</b>
 https://projecteuler.net/archives
 
