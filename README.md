@@ -43,5 +43,12 @@ https://book.douban.com/subject/27182231/
 # 11Computer Vision with Python 3
 https://book.douban.com/subject/27184753/
 
-"ProjectEuler":
+<b>folder of ProjectEuler:</b>
 https://projecteuler.net/archives
+
+<b>folder of PyDouList:</b>
+synchronizating local readen book folder by your Douban history
+and doulist(根据自己豆瓣历史和豆列同步整理本地书籍)
+
+<b>folder of PyPirate:</b>
+After reading pre-sale web book, save it to local: automatic login, capture, snapshot, organize pngs(给没开卖前试读web版做自动登录、抓取、快照、整理功能)
