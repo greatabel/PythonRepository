@@ -55,9 +55,9 @@ menu_json = {
             "name": "客户服务", 
             "sub_button": [
                 {
-                    "type": "view", 
+                    "type": "media_id", 
                     "name": "售后服务", 
-                    "url": "http://www.meomo.cn/#faq"
+                    "media_id": "get from i1material.py result"
 
                  }, 
                 {
@@ -88,9 +88,9 @@ conditional_menu_json = {
             "name": "客户服务", 
             "sub_button": [
                 {
-                    "type": "view", 
+                    "type": "media_id", 
                     "name": "售后服务", 
-                    "url": "http://www.meomo.cn/#faq"
+                    "media_id": "get from i1material.py result"
 
                  }, 
                 {
@@ -145,6 +145,7 @@ url_condition_menu = 'https://api.weixin.qq.com/cgi-bin/menu/addconditional?acce
 
 json_string = simplejson.dumps(menu_json, ensure_ascii=False).encode('utf8')
 condition_json_string = simplejson.dumps(conditional_menu_json, ensure_ascii=False).encode('utf8')
+# print(condition_json_string)
 #  设置menu
 r1 = requests.post(url_menu, data=json_string, headers=headers)
 print('r1.text = ', r1.text)
