@@ -28,6 +28,7 @@ pillow
 pycodestyle
 pycryptodome
 pyflakes
+pygraphviz
 PyMySQL
 python-dateutil
 python-editor
