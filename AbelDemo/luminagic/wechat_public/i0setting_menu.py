@@ -19,7 +19,7 @@ url_get_token = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_crede
 r = requests.get(url_get_token)
 d = json.loads(r.text)
 
-# print('d=', d)
+print('d=', d)
 
 ACCESS_TOKEN = d['access_token']
 print(ACCESS_TOKEN)
@@ -48,8 +48,8 @@ menu_json = {
     "button": [
         {
             "type": "view",
-            "name": "MeoMo测量",
-            "url": "https://app.meomo.cn"
+            "name": "APP下载",
+            "url": "http://www.meomo.cn/#app"
         },
         {
             "name": "客户服务", 
@@ -57,32 +57,26 @@ menu_json = {
                 {
                     "type": "media_id", 
                     "name": "售后服务", 
-                    "media_id": "get from i1material.py result"
+                    "media_id": "Sp7vV5TVqSw7PQKK2VowSzjuMRiNE3qRQqfh9FPFoN0"
 
                  }, 
                 {
                     "type": "view", 
-                    "name": "APP下载", 
-                    "url": "http://www.meomo.cn/#app"
-
-                 }, 
-                {
-                    "type": "view", 
-                    "name": "在线专家咨询", 
-                    "url": "http://www.meomo.cn/#_8"
+                    "name": "使用方法", 
+                    "url": "http://www.meomo.cn/#_6"
 
                  }, 
             ]
         }
     ]
 }
-
+# "media_id": "get from i1material.py result"
 conditional_menu_json = {
     "button": [
         {
             "type": "view",
-            "name": "MeoMo测量",
-            "url": "https://app.meomo.cn"
+            "name": "APP下载",
+            "url": "http://www.meomo.cn/#app"
         },
         {
             "name": "客户服务", 
@@ -90,19 +84,13 @@ conditional_menu_json = {
                 {
                     "type": "media_id", 
                     "name": "售后服务", 
-                    "media_id": "get from i1material.py result"
+                    "media_id": "Sp7vV5TVqSw7PQKK2VowSzjuMRiNE3qRQqfh9FPFoN0"
 
                  }, 
                 {
                     "type": "view", 
-                    "name": "APP下载", 
-                    "url": "http://www.meomo.cn/#app"
-
-                 }, 
-                {
-                    "type": "view", 
-                    "name": "在线专家咨询", 
-                    "url": "http://www.meomo.cn/#_8"
+                    "name": "使用方法", 
+                    "url": "http://www.meomo.cn/#_6"
 
                  }, 
             ]

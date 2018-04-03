@@ -11,6 +11,7 @@ Flask-RESTful
 Flask-Script
 Flask-SQLAlchemy
 grip
+h5py
 ipython
 jupyter
 Jinja2
