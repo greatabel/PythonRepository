@@ -44,9 +44,6 @@ https://book.douban.com/subject/27182231/
 https://book.douban.com/subject/27184753/
 
 # others
-<b>folder of ProjectEuler:</b>
-https://projecteuler.net/archives
-
 <b>folder of PyDouList:</b>
 synchronizating local readen book folder by your Douban history
 and doulist(根据自己豆瓣历史和豆列同步整理本地书籍)
