@@ -1,2 +1,0 @@
-def speak():
-    print("woof")
