@@ -100,4 +100,4 @@ def test_basic_asr():
 if __name__ == "__main__":
     for i in range(0, 100):
         test_basic_asr()
-        time.sleep(10)
+        time.sleep(3)
