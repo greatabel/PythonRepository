@@ -5,4 +5,4 @@
 
 停止Redis: redis-cli SHUTDOWN
 
-配置文件位置：/usr/local/etc/redis.conf
+osx配置文件位置：/usr/local/etc/redis.conf
