@@ -6,3 +6,7 @@
 停止Redis: redis-cli SHUTDOWN
 
 osx配置文件位置：/usr/local/etc/redis.conf
+
+切换到不同的数据库下: 
+redis> select 2
+redis> keys *

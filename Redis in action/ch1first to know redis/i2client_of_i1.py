@@ -19,8 +19,9 @@ class TestCh01(unittest.TestCase):
         conn = self.conn
         import pprint
 
-        article_id = str(post_article(conn, 'username', 'A title', 'http://www.google.com'))
-
+        article_id = str(post_article(conn, 'A username', 'A title', 'http://www.google.com'))
+        print("We posted a new article with id:", article_id)
+        self.assertTrue(article_id)
         print('end  ', '#'*20)
 
 if __name__ == '__main__':
