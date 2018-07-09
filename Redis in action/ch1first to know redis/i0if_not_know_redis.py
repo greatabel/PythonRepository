@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import calendar, time
 from random import randint
+from termcolor import colored
 # https://stackoverflow.com/questions/5067218/get-utc-timestamp-in-python-with-datetime
 
 articleid_time = {}
@@ -34,7 +35,9 @@ def generate_articleid_users():
 
 def main():
     generate_articleid_time()
+    print(colored('-'*30, 'red'))
     generate_articleid_score()
+    print(colored('-'*30, 'blue'))
     generate_articleid_users()
 
 if __name__ == "__main__":
