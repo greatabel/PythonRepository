@@ -13,6 +13,7 @@ Flask-SQLAlchemy
 grip
 h5py
 ipython
+jieba
 jupyter
 Jinja2
 keras
@@ -44,6 +45,7 @@ simplejson
 six
 scikit-learn
 scipy
+scrapy
 sympy
 tensorflow
 SQLAlchemy
