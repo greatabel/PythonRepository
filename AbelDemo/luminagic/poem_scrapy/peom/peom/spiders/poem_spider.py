@@ -2,9 +2,14 @@ import scrapy
 
 class PoemSpider(scrapy.Spider):
     # 爬虫唯一标识
+
+    # scrapy crawl poems -o poems.csv
+    
     name = 'poems'
 
-    start_urls = ['https://www.gushiwen.org/gushi/']
+    start_urls = ['https://www.gushiwen.org/gushi/tangshi.aspx',
+                  'https://so.gushiwen.org/gushi/sanbai.aspx', 
+                  'https://www.gushiwen.org/gushi/xiaoqi.aspx']
 
     def parse(self, response):
             for article_url in response.css('a ::attr("href")').extract():
