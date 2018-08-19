@@ -47,7 +47,9 @@ scikit-learn
 scipy
 scrapy
 sympy
-tensorflow
+snownlp
 SQLAlchemy
+tensorflow
+textblob
 Werkzeug
 zhconv

@@ -1,7 +1,8 @@
 import string
 import random
- 
-characters = string.ascii_uppercase + string.digits + string.ascii_lowercase
+
+special_chs = "()`~!@#$%^&*-+=|{}[]:;'<>,.?/" 
+characters = string.ascii_uppercase + string.digits + string.ascii_lowercase + special_chs
  
 digits = string.digits
 def id_generator(size=6, chars=characters ):
