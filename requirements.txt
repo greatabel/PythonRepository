@@ -23,6 +23,7 @@ MarkupSafe
 matplotlib
 mccabe
 myqr
+mysql-connector
 numpy
 nose
 pep8-naming
@@ -32,6 +33,7 @@ pycodestyle
 pycryptodome
 pyflakes
 pygraphviz
+pymongo
 PyMySQL
 python-dateutil
 python-editor
