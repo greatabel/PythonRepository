@@ -10,7 +10,7 @@ qy_wechat_agentid = environ.get('qy_wechat_agentid')
 qy_wechat_touser = environ.get('qy_wechat_touser')
 
 
-
+mockcached_access_token = ''
 
 class MsgSender:
     TOKEN_URL = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s'
@@ -23,6 +23,7 @@ class MsgSender:
         resp = json.loads(r.text)
         if resp['errcode'] or resp['access_token'] == '':
             return None
+        mockcached_access_token = resp['access_token']
         return resp['access_token']
 
     def post_wq_msg(self, access_token, qy_wechat_touser, qy_wechat_agentid):
@@ -40,10 +41,14 @@ class MsgSender:
         headers = {'Content-Type': 'application/json', "charset": "utf-8"}
         r = requests.post(self.SEND_MSG_URL % (access_token), data=json_string, headers=headers)
         resp = json.loads(r.text)
+        if resp['errcode'] == 40014 or resp['errmsg'] == 'invalid access_token':
+            self.get_access_token()
         print('r1.text = ', resp)
 
     def send(self):
-        access_token = self.get_access_token()
+        access_token = mockcached_access_token
+        if access_token == '':
+            access_token = self.get_access_token()
         print('access_token=', access_token)
         self.post_wq_msg(access_token, qy_wechat_touser, qy_wechat_agentid)
 
