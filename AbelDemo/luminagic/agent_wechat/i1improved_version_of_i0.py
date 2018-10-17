@@ -1,7 +1,7 @@
 import requests
 from os import environ
 import json
-import simplejson
+
 
 
 qy_wechat_corpid = environ.get('qy_wechat_corpid')
@@ -37,7 +37,10 @@ class MsgSender:
            },
            "safe":0
         }
-        json_string = simplejson.dumps(SEND_MSG_JSON, ensure_ascii=False).encode('utf8')
+        # json_string = simplejson.dumps(SEND_MSG_JSON, ensure_ascii=False).encode('utf8')
+
+        # print("json_string=", json_string)
+        json_string = json.dumps(SEND_MSG_JSON, ensure_ascii=False).encode('utf8')
         headers = {'Content-Type': 'application/json', "charset": "utf-8"}
         r = requests.post(self.SEND_MSG_URL % (access_token), data=json_string, headers=headers)
         resp = json.loads(r.text)
