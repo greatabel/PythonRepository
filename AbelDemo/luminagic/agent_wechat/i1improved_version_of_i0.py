@@ -21,8 +21,13 @@ def get_access_token():
     r = requests.get(TOKEN_URL % (qy_wechat_corpid,
                      qy_wechat_corpsecret))
     resp = json.loads(r.text)
-    if resp['errcode'] or resp['access_token'] == '':
-        return None
+    print('resp=>', resp)
+    if 'errcode' in resp and resp['errcode']:
+            print('here1')
+            return None
+    if 'access_token' in resp and resp['access_token'] == '':
+            print('here2')
+            return None
     # qy_cache.set('qy_msg_access_token', resp['access_token'], timeout=7200)
     return resp['access_token']
 
@@ -41,7 +46,7 @@ def post_wq_msg(access_token, qy_wechat_touser, qy_wechat_agentid):
     r = requests.post(SEND_MSG_URL % (access_token), data=json_string, headers=headers)
     resp = json.loads(r.text)
     if resp['errcode'] == 40014 or resp['errmsg'] == 'invalid access_token':
-        access_token = self.get_access_token()
+        access_token = get_access_token()
         r = requests.post(SEND_MSG_URL % (access_token), data=json_string, headers=headers)
         resp = json.loads(r.text)
     return resp
