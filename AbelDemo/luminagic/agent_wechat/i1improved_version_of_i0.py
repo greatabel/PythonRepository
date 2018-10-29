@@ -49,6 +49,7 @@ def post_wq_msg(access_token, qy_wechat_touser, qy_wechat_agentid):
         access_token = get_access_token()
         r = requests.post(SEND_MSG_URL % (access_token), data=json_string, headers=headers)
         resp = json.loads(r.text)
+    print(resp)
     return resp
 
 def send():
