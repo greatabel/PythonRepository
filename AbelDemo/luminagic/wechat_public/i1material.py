@@ -21,7 +21,7 @@ url_get_token = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_crede
 r = requests.get(url_get_token)
 d = json.loads(r.text)
 
-# print('d=', d)
+print('d=', d)
 
 ACCESS_TOKEN = d['access_token']
 print(ACCESS_TOKEN)
@@ -36,6 +36,8 @@ content = "您好！感谢你购买并使用MeoMo产品.如果你对如何使用
             其他问题，你可以浏览我们的FAQ，或许可以找到答案。 如果你仍然有问题，请直接在公众号留言联系\
             我们。我们的客服时间是周一到周五 早10:00-下午5:00"
 
+# https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738734
+# type    是   素材的类型，图片（image）、视频（video）、语音 （voice）、图文（news）
 get_json =  {
     "type":"image",
     "offset":0,
@@ -61,6 +63,8 @@ get_json_string = simplejson.dumps(get_json, ensure_ascii=False).encode('utf8')
 
 r0 = requests.post(url_getlist, data=get_json_string, headers=headers)
 print('get list :r0.text = ', r0.text)
+print('\n\n')
+
 media_id = -1
 groups = json.loads(r0.text)['item']
 for item in groups:
