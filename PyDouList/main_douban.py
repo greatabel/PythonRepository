@@ -22,8 +22,9 @@ def extract_doulist(content):
     for item in t:
         counter += 1
         # print(counter,'#:',item)
+        # 排除网络日志，只处理 书单豆列
         print(item.split("/")[-2]+'   '+item.split(">")[-1])
-        if item.split(">")[-1] not in myconfig.blacklist:
+        if (item.split(">")[-1] not in myconfig.blacklist ) and ("网记" not in item.split(">")[-1]):
             dic[item.split(">")[-1]] = myconfig.doulist_prex + item.split("/")[-2]
     print('url count:', len(t))
     return dic
@@ -35,7 +36,8 @@ def deal_with_doulist_url():
         file01_path = Path(myconfig.filename01)
         content = ''
         if not file01_path.is_file():
-            content = get_html(myconfig.doulist_page)
+            for i in range(0,myconfig.scrawler_pagelimit_doulist):
+                content += get_html(myconfig.doulist_page + '?start=' + str(20 * i))
             save_to_localfile(myconfig.filename01, content)
         else:
             content = read_from_localfile(myconfig.filename01)
