@@ -13,7 +13,7 @@ doulist_prex = 'https://www.douban.com/doulist/'
 
 scrawler_pagelimit = 1
 scrawler_pagelimit_doulist = 2
-last_async_time = '2019-03-31 22:12:14'
+last_async_time = '2019-04-20 22:37:14'
 # I ignore @@@ started files in .gitignore
 # filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
 
