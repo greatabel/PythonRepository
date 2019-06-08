@@ -1,3 +1,4 @@
+browser-cookie3
 bs4
 cryptography
 dlib
@@ -35,6 +36,7 @@ pyflakes
 pygraphviz
 pymongo
 PyMySQL
+pytesseract
 python-dateutil
 python-editor
 pytest
@@ -49,6 +51,8 @@ six
 scikit-learn
 scipy
 scrapy
+scrapy-redis   
+scrapy-splash
 sympy
 snownlp
 SQLAlchemy
