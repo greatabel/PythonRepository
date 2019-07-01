@@ -4,9 +4,9 @@ import json
 import simplejson
 
 
-qy_wechat_corpid = environ.get('qy_wechat_corpid')
-qy_wechat_corpsecret = environ.get('qy_wechat_corpsecret')
-qy_wechat_agentid = environ.get('qy_wechat_agentid')
+qy_wechat_corpid = environ.get('QY_WECHAT_CORPID')
+qy_wechat_corpsecret = environ.get('QY_WECHAT_CORPSECRET')
+qy_wechat_agentid = environ.get('QY_WECHAT_AGENTID')
 
 print(qy_wechat_corpid, qy_wechat_corpsecret, qy_wechat_agentid)
 url_get_token = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}'\
