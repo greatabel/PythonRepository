@@ -3,7 +3,7 @@ import pymysql.cursors
 
 # 连接数据库
 connect = pymysql.Connect(
-    host='lumimysql001.mysqldb.chinacloudapi.cn',
+    host='lumimysql001.mysql.database.chinacloudapi.cn',
     port=3306,
     user='lumimysql001%sharingan',
     passwd=environ.get('MYSQLCONNSTR_DB_PWD', 'sharingan'),
