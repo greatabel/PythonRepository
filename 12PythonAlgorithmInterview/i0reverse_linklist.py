@@ -9,8 +9,6 @@
 '''
 
 
-
-
 import time
 from termcolor import colored
 
@@ -32,10 +30,12 @@ class LinkedList:
         self.size += 1
 
     def print_node(self):
+        print('head -> ', end='')
         curr = self.head
         while curr:
-            print(curr.data)
+            print(curr.data, ' -> ', end='')
             curr = curr.nextnode
+        print('\n')
 
 
 
