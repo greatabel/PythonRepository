@@ -4,6 +4,8 @@
 
 #----------------------------#
 
+参考链接：
+https://stackoverflow.com/questions/29242000/how-can-i-write-a-recursive-function-to-reverse-a-linked-list
 
 
 '''
@@ -60,12 +62,16 @@ class LinkedList:
         item.nextnode = None
 
 
+
+
+
 def main_process():
     linkedlist = LinkedList()
     for i in reversed(range(1, 7+1)):        
         linkedlist.add_node(i)
         print('i=', i)
 
+    linkedlist.print_node()
     linkedlist.print_node()
 
     print('reverse_list: 就地逆序')
@@ -75,6 +81,7 @@ def main_process():
     print('reverse_list_recursive:递归法')
     linkedlist.reverse_list_recursive(linkedlist.head)
     linkedlist.print_node()
+
 
     print(colored('mycount=', 'red'), 'results')
 
