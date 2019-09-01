@@ -30,10 +30,13 @@ class LinkedList:
         self.size += 1
 
     def print_node(self):
-        print('head -> ', end='')
+        print('单链表的head -> ', end='')
         curr = self.head
         while curr:
-            print(curr.data, ' -> ', end='')
+            if curr.nextnode:
+                print(curr.data, ' -> ', end='')
+            else:
+                print(curr.data)
             curr = curr.nextnode
         print('\n')
 
@@ -42,11 +45,19 @@ class LinkedList:
         curr = self.head
         while curr:
             next = curr.nextnode
-            # print('next=', next)
             curr.nextnode = prev
             prev = curr
             curr = next
         self.head = prev
+
+    def reverse_list_recursive(self,item):
+        if item.nextnode == None:
+            self.head = item
+            return
+        self.reverse_list_recursive(item.nextnode)
+        temp = item.nextnode
+        temp.nextnode = item
+        item.nextnode = None
 
 
 def main_process():
@@ -56,9 +67,15 @@ def main_process():
         print('i=', i)
 
     linkedlist.print_node()
-    print('reverse_list:')
+
+    print('reverse_list: 就地逆序')
     linkedlist.reverse_list()
     linkedlist.print_node()
+
+    print('reverse_list_recursive:递归法')
+    linkedlist.reverse_list_recursive(linkedlist.head)
+    linkedlist.print_node()
+
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
