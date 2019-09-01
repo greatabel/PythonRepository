@@ -37,6 +37,16 @@ class LinkedList:
             curr = curr.nextnode
         print('\n')
 
+    def reverse_list(self):
+        prev = None
+        curr = self.head
+        while curr:
+            next = curr.nextnode
+            # print('next=', next)
+            curr.nextnode = prev
+            prev = curr
+            curr = next
+        self.head = prev
 
 
 def main_process():
@@ -45,6 +55,9 @@ def main_process():
         linkedlist.add_node(i)
         print('i=', i)
 
+    linkedlist.print_node()
+    print('reverse_list:')
+    linkedlist.reverse_list()
     linkedlist.print_node()
     print(colored('mycount=', 'red'), 'results')
 
