@@ -6,6 +6,7 @@
 
 #----------------------------#
 
+参考：https://www.youtube.com/watch?v=e2TjJMhe08U
 
 
 '''
@@ -57,6 +58,23 @@ class LinkedList:
                 mynext = mynext.nextnode
             curr = curr.nextnode
 
+    # 方法3: 考虑实用字典, 空间换时间
+    def remove_with_dict(self):
+        cur = self.head
+        prev = None
+        dup_values = dict()
+
+        while cur:
+            if cur.data in dup_values:
+                # remove
+                prev.nextnode = cur.nextnode
+                cur = None
+            else:
+                dup_values[cur.data] = 1
+                prev = cur
+                # print('#', cur.data)
+            cur = prev.nextnode
+
 # 递归方法
 def remove_dups(lst):
     if len(lst)>1:
@@ -69,10 +87,7 @@ def remove_dups(lst):
     else:
         return lst
 
-# 方法3: 考虑实用字典, 空间换时间
-def remove_with_dict(lst):
-    ''
-    
+
 def main_process():
     linkedlist = LinkedList()
     for i in reversed(range(1, 7+1)):      
@@ -83,10 +98,16 @@ def main_process():
 
     linkedlist.print_node()
 
-
+    import copy
+    linkedlist_a = copy.deepcopy(linkedlist)
     print('remove_duplicate')
     linkedlist.remove_duplicate()
     linkedlist.print_node()
+
+    print('remove_with_dict')
+    linkedlist_a.remove_with_dict()
+    linkedlist_a.print_node()
+
 
     print('remove_duplicate recursive 递归方法')
     print(remove_dups([1,2,2,3,4,4,5,6,6,7]))
