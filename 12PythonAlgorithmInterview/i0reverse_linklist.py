@@ -71,7 +71,7 @@ def main_process():
         linkedlist.add_node(i)
         print('i=', i)
 
-    linkedlist.print_node()
+
     linkedlist.print_node()
 
     print('reverse_list: 就地逆序')
