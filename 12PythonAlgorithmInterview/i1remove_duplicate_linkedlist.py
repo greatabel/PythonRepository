@@ -57,7 +57,7 @@ class LinkedList:
                 mynext = mynext.nextnode
             curr = curr.nextnode
 
-
+# 递归方法
 def remove_dups(lst):
     if len(lst)>1:
 
@@ -69,6 +69,10 @@ def remove_dups(lst):
     else:
         return lst
 
+# 方法3: 考虑实用字典, 空间换时间
+def remove_with_dict(lst):
+    ''
+    
 def main_process():
     linkedlist = LinkedList()
     for i in reversed(range(1, 7+1)):      
@@ -84,7 +88,7 @@ def main_process():
     linkedlist.remove_duplicate()
     linkedlist.print_node()
 
-    print('remove_duplicate recursive')
+    print('remove_duplicate recursive 递归方法')
     print(remove_dups([1,2,2,3,4,4,5,6,6,7]))
 
     print(colored('mycount=', 'red'), 'results')
