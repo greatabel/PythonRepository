@@ -10,9 +10,6 @@
 
 '''
 
-
-
-
 import time
 from termcolor import colored
 
@@ -54,12 +51,23 @@ class LinkedList:
             mynext = curr.nextnode
             while mynext:
                 if mynext.data == curr.data:
-                    print('curr=', curr.data, 'prev=', myprev.data, 'next=', mynext.data)
+                    # print('curr=', curr.data, 'prev=', myprev.data, 'next=', mynext.data)
                     myprev.nextnode = mynext.nextnode
                 myprev = myprev.nextnode
                 mynext = mynext.nextnode
             curr = curr.nextnode
 
+
+def remove_dups(lst):
+    if len(lst)>1:
+
+        if lst[0] != lst[1]:
+            return [lst[0]] + remove_dups(lst[1:])
+
+        del lst[1]
+        return remove_dups(lst)
+    else:
+        return lst
 
 def main_process():
     linkedlist = LinkedList()
@@ -70,9 +78,15 @@ def main_process():
         print('i=', i)
 
     linkedlist.print_node()
+
+
     print('remove_duplicate')
     linkedlist.remove_duplicate()
     linkedlist.print_node()
+
+    print('remove_duplicate recursive')
+    print(remove_dups([1,2,2,3,4,4,5,6,6,7]))
+
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
