@@ -6,25 +6,45 @@
 
 #----------------------------#
 
-思路：数组实现
+思路：数组实现, 原书版本太绕了，写了个更简洁的
 
 '''
 
 import time
 from termcolor import colored
 
-
-def MyQueue:
+class Queue :
     def __init__(self):
-        self.arr = []
-        self.front = 0
-        self.rear = 0
+        self.items=[]
 
-    def is_empty(self):
-        if self.front == self.rear
+    def isEmpty(self) :
+        return self.items==[]
 
+    def enqueue(self, item):
+        self.items.insert(0,item)
+
+    def dequeue(self):
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)
+
+    def printqueue(self):
+        for items in self.items:
+            print(items)
     
+
 def main_process():
+    q = Queue()
+    for i in range(0, 5):
+        print('入队：', i)
+        q.enqueue(i)
+    print(q.isEmpty(), q.size())
+    print('printqueue')
+    q.printqueue()
+    print(q.dequeue(), q.size())
+    q.enqueue(10)
+    print(q.size())
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
