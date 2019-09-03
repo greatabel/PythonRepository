@@ -11,10 +11,20 @@
 
 import time
 from termcolor import colored
+from itertools import permutations
+
+
+def default_way(str):
+    permlist = permutations(str)
+    for p in list(permlist):
+        print(''.join(p))
 
 
 def main_process():
+    str = 'abc'
+    default_way(str)
     print(colored('mycount=', 'red'), 'results')
+
 
 if __name__ == "__main__":
     tic = time.process_time()
