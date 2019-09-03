@@ -5,6 +5,7 @@
 
 #----------------------------#
 
+参考：https://stackoverflow.com/questions/8306654/finding-all-possible-permutations-of-a-given-string-in-python
 
 
 '''
@@ -19,10 +20,22 @@ def default_way(str):
     for p in list(permlist):
         print(''.join(p))
 
+def permutations(string):
+    """Create all permutations of a string with non-repeating characters
+    """
+    permutation_list = []
+    if len(string) == 1:
+        return [string]
+    else:
+        for char in string:
+            [permutation_list.append(char + a) for a in permutations(string.replace(char, ""))]
+    return permutation_list
 
 def main_process():
     str = 'abc'
     default_way(str)
+    ps = permutations(str)
+    print(ps)
     print(colored('mycount=', 'red'), 'results')
 
 
