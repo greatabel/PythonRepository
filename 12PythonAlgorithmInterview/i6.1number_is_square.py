@@ -12,7 +12,18 @@ import time
 from termcolor import colored
 
 
+def is_power(n):
+    i = 1
+    while i**2 <= n:
+        if n % i == 0 and n / i == i:
+            return True
+        i += 1
+    return False
+
 def main_process():
+    for i in range(1, 17):
+        if is_power(i):
+            print(i)
     print(colored('mycount=', 'red'), 'results')
 
 if __name__ == "__main__":
