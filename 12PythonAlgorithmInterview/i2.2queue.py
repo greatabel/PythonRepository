@@ -10,13 +10,20 @@
 
 '''
 
-
-
-
 import time
 from termcolor import colored
 
 
+def MyQueue:
+    def __init__(self):
+        self.arr = []
+        self.front = 0
+        self.rear = 0
+
+    def is_empty(self):
+        if self.front == self.rear
+
+    
 def main_process():
     print(colored('mycount=', 'red'), 'results')
 
