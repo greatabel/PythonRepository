@@ -14,7 +14,7 @@ from termcolor import colored
 
 def main_process():
     print('Python有哪些特点和优点？')
-    lst = ['可解释', '动态性', '面向对象', '开源', '强大社区支持']
+    character_lst = ['可解释', '动态性', '面向对象', '开源', '强大社区支持']
     advantage_I_think = '''
         简单易学：Python 语言相对于其他编程语言来说，属于比较容易学习的一门编程语言，
         它注重的是如何解决问题而不是编程语言的语法和结构。正是因为 Python 语言简单易学，
@@ -57,7 +57,7 @@ def main_process():
 
         Python 2 与 Python 3 不兼容
     '''
-    print(colored(lst, 'red'), colored(advantage_I_think, 'blue'))
+    print(colored(character_lst, 'red'), colored(advantage_I_think, 'blue'))
     print(colored('劣势' + '*'*20, 'red'), disadvantage)
 if __name__ == "__main__":
     tic = time.process_time()
