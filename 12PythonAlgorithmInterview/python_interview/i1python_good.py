@@ -41,7 +41,24 @@ def main_process():
         例如，Web 开发、网络编程、自动化运维、Linux 系统管理、数据分析、科学计算、人工智能、机器学习等等。
         Python 语言介于脚本语言和系统语言之间，我们根据需要，既可以将它当做一门脚本语言来编写脚本，也可以将它当做一个系统语言来编写服务。
     '''
+
+    disadvantage = '''
+        Python 的执行速度不够快。当然，这也不是一个很严重的问题，一般情况下，我们不会拿 Python 语言与 C/C++ 这样的语言进行直接比较。
+            在 Python 语言的执行速度上，一方面，网络或磁盘的延迟，会抵消掉部分 Python 本身消耗的时间；
+            另一方面，因为 Python 特别容易和 C 结合起来，因此，我们可以通过分离一部分需要优化速度的应用，
+            将其转换为编译好的扩展，并在整个系统中使用 Python 脚本将这部分应用连接起来，以提高程序的整体效率。
+
+        Python 的 GIL 锁限制并发：Python 的另一个大问题是，对多处理器支持不好。
+            如果读者接触 Python 时间比较长，那么，一定听说过 GIL 这个词。
+            GIL 是指 Python 全局解释器锁（Global Interpreter Lock），
+            当 Python 的默认解释器要执行字节码时，都需要先申请这个锁。这意味着，
+            如果试图通过多线程扩展应用程序，将总是被这个全局解释器锁限制。
+            当然，我们可以使用多进程的架构来提高程序的并发，也可以选择不同的 Python 实现来运行我们的程序。
+
+        Python 2 与 Python 3 不兼容
+    '''
     print(colored(lst, 'red'), colored(advantage_I_think, 'blue'))
+    print(colored('劣势' + '*'*20, 'red'), disadvantage)
 if __name__ == "__main__":
     tic = time.process_time()
     
