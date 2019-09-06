@@ -14,7 +14,8 @@ from termcolor import colored
 
 def main_process():
     print('Q 2：深拷贝和浅拷贝之间的区别是什么？')
-    print(colored('mycount=', 'red'), 'results')
+    ans = '深拷贝就是将一个对象拷贝到另一个对象中，这意味着如果你对一个对象的拷贝做出改变时，不会影响原对象'
+    print(colored('mycount=', 'red'), ans)
 
 if __name__ == "__main__":
     tic = time.process_time()
