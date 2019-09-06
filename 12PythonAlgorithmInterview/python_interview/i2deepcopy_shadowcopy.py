@@ -10,14 +10,31 @@ Q 2：深拷贝和浅拷贝之间的区别是什么？
 
 import time
 from termcolor import colored
+from copy import deepcopy
 
 
 def main_process():
     print('Q 2：深拷贝和浅拷贝之间的区别是什么？')
     ans = '深拷贝就是将一个对象拷贝到另一个对象中，这意味着如果你对一个对象的拷贝做出改变时，不会影响原对象'
     print(colored('mycount=', 'red'), ans)
+    a = ['hello', [1,2,3]]
+    b = a[:]
+    print([id(x) for x in a],'#'*10, [id(x) for x in b])
+    a[0] = 'world'
+    a[1].append(4)
+    print(a, b)
+    print('浅拷贝是在另一块地址中创建一个新的变量或容器，但是容器内的元素的地址均是源对象的元素的地址的拷贝。\
+        也就是说新的容器中指向了旧的元素（ 新瓶装旧酒 ）')
+    deep_b = deepcopy(a)
+    print([id(x) for x in a],'#'*5, [id(x) for x in deep_b])
+    a[0] = 'hello again'
+    a[1].append(5)
+    print(a, 'deep_b=', deep_b)
+    print([id(x) for x in a],'#'*5, [id(x) for x in deep_b])
 
-    print(colored('--------------------', 'green'), '可变对象/不可变对象', colored('-'*20, 'red'))
+
+    print(colored('--------------------', 'green'), '可变对象/不可变对象', 
+            colored('-'*20, 'red'))
     print('可变对象：list,dict, set 不可变对象：tuple,string int float bool', )
     #  可变对象
     a = [1, 2, 3]
