@@ -31,6 +31,8 @@ def main_process():
     a[1].append(5)
     print(a, 'deep_b=', deep_b)
     print([id(x) for x in a],'#'*5, [id(x) for x in deep_b])
+    print('深拷贝是在另一块地址中创建一个新的变量或容器，同时容器内的元素的地址也是新开辟的，\
+            仅仅是值相同而已，是完全的副本。也就是说（ 新瓶装新酒 ）')
 
 
     print(colored('--------------------', 'green'), '可变对象/不可变对象', 
