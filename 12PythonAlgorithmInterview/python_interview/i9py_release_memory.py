@@ -4,10 +4,14 @@
 
 #----------------------------#
 
-
+https://www.zhihu.com/question/34895986
 
 '''
-from pympler import asizeof
+
+from pympler import asizeof, tracker
+import random
+import gc
+
 import time
 from termcolor import colored
 
@@ -24,6 +28,14 @@ def main_process():
     obj = [1, 2, (3, 4), 'text']
     print(asizeof.asizeof(obj))
     print(asizeof.asized(obj, detail=1).format())
+
+    tr = tracker.SummaryTracker()
+    a = [[random.random() for i in range(2000)] for i in range(2000)]
+    tr.print_diff()
+
+    gc.collect()
+    from sys import getsizeof
+    print('-'*20, getsizeof(a))
 
 if __name__ == "__main__":
     tic = time.process_time()
