@@ -30,7 +30,6 @@ def main_process():
     4.列举Http请求中的状态码?
     200 访问正常
     201 创建了资源
-    202 已接受请求，但未处理完成
     300 多种选择。请求的资源可包括多个位置，相应可返回一个资源特征与地址的列表用于用户终端（例如：浏览器）选择
     301 永久性重定向
     302 临时性重定向
@@ -41,8 +40,24 @@ def main_process():
     500 internal Server Error 服务器内部错误
     503 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求
 
+    5. HTTP协议里的请求头有什么用?
 
+    Accept-Encoding:用于告诉服务器，客户机支持的数据压缩格式
+    User-Agent：用于告诉服务器，客户机的软件环境
+    Cookie：客户机通过这个头可以想服务器带数据
+    ETag：缓存相关的头，和Last-Modified功能一样，不过实时性更强
     
+    request 里的 Accept-* 可有钦定的意思？
+    Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+    Accept-Encoding:gzip, deflate, sdch
+    Accept-Language:zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.4
+
+    response 里的 Content-* 才是已经决定了就是你了这个意思好吗
+    Content-Encoding:gzip
+    Content-Length:5506
+    Content-Type:text/html;charset=utf-8
+
+
     '''
     print(colored('-'*20, 'red'), t)
 
