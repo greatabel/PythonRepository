@@ -7,7 +7,7 @@
 
 
 '''
-
+from pympler import asizeof
 import time
 from termcolor import colored
 
@@ -19,6 +19,11 @@ def main_process():
     另外，也不会释放C库保留的内存部分
     '''
     print(colored('mycount=', 'red'), t)
+
+
+    obj = [1, 2, (3, 4), 'text']
+    print(asizeof.asizeof(obj))
+    print(asizeof.asized(obj, detail=1).format())
 
 if __name__ == "__main__":
     tic = time.process_time()
