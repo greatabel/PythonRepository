@@ -91,7 +91,21 @@ def main_process():
     优化项目结构
     增强可读性,易于维护（跟Django的view功能相似）
 
+    9. 简述Flask上下文管理流程?
+    每次有请求过来的时候，flask 会先创建当前线程或者进程需要处理的两个重要上下文对象，
+    把它们保存到隔离的栈里面，这样视图函数进行处理的时候就能直接从栈上获取这些信息。
 
+    10.Flask中多app应用是怎么完成?
+    请求进来时，可以根据URL的不同，交给不同的APP处理
+
+    11Flask框架默认session处理机制?
+    Flask的默认session利用了Werkzeug的SecureCookie，把信息做序列化(pickle)后编码(base64)，放到cookie里了。
+
+    过期时间是通过cookie的过期时间实现的。
+
+    为了防止cookie内容被篡改，session会自动打上一个叫session的hash串，这个串是经过session内容、SECRET_KEY计算出来的，
+    看得出，这种设计虽然不能保证session里的内容不泄露，但至少防止了不被篡改
+————————————————
 
 
 
