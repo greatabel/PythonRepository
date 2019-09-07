@@ -46,7 +46,7 @@ def main_process():
     User-Agent：用于告诉服务器，客户机的软件环境
     Cookie：客户机通过这个头可以想服务器带数据
     ETag：缓存相关的头，和Last-Modified功能一样，不过实时性更强
-    
+
     request 里的 Accept-* 可有钦定的意思？
     Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
     Accept-Encoding:gzip, deflate, sdch
@@ -56,6 +56,43 @@ def main_process():
     Content-Encoding:gzip
     Content-Length:5506
     Content-Type:text/html;charset=utf-8
+
+    6. 什么是wsgi?
+    全称 Web Server Gateway Interface，或者 Python Web Server Gateway Interface ，
+    是为 Python 语言定义的 Web 服务器和 Web 应用程序或框架之间的一种简单而通用的接口。
+    自从 WSGI 被开发出来以后，许多其它语言中也出现了类似接口
+
+    从名字就可以看出来，这东西是一个Gateway，也就是网关。网关的作用就是在协议之间进行转换
+    WSGI 是作为 Web 服务器与 Web 应用程序或应用框架之间的一种低级别的接口，
+    以提升可移植 Web 应用开发的共同点。WSGI 是基于现存的 CGI(公共网关接口)标准而设计的。
+
+    WSGI就是一座桥梁，桥梁的一端称为服务端或网关端，另一端称为应用端或者框架端，WSGI的作用就是在协议之间进行转化。
+    WSGI将Web组件分成了三类：Web 服务器（WSGI Server）、
+    Web中间件（WSGI Middleware）与Web应用程序（WSGI Application）。
+    Web Server接收HTTP请求，封装一系列环境变量，按照WSGI接口标准调用注册的WSGI Application，
+    最后将响应返回给客户端。
+
+    7.Flask框架依赖组件?
+    Route(路由)
+    templates(模板)
+    Models(orm模型)
+    blueprint(蓝图)
+    Jinja2模板引擎
+
+    8. blueprint的作用？
+    蓝图Blueprint实现模块化的应用
+    - book_bp = Blueprint('book', __name__）创建蓝图对象
+    - 蓝图中使用路由@book_bp.route('url')
+    - 在另一.py文件里导入和注册蓝图from book import book_bp app.register_blueprint(book_bp)
+
+    作用
+    将不同的功能模块化
+    构建大型应用
+    优化项目结构
+    增强可读性,易于维护（跟Django的view功能相似）
+
+
+
 
 
     '''
