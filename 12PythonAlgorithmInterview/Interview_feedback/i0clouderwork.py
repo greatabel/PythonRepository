@@ -17,8 +17,8 @@ def main_process():
     t = '''
     1. HTTP Methods 一共有九个，分别是 GET，HEAD，POST，PUT，DELETE，TRACE，OPTIONS，CONNECT，PATCH。
     其中 HEAD，TRACE，OPTIONS，CONNECT 在 RESTful API 设计中不常用
-
     在RESTful API 设计中，常用的有POST，GET，PUT，PATCH 和 DELETE
+    
 
     POST    创建数据 Create 
     201 (Created) HTTP Header 'Location' 值设置为/books/id，其中id为新创建的book id 
