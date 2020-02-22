@@ -14,3 +14,26 @@ for sentence in sentences:
     matches = word_pattern.findall(sentence)
     words = [match[0] for match in matches]  # <6>
     print(words, '\n')
+
+
+print('-'*10, 'refactor', '-'*10)
+
+
+
+def get_matches_for_pattern(pattern, string):
+    matches = pattern.findall(string)
+    return [match[0] for match in matches]
+
+sentence_pattern = re.compile(r'(.*?\.)(\s|$)', re.DOTALL)
+sentences = get_matches_for_pattern(  # <2>
+    sentence_pattern,
+    product_review,
+)
+
+word_pattern = re.compile(r"([\w\-']+)([\s,.])?")
+for sentence in sentences:
+    words = get_matches_for_pattern(  # <3>
+        word_pattern,
+        sentence
+    )
+    print(words, '\n')
