@@ -1,0 +1,6 @@
+red
+blue
+red
+pink
+blue
+blue
