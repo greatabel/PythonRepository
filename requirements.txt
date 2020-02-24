@@ -1,5 +1,6 @@
 browser-cookie3
 bs4
+chart-studio
 cryptography
 cmake
 dlib
@@ -31,6 +32,7 @@ nose
 pep8-naming
 pandas
 pillow
+plotly
 pycodestyle
 pycryptodome
 pyflakes
