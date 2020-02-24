@@ -1,5 +1,3 @@
-colors = {'red': 2, 'blue': 3, 'pink': 1}
-
 def get_number_with_highest_count(counts):  # <1>
     max_count = 0
     for number, count in counts.items():
@@ -9,4 +7,15 @@ def get_number_with_highest_count(counts):  # <1>
     return number_with_highest_count
 
 
-print(colors, get_number_with_highest_count(colors))
+def most_frequent(numbers):
+    counts = {}
+    for number in numbers:  # <2>
+        if number in counts:
+            counts[number] += 1
+        else:
+            counts[number] = 1
+
+    return get_number_with_highest_count(counts)
+
+nums = ['red', 'red', 'blue', 'red', 'pink', 'blue']
+print(most_frequent(nums))
