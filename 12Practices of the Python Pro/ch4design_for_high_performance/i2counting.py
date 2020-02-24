@@ -19,3 +19,35 @@ def most_frequent(numbers):
 
 nums = ['red', 'red', 'blue', 'red', 'pink', 'blue']
 print(most_frequent(nums))
+
+
+from collections import defaultdict
+
+def most_frequent(numbers):
+    counts = defaultdict(int)
+    for number in numbers:
+        counts[number] += 1
+    return get_number_with_highest_count(counts)
+
+print(most_frequent(nums))
+
+
+
+
+# Using Counter
+from collections import Counter  # <1>
+def most_frequent(numbers):
+    counts = Counter(numbers)  # <2>
+    return get_number_with_highest_count(counts)
+
+print(most_frequent(nums))
+
+
+
+def get_number_with_highest_count(counts):
+    return max(  # <1>
+        counts,
+        key=lambda number: counts[number]
+    )
+
+print(most_frequent(nums))
