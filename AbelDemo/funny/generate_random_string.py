@@ -2,6 +2,7 @@ import string
 import random
 
 special_chs = "()`~!@#$%^&*-+=|{}[]:;'<>,.?/" 
+# special_chs = ""
 characters = string.ascii_uppercase + string.digits + string.ascii_lowercase + special_chs
  
 digits = string.digits
