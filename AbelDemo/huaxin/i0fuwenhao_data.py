@@ -1,8 +1,8 @@
 import csv
 
-path = '/Users/abel/Desktop/2020-08-24.log'
+path = 'i02020-08-24.log'
 
-newpath = '/Users/abel/Desktop/2020-08-24new.log'
+newpath = 'i02020-08-24new.log'
 bufsize = 65536
 
 def process(lines):
