@@ -32,13 +32,31 @@ def repare_name(name: str)->str:
             name = decode(data)          # 对转换的二进制数据进行解码
     return name
  
- 
-if __name__ == '__main__':
-    path_need_process = '/Users/abel/Desktop/luzhu/写作训练'
+def change_filename(under_this_path):
+    # 修改某一个 文件夹下所有乱码的文件名
     from pathlib import Path
-    for path in Path(path_need_process).glob('*.*'):
+    for path in Path(under_this_path).glob('*.*'):
         new_name = repare_name(path.name)
         if path.name != new_name:
-            print(path.name, '-> '*5, new_name)
-            os.rename(path_need_process + '/' + path.name, 
-                      path_need_process + '/' + new_name)
+            print(path.name, '----> ', new_name)
+            os.rename(under_this_path + '/' + path.name, 
+                      under_this_path + '/' + new_name)
+
+
+if __name__ == '__main__':
+    path_need_process = '/Users/abel/Desktop/luzhu/商管类课件'
+
+    for subdir, dirs, files in os.walk(path_need_process):
+        for folder_name in dirs:
+            new_fname = repare_name(folder_name)
+            # print('new_fname=', new_fname)
+            if folder_name != new_fname:
+                print(folder_name, '#', new_fname)
+                if os.path.isdir(path_need_process + '/' + folder_name):
+                    os.rename(path_need_process + '/' + folder_name, 
+                              path_need_process + '/' + new_fname)
+                #处理子文件夹下文件
+                change_filename(path_need_process + '/' + new_fname)
+
+    change_filename(path_need_process)
+
