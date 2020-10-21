@@ -3,6 +3,7 @@ from urllib.parse import unquote_plus
 from re import compile
 from contextlib import suppress
 import os
+import argparse
 
 # https://www.jianshu.com/p/fbe28e6415f3
 Url_Path = compile(r'\%[0-9A-E]{2}')    # URL 乱码的正则表达式，形如 %E9
@@ -44,8 +45,14 @@ def change_filename(under_this_path):
 
 
 if __name__ == '__main__':
-    path_need_process = '/Users/abel/Desktop/luzhu/商管类课件'
-
+    parser = argparse.ArgumentParser(description='absolute path of folder needed to process')
+    parser.add_argument('--folder', type=str, default='/',
+                        #use yolo3_darknet53_voc, yolo3_mobilenet1.0_voc, yolo3_mobilenet0.25_voc 
+                        help="absolute path of folder needed to process")
+    args = parser.parse_args()
+    path_need_process = args.folder
+    
+    print(args.folder)
     for subdir, dirs, files in os.walk(path_need_process):
         for folder_name in dirs:
             new_fname = repare_name(folder_name)
