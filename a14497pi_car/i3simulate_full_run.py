@@ -2,9 +2,171 @@ import cv2
 import numpy as np
 from scipy.stats import itemfreq
 
+# HC-SR04 超声波模块
+#导入 GPIO库
+import RPi.GPIO as GPIO
+import time
+  
+#设置 GPIO 模式为 BCM
+GPIO.setmode(GPIO.BCM)
+  
+#定义 GPIO 引脚
+GPIO_TRIGGER = 23
+GPIO_ECHO = 24
+  
+#设置 GPIO 的工作方式 (IN / OUT)
+GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+GPIO.setup(GPIO_ECHO, GPIO.IN)
+
+
 # debug模式是否开启，true就是开启
 debug_mode = True
 # debug_mode = False
+
+
+def distance():
+    # 发送高电平信号到 Trig 引脚
+    GPIO.output(GPIO_TRIGGER, True)
+  
+    # 持续 10 us 
+    time.sleep(0.00001)
+    GPIO.output(GPIO_TRIGGER, False)
+  
+    start_time = time.time()
+    stop_time = time.time()
+  
+    # 记录发送超声波的时刻1
+    while GPIO.input(GPIO_ECHO) == 0:
+        start_time = time.time()
+  
+    # 记录接收到返回超声波的时刻2
+    while GPIO.input(GPIO_ECHO) == 1:
+        stop_time = time.time()
+  
+    # 计算超声波的往返时间 = 时刻2 - 时刻1
+    time_elapsed = stop_time - start_time
+    # 声波的速度为 343m/s， 转化为 34300cm/s。
+    distance = (time_elapsed * 34300) / 2
+  
+    return distance
+
+
+def hc_sr04():
+    try:
+        while True:
+            dist = distance()
+            print("Measured Distance = {:.2f} cm".format(dist))
+            time.sleep(1)
+            return dist
+  
+        # Reset by pressing CTRL + C
+    except KeyboardInterrupt:
+        print("Measurement stopped by User")
+        GPIO.cleanup()
+
+# -------
+
+#这些是各个引脚的接口
+IN1 = 20
+IN2 = 21
+IN3 = 19
+IN4 = 26
+ENA = 16
+ENB = 13
+#GPIO初始化模式 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+#GPIO初始化状态
+def motor_init():
+# pwm_ENA and pwm_ENB 是用来控制小车速度的
+    global pwm_ENA 
+    global pwm_ENB
+    global delaytime #delaytime 可以用来控制小车的运动时间
+    GPIO.setup(ENA,GPIO.OUT,initial=GPIO.HIGH) 
+    GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
+    GPIO.setup(IN2,GPIO.OUT,initial=GPIO.LOW)
+    GPIO.setup(ENB,GPIO.OUT,initial=GPIO.HIGH)
+    GPIO.setup(IN3,GPIO.OUT,initial=GPIO.LOW)
+    GPIO.setup(IN4,GPIO.OUT,initial=GPIO.LOW)
+    #设置pwm频率
+    pwm_ENA = GPIO.PWM(ENA,2000)
+    pwm_ENB = GPIO.PWM(ENB,2000)
+    #pwm启动
+    pwm_ENA.start(0)
+    pwm_ENB.start(0)
+
+#############################################################################
+#前面已经将小车的引脚初始化完成了，现在所需要的就是控制引脚的电流来控制小车的运动
+#GPIO.output() 可以用来控制电流，pwm.ChangeDutyCycle()是用来控制频率的,间接用来控制车速
+#我的小车的IN1和IN2是一对，IN3和IN4是一对 当1是HIGH的时候左边前进,2是HIGH的时候左边后退
+#1和2，3和4 只能是HIGH和LOW 一对的 不能是两个都是HIGH 或者 LOW
+#可能每个人的车都不一样吧，大体套路都是一样的
+############################################################################
+#前进
+def run(delaytime):
+    GPIO.output(IN1,GPIO.HIGH)  #setting GPIO
+    GPIO.output(IN2,GPIO.LOW)
+    GPIO.output(IN3,GPIO.HIGH)
+    GPIO.output(IN4,GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(80) #setting speed
+    pwm_ENB.ChangeDutyCycle(80)
+    time.sleep(delaytime) #setting delaytime
+#左转
+def left(delaytime):
+    GPIO.output(IN1,GPIO.LOW)
+    GPIO.output(IN2,GPIO.LOW)
+    GPIO.output(IN3,GPIO.HIGH)
+    GPIO.output(IN4,GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(40)
+    pwm_ENB.ChangeDutyCycle(40)
+    time.sleep(delaytime)
+#原地左转
+def spin_left(delaytime):
+    GPIO.output(IN1,GPIO.LOW)
+    GPIO.output(IN2,GPIO.HIGH)
+    GPIO.output(IN3,GPIO.HIGH)
+    GPIO.output(IN4,GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(10)
+    pwm_ENB.ChangeDutyCycle(40)
+    time.sleep(delaytime)
+
+def right(delaytime):
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(80)
+    pwm_ENB.ChangeDutyCycle(80)
+    time.sleep(delaytime)
+#原地右转
+def spin_right(delaytime):
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    pwm_ENA.ChangeDutyCycle(80)
+    pwm_ENB.ChangeDutyCycle(80)
+    time.sleep(delaytime)
+#停车
+def brake(delaytime):
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(80)
+    pwm_ENB.ChangeDutyCycle(80)
+    time.sleep(delaytime)
+#后退
+def back(delaytime):
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    pwm_ENA.ChangeDutyCycle(80)
+    pwm_ENB.ChangeDutyCycle(80)
+    time.sleep(delaytime)
+
+# ------
 
 # 获取分析的image的数组的主要颜色成分
 def get_dominant_color(image, n_colors):
@@ -21,6 +183,10 @@ def main():
     global debug_mode
     # cap = cv2.VideoCapture(0)
 
+    # 向前跑138cm
+    run(138)
+    # 向左转
+    spin_left(1)
 
     font = cv2.FONT_HERSHEY_COMPLEX
     flag = 1
@@ -202,10 +368,21 @@ def main():
                     if dominant_color[2] > 100:
                         # 发现路标的上半部分是黑色
                         print("detect half circle", dominant_color, "half above is #black")
+                        # 黑色的情况，想左转，直行
+                        spin_left(1)
+                        if hc_sr04() == 10:
+                            spin_left(1)
+                            run(20)
+
                     elif dominant_color[0] > 80:
                         # 发行路标的上半部分是非黑色（因为路标只有一半黑一半白，那就是白色）
                         print("detect half circle", dominant_color, "half above is #white")
-
+                        # 如果是白色，前进小段(随机)，右转
+                        run(random.int(0,5))
+                        spin_right(1)
+                        if hc_sr04() == 10:
+                            
+                            spin_left(random.int(0,5))                        
                     else:
                         print("detecting")
                 # 对帧进行圆形图案增加周边的色框
