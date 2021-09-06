@@ -2,13 +2,8 @@ import cv2
 import numpy as np
 from scipy.stats import itemfreq
 
-
-def pixDis(a1, b1, a2, b2):
-    # distance between points
-    y = b2 - b1
-    x = a2 - a1
-    return np.sqrt(x * x + y * y)
-
+debug_mode = True
+# debug_mode = False
 
 def get_dominant_color(image, n_colors):
     pixels = np.float32(image).reshape((-1, 3))
@@ -18,17 +13,22 @@ def get_dominant_color(image, n_colors):
     palette = np.uint8(centroids)
     return palette[np.argmax(itemfreq(labels)[:, -1])]
 
+
 def main():
-    cap = cv2.VideoCapture(0)
+    global debug_mode
+    # cap = cv2.VideoCapture(0)
 
 
     font = cv2.FONT_HERSHEY_COMPLEX
     flag = 1
 
     global center
-    cap = cv2.VideoCapture("simulate.mov")
+    if debug_mode:
+        cap = cv2.VideoCapture("simulate.mov")
+    else:
     # when use usb-camera ,only line you need to change is following:
-    # cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(0)
+        # cap = cv2.VideoCapture(-1)
 
 
     # Check if camera opened successfully
@@ -171,8 +171,7 @@ def main():
                                                 )
                                                 oldArea = area
                                                 oldCnt = cnt
-                                                # cv2.imshow("Erik Tech Labs", frame)
-                                                # cv2.imshow("Maske", mask)
+
         elif flag == 1:
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             img = cv2.medianBlur(gray, 37)
@@ -202,9 +201,10 @@ def main():
 
                 for i in circles[0, :]:
                     cv2.circle(frame, (i[0], i[1]), i[2], (0, 255, 0), 2)
-                    cv2.circle(frame, (i[0], i[1]), 2, (0, 0, 255), 3)
+
         # 树梅派上可以注释掉下一行，不show出来
-        cv2.imshow("Frame", frame)
+        if debug_mode:
+            cv2.imshow("Frame", frame)
         key = cv2.waitKey(1)
         if key == 27:
             break
