@@ -40,3 +40,6 @@ python3 i2pi_car_advanced.py
 打开debug_mode = False
 的注释即可，将会读取真实摄像头（不过你得实验下是index=-1还是0）
 而且关闭窗口显示，减少资源占用
+
+8.
+i3是不可运行的，需要有硬件后调整
