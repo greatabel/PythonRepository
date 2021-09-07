@@ -170,9 +170,13 @@ def back(delaytime):
 
 # 获取分析的image的数组的主要颜色成分
 def get_dominant_color(image, n_colors):
+    # 降纬度处理，你可以理解成3位变成1位，方便主成分尘封
     pixels = np.float32(image).reshape((-1, 3))
+    # 200是迭代200次，0.1是一个经验误差率
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 200, 0.1)
     flags = cv2.KMEANS_RANDOM_CENTERS
+    # criteria：迭代停止的模式选择，这是一个含有三个元素的元组型数。格式为（type,max_iter,epsilon）
+    # max_iter迭代次数，epsilon结果的精确性
     flags, labels, centroids = cv2.kmeans(pixels, n_colors, None, criteria, 10, flags)
     palette = np.uint8(centroids)
     return palette[np.argmax(itemfreq(labels)[:, -1])]
@@ -210,11 +214,14 @@ def main():
         # while True:
         # ret, frame = cv2.VideoCapture('simulate.mov')
         ret, frame = cap.read()
+        # 做高斯滤波，进行降噪
         frame = cv2.GaussianBlur(frame, (5, 5), 0)
+        # 转化为灰度图
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if flag == 0:
+            # HSV色相、饱和度、明度
             hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
+            # 创建一个可以调整数值的滑动条，在里面做色域每一帧的变化
             l_h = cv2.getTrackbarPos("L-H", "Trackbars")
             l_s = cv2.getTrackbarPos("L-S", "Trackbars")
             l_v = cv2.getTrackbarPos("L-V", "Trackbars")
