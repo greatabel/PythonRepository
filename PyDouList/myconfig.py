@@ -1,9 +1,9 @@
 import datetime # NOQA
 
 # 你的书籍存放目录，可以在该目录下文件和文件夹混放
-file_wait_to_process_directory = '/Users/abel/Downloads/Study/alreadyReaden_Test'
+file_wait_to_process_directory = '/Users/greatabel/Study/alreadyReaden_Test'
 # 你想要整理之后书籍文件夹和读书记录的目录
-file_outupt_directory = '/Users/abel/Downloads/Study/alreadyReaden_Result'
+file_outupt_directory = '/Users/greatabel/Study/alreadyReaden_Result'
 
 # 原来的读书记录文件名字  文件放到书籍存放目录
 origin_bookrecords = 'bookrecord.csv'
@@ -13,7 +13,7 @@ doulist_prex = 'https://www.douban.com/doulist/'
 
 scrawler_pagelimit = 1
 scrawler_pagelimit_doulist = 2
-last_async_time = '2021-06-20 00:44:14'
+last_async_time = '2021-12-22 16:38:14'
 # I ignore @@@ started files in .gitignore
 # filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
 

@@ -46,7 +46,7 @@ def csv_writer_book_to_local(books, last_readen_order, filename):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         for book in books:
             writer.writerow({'ReadenOrder': last_readen_order + 1 + book.readen_order, 'EntryDate': book.been_read_date,
-                             'Category':book.category, 'BookName':book.name})
+                             'Category':book._category, 'BookName':book._name})
 
 # def csv_writer_book_to_local(rows, filename):
 #     with open(filename, 'wt') as csvfile:

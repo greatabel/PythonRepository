@@ -8,7 +8,8 @@ from common import persistent_list_to_local, read_persistentedlist_from_local, g
                    save_to_localfile,read_from_localfile
 from file_classify import classify_handler
 from record_generator import record_generator
-
+import sys
+sys.setrecursionlimit(50000)
 
 def extract_doulist(content):
     # regex = r'https://www.douban.com/doulist/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+</a>'
@@ -55,7 +56,9 @@ def main():
                                      myconfig.directory, myconfig.scrawler_pagelimit)
 
     pickle02_path = Path( myconfig.directory + "/" + myconfig.filename02 + '.mypickle')
+
     if not pickle02_path.is_file():
+        print(pickle02_path, ' not exists!')
         deal_with_folder_all_htmls(myconfig.directory)
     detailDic = read_persistentedlist_from_local(myconfig.filename02 + '.mypickle', myconfig.directory)
     classify_handler(detailDic)

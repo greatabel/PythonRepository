@@ -21,6 +21,7 @@ def single_doulist_save_html(name, url, directory, scrawler_pagelimit=3):
 def single_page(content):
     soup = BeautifulSoup(content, 'html.parser')
     items = soup.find_all("div", "doulist-item")
+
     books = []
     for item in items:
         # get book name
@@ -30,6 +31,7 @@ def single_page(content):
             href = content.find("a")
             if href != None and href.string != None:
                 bookName = href.string.strip()
+
         # get book author
         # http://stackoverflow.com/questions/5275359/using-beautifulsoup-to-extract-text-between-line-breaks-e-g-br-tags
         bookAuthor = ''
@@ -48,10 +50,13 @@ def single_page(content):
         content = item.find("div", "actions")
 
         if content != None:
-            span = content.time.find("span")
-            # print('span:',span, span.attrs['title'])
-            if span != None and span.attrs['title'] != None:
-                been_read_date = span.attrs['title'].strip()
+            # print(content.time.string)
+            # span = content.time.find("span")
+            # # print('span:',span, span.attrs['title'])
+            # if span != None and span.attrs['title'] != None:
+            #     been_read_date = span.attrs['title'].strip()
+            if content.time.string is not None:
+                been_read_date = content.time.string
 
         book = DoubanBook(bookName, bookAuthor, bookPubDate, been_read_date)
         # book.displayDoubanBook()
@@ -70,8 +75,8 @@ def circulate_readen_order(dic_for_sort_readen_order, detailDic):
         read_order += 1
     for key, single_doulist in detailDic.items():
         for idx, book in enumerate(single_doulist):
-            if book.name in dic_name_order:
-                single_doulist[idx].set_readen_order(dic_name_order[book.name])
+            if book._name in dic_name_order:
+                single_doulist[idx].set_readen_order(dic_name_order[book._name])
                 single_doulist[idx].set_category(key.rsplit('/', 1)[1].replace('@@@02',''))
 
                 # single_doulist[idx].displayDoubanBook()
@@ -91,7 +96,7 @@ def deal_with_folder_all_htmls(directory):
         content = read_from_localfile(item)
         books = single_page(content)
         for book in books:
-            dic_for_sort_readen_order[book.name] = book.been_read_date
+            dic_for_sort_readen_order[book._name] = book.been_read_date
         start = item.index('#')
         item = item[:start]
         # 合并多页
@@ -104,5 +109,6 @@ def deal_with_folder_all_htmls(directory):
     #     i.displayDoubanBook()
     print('dic_for_sort_readen_order:len=',len(dic_for_sort_readen_order))
     circulate_readen_order(dic_for_sort_readen_order, dic)
+
 
     persistent_list_to_local(myconfig.filename02 + '.mypickle', dic, directory)
