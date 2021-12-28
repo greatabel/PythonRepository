@@ -3,26 +3,24 @@
 # mac默认/usr/bin/python 是 python2.7，最好不要改变
 # 另外注意服务是： 没有输入，具体看图：https://www.jianshu.com/p/0e9e5c2cb2a2
 
-from __future__ import print_function
-import sys
+# 使用捷径app
+
 import sys
 import re
+
 content = ''
 
 
-# sys.stdin = open('simulatedInput.txt','r') 
-# sys.stdin = open('simulatedInput_m1.txt','r') 
-
-while True:
+for i in range(5):
     t = sys.stdin.readline()
     content += t
     if '摘录来自' in content:
-    	break
-# for t in sys.stdin.readline():
+    # if len(content) > 350:
+        break
 
-def find_between(s, start, end):
-	return (s.split(start))[1].split(end)[0]
-
-r = find_between(content, "“", "”")
-r = r.replace('[…]', '')
-print(r)
+content = content.replace("摘录来自","").strip()
+if '“' in content:
+    s = content.index('“')
+    if s != None:
+        content = content[s:]
+print(content)
