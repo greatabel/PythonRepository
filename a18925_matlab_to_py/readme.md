@@ -31,8 +31,10 @@ pip3 install --upgrade -r requirements.txt
 
 
 5.
-进入虚拟环境，开2个terminl窗口
+进入虚拟环境，开1个terminl窗口
 
 运行已经训练好的结果看, 在terminal输入：
-python3 i0detect_arrow.py
+python3 i0agent_solve.py
+...
+python3 i7update_messages.py
 
