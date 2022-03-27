@@ -11,7 +11,7 @@ import re
 content = ''
 
 
-for i in range(5):
+for i in range(6):
     t = sys.stdin.readline()
     content += t
     if '摘录来自' in content:
@@ -22,5 +22,9 @@ content = content.replace("摘录来自","").strip()
 if '“' in content:
     s = content.index('“')
     if s != None:
-        content = content[s:]
+        content = content[s+1:]
+if content is not None:
+    if content[-1] == '”':
+        content = content[:-1]
+
 print(content)
