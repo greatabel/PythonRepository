@@ -8,6 +8,9 @@
 from socket import *
 import sys
 
+
+
+
 #Server would be running on the same host as Client
 if len(sys.argv) != 3:
     print("\n===== Error usage, python3 TCPClient3.py SERVER_IP SERVER_PORT ======\n")
