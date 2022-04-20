@@ -1,0 +1,355 @@
+"""
+    Sample code for Multi-Threaded Server
+    Python 3
+    Usage: python3 TCPserver3.py localhost 12000
+    coding: utf-8
+    
+    Author: Wei Song (Tutor for COMP3331/9331)
+"""
+from socket import *
+from threading import Thread
+import sys, select
+from collections import defaultdict
+import os
+
+
+def mycheck_start(serverSocket, threadList, fileList, userFileList, msgList):
+    userNameList = []
+    usernamePasswordList = []
+    if os.path.isfile("credentials.txt") == True:
+        with open("credentials.txt") as open_file:
+            for line in open_file.readlines():
+                line = line.split("\n")
+                name_password = line[0].split(" ")
+                # if len(name_password) == 2:
+                username = name_password[0]
+                password = name_password[1]
+                userNameList.append(username)
+                usernamePasswordList.append(username + ' ' + password)
+
+    print('Waiting for clients')
+    clientSocket, addr = serverSocket.accept()
+    while True:
+        username = clientSocket.recv(2048).decode()
+        if username in userNameList:
+            clientSocket.send("username exists".encode())
+            password = clientSocket.recv(2048).decode()
+            if username + ' ' + password in usernamePasswordList:
+                print(f'{username} successful login')
+                clientSocket.send("OK".encode())
+                taskExecute(username, clientSocket, threadList, fileList, userFileList, msgList)
+            else:
+                print("incorrect password")
+                clientSocket.send("password incorrect".encode())
+        else:
+            clientSocket.send("username not found".encode())
+            print("New user")
+            password = clientSocket.recv(2048).decode()
+            usernamePasswordList.append(username + ' ' + password)
+            with open("credentials.txt", mode='a+') as open_file:
+                open_file.write('\n' + username + ' ' + password)
+            if username + ' ' + password in usernamePasswordList:
+                print(f'{username} successfully logged in')
+                clientSocket.send("just so so".encode())
+                taskExecute(username, clientSocket, threadList, fileList, userFileList, msgList)
+
+
+def taskExecute(username, clientSocket, threadList, fileList, userFileList, msgList):
+    while True:
+        task = clientSocket.recv(2048).decode()
+        taskCommand = task.split(" ")[0]
+        try:
+            if taskCommand == "XIT":
+                print(f"{username} exited")
+                mycheck_start(serverSocket, threadList, fileList, userFileList, msgList)
+
+
+            elif taskCommand == "CRT":
+                print(f"{username} issued {taskCommand} command")
+                taskContent = task.split(" ")[1]
+                if os.path.isfile(taskContent) == True:
+                    print(f"Thread {taskContent} exists")
+                    clientSocket.send(f"Thread {taskContent} exists".encode())
+                    # if taskContent in threadList:
+                    #    continue
+                    # else:
+                    #    threadList.append(taskContent)
+                    #    userFileList[username].append(taskContent)
+                else:
+                    print(f"Thread {taskContent} created")
+                    threadList.append(taskContent)
+                    userFileList[username].append(taskContent)
+
+                    clientSocket.send(f"Thread {taskContent} created".encode())
+                    createFile = open(f"{taskContent}", mode='x')
+                    createFile.close()
+
+            elif taskCommand == "LST":
+                print(f"{username} issued {taskCommand} command")
+                if len(threadList) == 0:
+                    clientSocket.send("There is no active threads".encode())
+                else:
+                    clientSocket.send("The list of active threads:".encode())
+                    clientSocket.recv(2048).decode()
+                    content = ''
+                    for i in threadList:
+                        content += i
+                        content += '\n'
+                    clientSocket.send(content.encode())
+
+            elif taskCommand == "MSG":
+                print(f"{username} issued {taskCommand} command")
+                taskNumber = task.split(" ")[1]
+                if taskNumber in threadList:
+                    print(f"Message posted to {taskNumber} thread")
+                    clientSocket.send("thread exist".encode())
+                    writeFile = open(taskNumber, mode='a+')
+                    taskContent = " ".join(task.split(" ")[2:])
+                    messageNumber = getMessageNumber(taskNumber)
+                    writeFile.write(str(messageNumber) + " " + username + ": " + taskContent + "\n")
+                    writeFile.close()
+                    msgList.append(str(messageNumber) + " " + username + ": " + taskContent + "\n")
+                else:
+                    print(f"{taskNumber} not exist")
+                    clientSocket.send("thread not exist".encode())
+
+
+            elif taskCommand == "RDT":
+
+                print(f"{username} issued {taskCommand} command")
+                taskNumber = task.split(" ")[1]
+                if taskNumber in threadList:
+                    print(f"Thread {taskNumber} read")
+                    with open(taskNumber) as openFile:
+                        if os.path.getsize(taskNumber) == 0:
+                            clientSocket.send(f"Thread {taskNumber} is empty".encode())
+                        else:
+                            content = ""
+                            for line in openFile:
+                                content += line
+                            clientSocket.send(content.encode())
+
+                else:
+                    print(f"{taskNumber} not exist")
+                    clientSocket.send("thread not exist".encode())
+
+
+
+
+            elif "RMV" in task:
+                taskCommand = task.split(" ")[0]
+                print(f"{username} issued {taskCommand} command")
+                threadNumber = task.split(" ")[1]
+                if threadNumber not in userFileList[username]:
+                    print(f"Thread {threadNumber} cannot be removed")
+                    clientSocket.send("The thread was created by another user and cannot be removed".encode())
+                else:
+                    os.remove(threadNumber)
+                    threadList.remove(threadNumber)
+                    for i in msgList:
+                        if i.split(" ")[1] == threadNumber + ":":
+                            msgList.remove(i)
+                    print(f"Thread {threadNumber} removed")
+                    clientSocket.send("The thread has been removed".encode())
+
+            elif taskCommand == "DLT":
+                taskCommand = task.split(" ")[0]
+                print(f"{username} issued {taskCommand} command")
+                threadNumber = task.split(" ")[1]
+                taskNumber = task.split(" ")[2]
+                if threadNumber not in threadList:
+                    print("Thread number is not existed and message cannot be deleted")
+                    clientSocket.send("Message cannot be deleted".encode())
+                # 只能读到这里 helperfunction错了
+                else:
+                    matchingTaskNumber(clientSocket, threadNumber, taskNumber, username, msgList)
+
+            elif taskCommand == "EDT":
+                print(f"{username} issued {taskCommand} command")
+                threadNumber = task.split(" ")[1]
+                taskNumber  = task.split(" ")[2]
+                taskContent = task.split(" ")[3:]
+                taskContent = " ".join(taskContent)
+                if threadNumber not in threadList:
+                    print("Message cannot be deleted")
+                else:
+                    editTaskNumber(clientSocket, threadNumber, taskNumber, taskContent, username, msgList)
+
+            elif taskCommand == "UPD":
+                print(f"{username} issued {taskCommand} command")
+                threadNumber = task.split(" ")[1]
+                taskContent = task.split(" ")[2]
+                if threadNumber in threadList:
+                    print(f"{username} upload file {taskContent} to {threadNumber} thread")
+                    clientSocket.send(f"{taskContent} uploaded to {threadNumber} thread".encode())
+                    fileName = threadNumber + '-' + taskContent
+                    writeFile = open(fileName, mode='a+')
+                    writeFile.close()
+                    with open(threadNumber, mode='a+') as wf:
+                        wf.write(username + " uploaded " + taskContent + "\n")
+                    fileList.append(fileName)
+                else:
+                    clientSocket.send("Thread number is not existed and the file cannot be uploaded".encode())
+
+            elif taskCommand == "DWN":
+                print(f"{username} issued {taskCommand} command")
+                threadNumber = task.split(" ")[1]
+                taskContent = task.split(" ")[2]
+                fileName = threadNumber + '-' + taskContent
+                if threadNumber in threadList:
+                    if fileName in fileList:
+                        clientSocket.send(f"all ready".encode())
+                        print(f"{taskContent} downloaded from Thread {threadNumber}")
+                    else:
+                        clientSocket.send(f"{taskContent} does not exist in Thread {threadNumber}".encode())
+                        print(f"{taskContent} does not exist in Thread {threadNumber}")
+                else:
+                    clientSocket.send("Thread number is not existed and the file cannot be download".encode())
+                    print("Thread number is not existed and the file cannot be download")
+
+
+
+        except:
+            clientSocket.send("Incorrect input".encode())
+
+
+def getMessageNumber(taskNumber):
+    wf = open(taskNumber, mode='r')
+    line = wf.readline()
+    messageNumber = 1
+    while line:
+        if line.split(' ')[0].isdigit() == True:
+            messageNumber += 1
+        line = wf.readline()
+    wf.close()
+    return messageNumber
+
+
+def matchingTaskNumber(clientSocket, threadNumber, taskNumber, username, msgList):
+    # print(msgList)
+    if 1 <= int(taskNumber) <= len(msgList):
+        if msgList[int(taskNumber) - 1].strip().split(' ')[1] == username + ':':
+        # 可以读到这里
+            msgList.remove(msgList[int(taskNumber) - 1])
+            clientSocket.send("The message has been deleted".encode())
+
+        else:
+            clientSocket.send("The message belongs to another user and cannot be deleted".encode())
+    else:
+        clientSocket.send("Message number is not existed and the message cannot be deleted".encode())
+
+    with open(threadNumber, mode='w') as writeFile:
+        for i in msgList:
+            writeFile.write(i + "\n")
+
+def editTaskNumber(clientSocket, threadNumber, taskNumber, taskContent, username, msgList):
+    if 1 <= int(taskNumber) <= len(msgList):
+        if msgList[int(taskNumber) - 1].strip().split(' ')[1] == username + ':':
+            msgList[int(taskNumber) - 1] = taskNumber + ' ' + username + ": " + taskContent
+            clientSocket.send("The message has been edited".encode())
+        else:
+            clientSocket.send("The message belongs to another user and cannot be deleted".encode())
+    else:
+        clientSocket.send("Message number is not existed and the message cannot be deleted".encode())
+
+    with open(threadNumber, mode='w') as writeFile:
+        for i in msgList:
+            writeFile.write(i + "\n")
+
+
+"""
+    Define multi-thread class for client
+    This class would be used to define the instance for each connection from each client
+    For example, client-1 makes a connection request to the server, the server will call
+    class (ClientThread) to define a thread for client-1, and when client-2 make a connection
+    request to the server, the server will call class (ClientThread) again and create a thread
+    for client-2. Each client will be runing in a separate therad, which is the multi-threading
+"""
+class ClientThread(Thread):
+    def __init__(self, clientAddress, clientSocket):
+        Thread.__init__(self)
+        self.clientAddress = clientAddress
+        self.clientSocket = clientSocket
+        self.clientAlive = False
+        
+        print("===== New connection created for: ", clientAddress)
+        self.clientAlive = True
+        
+    def run(self):
+        message = ''
+        
+        while self.clientAlive:
+            # use recv() to receive message from the client
+            data = self.clientSocket.recv(1024)
+            message = data.decode()
+            
+            # if the message from client is empty, the client would be off-line then set the client as offline (alive=Flase)
+            if message == '':
+                self.clientAlive = False
+                print("===== the user disconnected - ", clientAddress)
+                break
+            
+            # handle message from the client
+            if message == 'login':
+                print("[recv] New login request")
+                self.process_login()
+            elif message == 'download':
+                print("[recv] Download request")
+                message = 'download filename'
+                print("[send] " + message)
+                self.clientSocket.send(message.encode())
+            else:
+                print("[recv] " + message)
+                print("[send] Cannot understand this message")
+                message = 'Cannot understand this message'
+                self.clientSocket.send(message.encode())
+    
+    """
+        You can create more customized APIs here, e.g., logic for processing user authentication
+        Each api can be used to handle one specific function, for example:
+        def process_login(self):
+            message = 'user credentials request'
+            self.clientSocket.send(message.encode())
+    """
+    def process_login(self):
+        message = 'user credentials request'
+        print('[send] ' + message);
+        self.clientSocket.send(message.encode())
+
+
+def main():
+    # acquire server host and port from command line parameter
+    if len(sys.argv) != 2:
+        print("\n===== Error usage, python3 TCPServer3.py SERVER_PORT ======\n")
+        exit(0)
+    serverHost = "127.0.0.1"
+    serverPort = int(sys.argv[1])
+    serverAddress = (serverHost, serverPort)
+
+    # define socket for the server side and bind address
+    serverSocket = socket(AF_INET, SOCK_STREAM)
+    serverSocket.bind(serverAddress)
+
+    print("\n===== Server is running =====")
+    print("===== Waiting for connection request from clients...=====")
+
+
+    while True:
+        serverSocket.listen()
+        # clientSockt, clientAddress = serverSocket.accept()
+
+        # start1-----------------
+        threadList = []
+        fileList = []
+        msgList = []
+        userFileList = defaultdict(list)
+        mycheck_start(serverSocket, threadList, fileList, userFileList, msgList)
+
+        # end1------------------
+        
+        clientThread = ClientThread(clientAddress, clientSockt)
+        clientThread.start()
+
+
+if __name__ == "__main__":
+    main()
