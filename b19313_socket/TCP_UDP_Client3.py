@@ -11,7 +11,7 @@ import sys
 
 login_flag = 0
 task_flag = 0
-
+serverAddress = ()
 
 def verify_credential(clientSocket):
     global login_flag
@@ -35,6 +35,9 @@ def verify_credential(clientSocket):
     elif username_msg == "username not found":
         password = input(f"Enter new password for {username}: ")
         clientSocket.send(password.encode())
+
+        client_socket0.sendto(password.encode(), serverAddress)
+
         password_msg = clientSocket.recv(2048).decode()
         if password_msg == "just so so":
             print(f"new user {username} created")
@@ -44,7 +47,7 @@ def verify_credential(clientSocket):
 def run_cmd(clientSocket):
     global task_flag
     task = input(
-        "Enter one of the following commands: CRT, MSG, DLT, EDT, LST, RDT, UPD, DWN, RMV, XIT, SHT:"
+        "Enter one of the following commands: CRT, MSG, DLT, EDT, LST, RDT, UPD, DWN, RMV, XIT:"
     )
 
     if task == "XIT":
@@ -115,11 +118,12 @@ def run_cmd(clientSocket):
             print(taskContent)
 
     else:
-        print("Incorrect command")
+        print("Message makes no sense")
 
 
 def main():
     global login_flag
+    global serverAddress
     # Server would be running on the same host as Client
     if len(sys.argv) != 3:
         print(
@@ -131,7 +135,10 @@ def main():
     serverAddress = (serverHost, serverPort)
 
     login_flag = 0
-    # define a socket for the client side, it would be used to communicate with the server
+
+    # UDP socket
+    clientSocket0 = socket(AF_INET, SOCK_DGRAM)
+    
     clientSocket = socket(AF_INET, SOCK_STREAM)
 
     # build connection with the server and send message to it
@@ -162,7 +169,7 @@ def main():
         #     continue
         # else:
         #     break
-        
+
         # print("main login_flag=", login_flag)
         if login_flag == 0:
             verify_credential(clientSocket)
