@@ -142,6 +142,7 @@ def main():
     clientSocket0 = socket(AF_INET, SOCK_DGRAM)
     clientSocket0.sendto(b"UDP client send msg!", (serverHost, serverPort - 1))
     print("-" * 30)
+    clientSocket0.close()
     time.sleep(1)
 
     clientSocket = socket(AF_INET, SOCK_STREAM)

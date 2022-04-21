@@ -94,6 +94,7 @@ def main():
     serverSocket0.bind((serverHost, serverPort - 1))
     upd_data, ADDR = serverSocket0.recvfrom(2048)
     print("upd server get:", upd_data)
+    serverSocket0.close()
 
     time.sleep(1)
 
