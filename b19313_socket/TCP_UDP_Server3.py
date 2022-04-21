@@ -12,7 +12,7 @@ import sys, select
 from collections import defaultdict
 import os
 from Server_Common import *
-
+import time
 
 
 """
@@ -91,7 +91,11 @@ def main():
 
     # UDP
     serverSocket0 = socket(AF_INET, SOCK_DGRAM)
-    serverSocket0.bind(serverAddress)
+    serverSocket0.bind((serverHost, serverPort - 1))
+    upd_data, ADDR = serverSocket0.recvfrom(2048)
+    print("upd server get:", upd_data)
+
+    time.sleep(1)
 
     serverSocket = socket(AF_INET, SOCK_STREAM)
     serverSocket.bind(serverAddress)

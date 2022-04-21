@@ -4,6 +4,7 @@ import sys, select
 from collections import defaultdict
 import os
 
+
 def mycheck_start(serverSocket, threadList, fileList, userFileList, msgList):
     userNameList = []
     usernamePasswordList = []
@@ -47,6 +48,7 @@ def mycheck_start(serverSocket, threadList, fileList, userFileList, msgList):
                 make_cmd_real(
                     username, clientSocket, threadList, fileList, userFileList, msgList
                 )
+
 
 def make_cmd_real(username, clientSocket, threadList, fileList, userFileList, msgList):
     while True:
@@ -278,4 +280,3 @@ def edit_task_number(
     with open(threadNumber, mode="w") as writeFile:
         for i in msgList:
             writeFile.write(i + "\n")
-

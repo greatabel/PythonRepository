@@ -7,11 +7,13 @@
 """
 from socket import *
 import sys
+import time
 
 
 login_flag = 0
 task_flag = 0
 serverAddress = ()
+
 
 def verify_credential(clientSocket):
     global login_flag
@@ -138,7 +140,10 @@ def main():
 
     # UDP socket
     clientSocket0 = socket(AF_INET, SOCK_DGRAM)
-    
+    clientSocket0.sendto(b"UDP client send msg!", (serverHost, serverPort - 1))
+    print("-" * 30)
+    time.sleep(1)
+
     clientSocket = socket(AF_INET, SOCK_STREAM)
 
     # build connection with the server and send message to it
