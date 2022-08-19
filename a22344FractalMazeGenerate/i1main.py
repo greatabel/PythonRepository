@@ -11,7 +11,7 @@ wn.title("A BFS Maze Solving Program")
 wn.setup(1300,700)                  # setup the dimensions of the working window
 
 
-
+grid = []
 
 def setup_maze(grid):                          # define a function called setup_maze
     global start_x, start_y, end_x, end_y      # set up global variables for start and end locations
