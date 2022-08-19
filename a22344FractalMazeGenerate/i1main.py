@@ -1,70 +1,71 @@
-import turtle                    # import turtle library
+import turtle  # import turtle library
 import time
 import sys
 from collections import deque
 
 from i0common import *
 
-wn = turtle.Screen()               # define the turtle screen
-wn.bgcolor("black")                # set the background colour
+wn = turtle.Screen()  # define the turtle screen
+wn.bgcolor("black")  # set the background colour
 wn.title("Fractal Maze Generetor")
-wn.setup(700,700)                  # setup the dimensions of the working window
+wn.setup(700, 700)  # setup the dimensions of the working window
 
 
 grid = [
-"+++++++++++++++++++++++++++++++++++++++++++++++++++",
-"+               +                                 +",
-"+  ++++++++++  +++++++++++++  +++++++  ++++++++++++",
-"+s          +                 +               ++  +",
-"+  +++++++  +++++++++++++  +++++++++++++++++++++  +",
-"+  +     +  +           +  +                 +++  +",
-"+  +  +  +  +  +  ++++  +  +  +++++++++++++  +++  +",
-"+  +  +  +  +  +  +        +  +  +        +       +",
-"+  +  ++++  +  ++++++++++  +  +  ++++  +  +  ++   +",
-"+  +     +  +          +   +           +  +  ++  ++",
-"+  ++++  +  +++++++ ++++++++  +++++++++++++  ++  ++",
-"+     +  +     +              +              ++   +",
-"++++  +  ++++++++++ +++++++++++  ++++++++++  +++  +",
-"+  +  +                    +     +     +  +  +++  +",
-"+  +  ++++  +++++++++++++  +  ++++  +  +  +  ++   +",
-"+  +  +     +     +     +  +  +     +     +  ++  ++",
-"+  +  +  +++++++  ++++  +  +  +  ++++++++++  ++  ++",
-"+                       +  +  +              ++  ++",
-"+ ++++++             +  +  +  +  +++        +++  ++",
-"+ ++++++ ++++++ +++++++++    ++ ++   ++++++++++  ++",
-"+ +    +    +++ +     +++++++++ ++  +++++++    + ++",
-"+ ++++ ++++ +++ + +++ +++    ++    ++    ++ ++ + ++",
-"+ ++++    +     + +++ +++ ++ ++++++++ ++ ++ ++   ++",
-"+      ++ +++++++e+++     ++          ++    +++++++",
-"+++++++++++++++++++++++++++++++++++++++++++++++++++",
- ]
+    "+++++++++++++++++++++++++++++++++++++++++++++++++++",
+    "+               +                                 +",
+    "+  ++++++++++  +++++++++++++  +++++++  ++++++++++++",
+    "+s          +                 +               ++  +",
+    "+  +++++++  +++++++++++++  +++++++++++++++++++++  +",
+    "+  +     +  +           +  +                 +++  +",
+    "+  +  +  +  +  +  ++++  +  +  +++++++++++++  +++  +",
+    "+  +  +  +  +  +  +        +  +  +        +       +",
+    "+  +  ++++  +  ++++++++++  +  +  ++++  +  +  ++   +",
+    "+  +     +  +          +   +           +  +  ++  ++",
+    "+  ++++  +  +++++++ ++++++++  +++++++++++++  ++  ++",
+    "+     +  +     +              +              ++   +",
+    "++++  +  ++++++++++ +++++++++++  ++++++++++  +++  +",
+    "+  +  +                    +     +     +  +  +++  +",
+    "+  +  ++++  +++++++++++++  +  ++++  +  +  +  ++   +",
+    "+  +  +     +     +     +  +  +     +     +  ++  ++",
+    "+  +  +  +++++++  ++++  +  +  +  ++++++++++  ++  ++",
+    "+                       +  +  +              ++  ++",
+    "+ ++++++             +  +  +  +  +++        +++  ++",
+    "+ ++++++ ++++++ +++++++++    ++ ++   ++++++++++  ++",
+    "+ +    +    +++ +     +++++++++ ++  +++++++    + ++",
+    "+ ++++ ++++ +++ + +++ +++    ++    ++    ++ ++ + ++",
+    "+ ++++    +     + +++ +++ ++ ++++++++ ++ ++ ++   ++",
+    "+      ++ +++++++e+++     ++          ++    +++++++",
+    "+++++++++++++++++++++++++++++++++++++++++++++++++++",
+]
 
 
-def setup_maze(grid):                          
-    global start_x, start_y, end_x, end_y      
-    for y in range(len(grid)):                 
-        for x in range(len(grid[y])):          
-            character = grid[y][x]             
-            screen_x = -588 + (x * 24)         
-            screen_y = 288 - (y * 24)          
+def setup_maze(grid):
+    global start_x, start_y, end_x, end_y
+    for y in range(len(grid)):
+        for x in range(len(grid[y])):
+            character = grid[y][x]
+            screen_x = -588 + (x * 24)
+            screen_y = 288 - (y * 24)
 
             if character == "+":
-                maze.goto(screen_x, screen_y)        
-                maze.stamp()                          # stamp a copy of the turtle on the screen
-                walls.append((screen_x, screen_y))    # add coordinate to walls list
+                maze.goto(screen_x, screen_y)
+                maze.stamp()
+                walls.append((screen_x, screen_y))
 
             if character == " " or character == "e":
-                path.append((screen_x, screen_y))     # add " " and e to path list
+                path.append((screen_x, screen_y))
 
             if character == "e":
                 green.color("purple")
-                green.goto(screen_x, screen_y)       # send green sprite to screen location
-                end_x, end_y = screen_x,screen_y     # assign end locations variables to end_x and end_y
+                green.goto(screen_x, screen_y)
+                end_x, end_y = screen_x, screen_y
                 green.stamp()
+                # change here to change 'empty space color'
                 green.color("green")
 
             if character == "s":
-                start_x, start_y = screen_x, screen_y  # assign start locations variables to start_x and start_y
+                start_x, start_y = screen_x, screen_y
                 red.goto(screen_x, screen_y)
 
 
@@ -72,57 +73,60 @@ def endProgram():
     wn.exitonclick()
     sys.exit()
 
-def search(x,y):
+
+def search(x, y):
     frontier.append((x, y))
-    solution[x,y] = x,y
+    solution[x, y] = x, y
 
-    while len(frontier) > 0:          # exit while loop when frontier queue equals zero
+    while len(frontier) > 0:
         time.sleep(0)
-        x, y = frontier.popleft()     # pop next entry in the frontier queue an assign to x and y location
+        x, y = frontier.popleft()
 
-        if(x - 24, y) in path and (x - 24, y) not in visited:  # check the cell on the left
+        if (x - 24, y) in path and (x - 24, y) not in visited:
             cell = (x - 24, y)
-            solution[cell] = x, y    # backtracking routine [cell] is the previous cell. x, y is the current cell
-            #blue.goto(cell)        # identify frontier cells
-            #blue.stamp()
-            frontier.append(cell)   # add cell to frontier list
-            visited.add((x-24, y))  # add cell to visited list
+            solution[cell] = x, y
 
-        if (x, y - 24) in path and (x, y - 24) not in visited:  # check the cell down
+            frontier.append(cell)
+            visited.add((x - 24, y))
+
+        if (x, y - 24) in path and (x, y - 24) not in visited:
             cell = (x, y - 24)
             solution[cell] = x, y
-            #blue.goto(cell)
-            #blue.stamp()
+            # blue.goto(cell)
+            # blue.stamp()
             frontier.append(cell)
             visited.add((x, y - 24))
             print(solution)
 
-        if(x + 24, y) in path and (x + 24, y) not in visited:   # check the cell on the  right
+        if (x + 24, y) in path and (x + 24, y) not in visited:
             cell = (x + 24, y)
             solution[cell] = x, y
-            #blue.goto(cell)
-            #blue.stamp()
+            # blue.goto(cell)
+            # blue.stamp()
             frontier.append(cell)
-            visited.add((x +24, y))
+            visited.add((x + 24, y))
 
-        if(x, y + 24) in path and (x, y + 24) not in visited:  # check the cell up
+        if (x, y + 24) in path and (x, y + 24) not in visited:
             cell = (x, y + 24)
             solution[cell] = x, y
-            #blue.goto(cell)
-            #blue.stamp()
+            # blue.goto(cell)
+            # blue.stamp()
             frontier.append(cell)
             visited.add((x, y + 24))
-        green.goto(x,y)
+        green.goto(x, y)
         green.stamp()
 
 
 def backRoute(x, y):
     yellow.goto(x, y)
     yellow.stamp()
-    while (x, y) != (start_x, start_y):    # stop loop when current cells == start cell
-        yellow.goto(solution[x, y])        # move the yellow sprite to the key value of solution ()
+    while (x, y) != (start_x, start_y):  # stop loop when current cells == start cell
+        yellow.goto(
+            solution[x, y]
+        )  # move the yellow sprite to the key value of solution ()
         yellow.stamp()
-        x, y = solution[x, y]               # "key value" now becomes the new key
+        x, y = solution[x, y]  # "key value" now becomes the new key
+
 
 # set up classes
 maze = Maze()
@@ -136,11 +140,11 @@ walls = []
 path = []
 visited = set()
 frontier = deque()
-solution = {}                           # solution dictionary
+solution = {}
 
 
 # main program starts here ####
 setup_maze(grid)
-search(start_x,start_y)
+search(start_x, start_y)
 backRoute(end_x, end_y)
 wn.exitonclick()
