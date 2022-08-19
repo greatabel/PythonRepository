@@ -8,7 +8,7 @@ from i0common import *
 wn = turtle.Screen()               # define the turtle screen
 wn.bgcolor("black")                # set the background colour
 wn.title("A BFS Maze Solving Program")
-wn.setup(1300,700)                  # setup the dimensions of the working window
+wn.setup(700,700)                  # setup the dimensions of the working window
 
 
 grid = [
@@ -38,18 +38,18 @@ grid = [
 "+      ++ +++++++e+++     ++          ++    +++++++",
 "+++++++++++++++++++++++++++++++++++++++++++++++++++",
  ]
- 
 
-def setup_maze(grid):                          # define a function called setup_maze
-    global start_x, start_y, end_x, end_y      # set up global variables for start and end locations
-    for y in range(len(grid)):                 # read in the grid line by line
-        for x in range(len(grid[y])):          # read each cell in the line
-            character = grid[y][x]             # assign the varaible "character" the the x and y location od the grid
-            screen_x = -588 + (x * 24)         # move to the x location on the screen staring at -588
-            screen_y = 288 - (y * 24)          # move to the y location of the screen starting at 288
+
+def setup_maze(grid):                          
+    global start_x, start_y, end_x, end_y      
+    for y in range(len(grid)):                 
+        for x in range(len(grid[y])):          
+            character = grid[y][x]             
+            screen_x = -588 + (x * 24)         
+            screen_y = 288 - (y * 24)          
 
             if character == "+":
-                maze.goto(screen_x, screen_y)         # move pen to the x and y locaion and
+                maze.goto(screen_x, screen_y)        
                 maze.stamp()                          # stamp a copy of the turtle on the screen
                 walls.append((screen_x, screen_y))    # add coordinate to walls list
 
