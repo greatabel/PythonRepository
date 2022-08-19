@@ -7,7 +7,7 @@ from i0common import *
 
 wn = turtle.Screen()               # define the turtle screen
 wn.bgcolor("black")                # set the background colour
-wn.title("A BFS Maze Solving Program")
+wn.title("Fractal Maze Generetor")
 wn.setup(700,700)                  # setup the dimensions of the working window
 
 

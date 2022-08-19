@@ -19,7 +19,7 @@ class Green(turtle.Turtle):
         turtle.Turtle.__init__(self)
         self.shape("square")
         # self.color("green")
-        self.color("red")
+        self.color("green")
         self.penup()
         self.speed(0)
 
