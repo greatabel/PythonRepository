@@ -13,8 +13,12 @@ def allocate(availability):
     breakfeast = []
     dinner = []
     n_days = len(availability)
-    print('n_days=', n_days)
+    rate_of_restaurant = int(n_days * 0.1)
+    bound_l = int(n_days * 0.36)
+    bound_p = int(n_days * 0.44)
+    print('n_days=', n_days, rate_of_restaurant, bound_l, bound_p)
     for day_th, availability_per_day in enumerate(availability):
+        times_of_restaurant = 0
         b_choices = []
         d_choices = []
         for idx_th_p, available in enumerate(availability_per_day):
@@ -34,18 +38,36 @@ def allocate(availability):
         b = random.choice(b_choices)
         d = random.choice(d_choices)
         if b != d:
-            breakfeast.append(b)
-            dinner.append(d)
+            count_b = breakfeast.count(b)
+            count_d = breakfeast.count(d)
+            # print('count_b=', count_b)
+            # Every person should be allocated to at least ⌊0.36n⌋ and at most ⌈0.44n⌉ meals.
+
+            if count_b >= bound_l and count_b <= bound_p:
+                breakfeast.append(b)
+            else:
+                b = random.choice(b_choices)
+                breakfeast.append(b)
+                
+            if count_d >= bound_l and count_d <= bound_p:
+                dinner.append(d)
+            else:
+                d = random.choice(d_choices)
+                dinner.append(d)
         else:
             # use 50% to make dinner or breakfeast to be order from restaurants 
             # make them same rate
             if random.randint(0, 1) == 0:
-                breakfeast.append(5)
+                if times_of_restaurant < rate_of_restaurant:
+                    breakfeast.append(5)
+                    times_of_restaurant + 1
                 dinner.append(d)
             else:
                 breakfeast.append(b)
-                dinner.append(5)
-                
+                if times_of_restaurant < rate_of_restaurant:
+                    dinner.append(5)
+                    times_of_restaurant + 1
+
         print(day_th, "day ---", b_choices, "#" * 5, d_choices, "-" * 5, b, d)
 
     # d = ([3, 2, 1, 4, 0, 2, 3, 2, 2, 3], [4, 0, 3, 2, 5, 4, 1, 1, 3, 0])
@@ -72,7 +94,7 @@ def sharing_the_meal():
     print(r)
 
 
-class Node:
+class node:
     def __init__(self, sub="", children=None):
         self.sub = sub
         self.ch = children or []
@@ -80,7 +102,7 @@ class Node:
 
 class suffix_tree:
     def __init__(self, str):
-        self.nodes = [Node()]
+        self.nodes = [node()]
         for i in range(len(str)):
             self.add_suffix(str[i:])
 
@@ -95,7 +117,7 @@ class suffix_tree:
                 if x2 == len(children):
                     # no matching child, remainder of suf becomes new node
                     n2 = len(self.nodes)
-                    self.nodes.append(Node(suf[i:], []))
+                    self.nodes.append(node(suf[i:], []))
                     self.nodes[n].ch.append(n2)
                     return
                 n2 = children[x2]
@@ -112,7 +134,7 @@ class suffix_tree:
                     n3 = n2
                     # new node for the part in common
                     n2 = len(self.nodes)
-                    self.nodes.append(Node(sub2[:j], [n3]))
+                    self.nodes.append(node(sub2[:j], [n3]))
                     self.nodes[n3].sub = sub2[j:]  # old node loses the part in common
                     self.nodes[n].ch[x2] = n2
                     break  # continue down the tree
