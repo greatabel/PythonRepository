@@ -12,6 +12,8 @@ n*5+n*n is O(n*2)
 def allocate(availability):
     breakfeast = []
     dinner = []
+    n_days = len(availability)
+    print('n_days=', n_days)
     for day_th, availability_per_day in enumerate(availability):
         b_choices = []
         d_choices = []
@@ -35,10 +37,15 @@ def allocate(availability):
             breakfeast.append(b)
             dinner.append(d)
         else:
-            # use 50% to make dinner or breakfeast to be order from restaurants
+            # use 50% to make dinner or breakfeast to be order from restaurants 
+            # make them same rate
             if random.randint(0, 1) == 0:
                 breakfeast.append(5)
                 dinner.append(d)
+            else:
+                breakfeast.append(b)
+                dinner.append(5)
+                
         print(day_th, "day ---", b_choices, "#" * 5, d_choices, "-" * 5, b, d)
 
     # d = ([3, 2, 1, 4, 0, 2, 3, 2, 2, 3], [4, 0, 3, 2, 5, 4, 1, 1, 3, 0])
@@ -71,13 +78,13 @@ class Node:
         self.ch = children or []
 
 
-class SuffixTree:
+class suffix_tree:
     def __init__(self, str):
         self.nodes = [Node()]
         for i in range(len(str)):
-            self.addSuffix(str[i:])
+            self.add_suffix(str[i:])
 
-    def addSuffix(self, suf):
+    def add_suffix(self, suf):
         n = 0
         i = 0
         while i < len(suf):
@@ -145,7 +152,7 @@ class SuffixTree:
         depth = {}
         inter = []
         for n in range(1, len(self.nodes)):
-            if "$" not in self.nodes[n].sub:
+            if "@" not in self.nodes[n].sub:
                 if len(self.nodes[n].ch) >= 2:
                     inter.append(n)
         for n in inter:
@@ -176,9 +183,9 @@ class SuffixTree:
 
 
 def compare_subs(submission1, submission2):
-    t = submission1 + submission2 + "$"
+    t = submission1 + submission2 + "@"
     # print(t)
-    common = SuffixTree(t).max_repeats()
+    common = suffix_tree(t).max_repeats()
     max_len = 0
     choose = ''
     for item in common:
