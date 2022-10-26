@@ -19,6 +19,7 @@ for i in range(6):
         break
 
 content = content.replace("摘录来自","").strip()
+content = content.replace(" ","")
 if '“' in content:
     s = content.index('“')
     if s != None:
