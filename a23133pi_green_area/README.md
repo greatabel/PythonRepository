@@ -1,4 +1,4 @@
-在mac/ubuntu18.04系统上测试过，windows应该可以，但是没测试过windows
+在树莓派/ubuntu18.04系统上测试过，windows应该可以，但是没测试过windows
 
 0.
 安装rabbitmq server：
@@ -21,25 +21,18 @@ terminal底下进入工程目录下，在requirements.txt同级目录下运行�
 pip install --upgrade -r requirements.txt
 
 5.
+打开一个命令行
 模拟运行在:
-python3 wsgi.py
+python3 i1pi_car_detector.py
 
-再开2个命令行分别进入虚拟环境，运行：
-python3 i14simulate_iot.py
-python3 i6more_attractive_gui.py
+再开1个命令行分别进入虚拟环境，运行：
+python3 i2receiver_with_cmd.py
+
+可选：如果向查看模拟带ui的调用，还可以打开
+python3 i3receiver_with_ui.py
 
 6.
-浏览器访问：
+在真实创建下，不要打开i1pi_car_detector.py的UI，节省资源：
+直接i1pi_car_detector.py的14行取消注释即可，取消debug模式
 
-http://localhost:5000/device_control
-进行实验
-
-
-7.
-(可选功能：查看物联网主页和增删改查物联网设备)
-已经注册好的账号 可以直接登录：
-http://localhost:5000/home
-username: greatabel1@126.com 
-password: abel
-你也可以自己注册和登录
 
