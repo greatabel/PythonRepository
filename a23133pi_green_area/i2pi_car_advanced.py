@@ -45,14 +45,17 @@ def main():
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
         ## mask of green (36,25,25) ~ (86, 255,255)
-        # mask = cv2.inRange(hsv, (36, 25, 25), (86, 255,255))
-        mask = cv2.inRange(hsv, (36, 25, 25), (70, 255,255))
+        mask = cv2.inRange(hsv, (36, 25, 25), (86, 255,255))
+        # mask = cv2.inRange(hsv, (36, 25, 25), (70, 255,255))
 
         ## slice the green
         imask = mask>0
         green = np.zeros_like(frame, np.uint8)
         green[imask] = frame[imask]
 
+        # circuluate rate
+        green_perc = (mask>0).mean()
+        print('green_perc=', green_perc )
 
         # 树梅派上可以注释掉下一行，不show出来
         if debug_mode:
