@@ -55,6 +55,8 @@ def main():
         green = np.zeros_like(frame, np.uint8)
         green[imask] = frame[imask]
 
+        dominant_color = get_dominant_color(square, 2)
+        print('dominant_color=', dominant_color)
         # circuluate rate
         green_perc = (mask>0).mean()
         print('green percentage in frame:', green_perc )
