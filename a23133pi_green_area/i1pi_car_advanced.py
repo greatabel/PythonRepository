@@ -2,6 +2,9 @@ import cv2
 import numpy as np
 from scipy.stats import itemfreq
 
+import pickle
+import os
+
 # forest video from:
 # https://www.youtube.com/watch?v=Lo6SpmjPwXo
 
@@ -18,11 +21,17 @@ def get_dominant_color(image, n_colors):
     palette = np.uint8(centroids)
     return palette[np.argmax(itemfreq(labels)[:, -1])]
 
+def set_shared_object(area_rate):
+    # --------- share data -------
+    shared = {"area_rate": area_rate}
+    fp = open("shared.pkl","wb")
+    pickle.dump(shared, fp)
+    # --------- share data end -------
 
 def main():
     global debug_mode
     # cap = cv2.VideoCapture(0)
-
+    index  = 0
     if debug_mode:
         cap = cv2.VideoCapture("simulate.mp4")
     else:
@@ -55,15 +64,23 @@ def main():
         green = np.zeros_like(frame, np.uint8)
         green[imask] = frame[imask]
 
-        dominant_color = get_dominant_color(hsv, 2)
-        print('dominant_color=', dominant_color)
+        # it make algorithm very slow, present not open it
+        # dominant_color = get_dominant_color(hsv, 2)
+        # print('dominant_color=', dominant_color)
+
         # circuluate rate
         green_perc = (mask>0).mean()
         print('green percentage in frame:', green_perc )
 
+        if index % 10 == 0:
+            print('index=', index)
+            # we jump frame by 10 frames, to reduce circulation 
+            set_shared_object(green_perc)
+            
         # 树梅派上可以注释掉下一行，不show出来
         if debug_mode:
             cv2.imshow("Frame", green)
+        index += 1
         key = cv2.waitKey(1)
         if key == 27:
             break
