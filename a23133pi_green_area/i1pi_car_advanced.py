@@ -6,6 +6,8 @@ from scipy.stats import itemfreq
 # https://www.youtube.com/watch?v=Lo6SpmjPwXo
 
 debug_mode = True
+
+# 树梅派上可以关闭debug模式，不show出来，避免占用资源, 而且会读取连接树莓派上的桥接摄像头
 # debug_mode = False
 
 def get_dominant_color(image, n_colors):
@@ -55,7 +57,7 @@ def main():
 
         # circuluate rate
         green_perc = (mask>0).mean()
-        print('green_perc=', green_perc )
+        print('green percentage in frame:', green_perc )
 
         # 树梅派上可以注释掉下一行，不show出来
         if debug_mode:
