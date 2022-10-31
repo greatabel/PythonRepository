@@ -14,7 +14,7 @@ def hello():
     print('GUI back thread is receving:', r)
     # --------- share data end -------
 
-    label["text"] = str(k) + ':' + r
+    label["text"] = str(k) + ' green-rate :' + str(round(r, 2))
     t = Timer(1, hello)
     t.setDaemon(True)
     t.start()
