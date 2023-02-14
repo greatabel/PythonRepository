@@ -50,6 +50,25 @@ plt.show()
 sns.regplot(x=np.sort(data), y=np.arange(1, len(data)+1)/len(data), scatter=False)
 plt.show()
 
+'''
+数据解析
+在qq图中，红色的参考线代表理论分布（此处使用指数分布），
+如果数据分布与参考线近似，则数据可近似为该分布。从图中可以看出，该数据不太适合我们选择的规律分布。
+
+
+平均超额图显示了超过阈值的事件数与阈值之间的关系。从图中可以看出，数据在阈值以上增长较缓慢。
+
+
+Hill图显示了对数概率与对数阈值之间的关系，可以看出数据的尾部行为。
+
+帕累托拟合图显示了数据的累积分布函数，可以看出数据的尾部分布是否符合幂律分布。
+在拟合GPD之后，程序将数据与拟合的GPD进行比较，
+可以看出模型在某些区域拟合效果较好，但在一些他区域效果不佳。
+
+最后使用KS检验来评估模型拟合的好坏，
+得到了KS统计量和P值，可以看出模型在该数据集上的拟合效果不一般
+'''
+
 
 # Define the negative log-likelihood function for the GPD
 def neg_log_likelihood_gpd(params, data):
@@ -84,3 +103,8 @@ print('KS test statistic: ', D)
 print('p-value: ', p_value)
 
 plt.show()
+
+
+
+
+
