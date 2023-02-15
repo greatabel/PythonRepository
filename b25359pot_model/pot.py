@@ -15,6 +15,7 @@ import numpy as np
 
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
+from scipy import stats
 
 
 # Open the CSV file
@@ -29,26 +30,62 @@ data = np.array(data0)
 print(data[0:10])
 
 # 测试小批量数据, 使用全量数据时候注释掉下面一行
-data = data[0:2000]
+data = data[0:3000]
 print(len(data))
 
 
 # # 华为qq图
-# fig = sm.qqplot(data, line='45')
+fig = sm.qqplot(data, line='45')
+plt.show()
+
+# # qq图
+# sns.distplot(data, fit=scipy.stats.expon, kde=False)
 # plt.show()
 
-# qq图
-sns.distplot(data, fit=scipy.stats.expon, kde=False)
-plt.show()
-
-# 绘制平均超额图
-sns.regplot(x=np.sort(data), y=np.arange(1, len(data)+1)/len(data))
-plt.show()
+# # 绘制平均超额图
+# sns.regplot(x=np.sort(data), y=np.arange(1, len(data)+1)/len(data))
+# plt.show()
 
 
-# 绘制hill图：
-sns.regplot(x=np.sort(data), y=np.arange(1, len(data)+1)/len(data), scatter=False)
+# # 绘制hill图：
+# sns.regplot(x=np.sort(data), y=np.arange(1, len(data)+1)/len(data), scatter=False)
+# plt.show()
+
+
+
+
+# 数据
+# data = np.array([86.91801635, 24.01706689, 23.3389752, 21.34924596, 20.89329284, 
+#     20.87855024, 20.65259539, 20.41830382, 19.7074104, 18.91462623, 18.44100016])
+
+# QQ图
+# stats.probplot(data, plot=plt)
+# plt.title("QQ plot")
+
+# 平均超额图
+data_sorted = np.sort(data)[::-1]
+y = np.arange(1, len(data_sorted) + 1) / float(len(data_sorted) + 1)
+z = stats.norm.ppf(y)
+plt.figure()
+plt.plot(z, data_sorted, "o")
+plt.xlabel("Normal quantiles")
+plt.ylabel("Data quantiles")
+plt.title("Mean Excess plot")
+
+# Hill图
+hill = []
+for k in range(2, len(data_sorted)):
+    hill.append(np.log(data_sorted[:k].mean()) - np.log(data_sorted[k]))
+plt.figure()
+plt.plot(range(2, len(data_sorted)), hill)
+plt.xlabel("k")
+plt.ylabel("Hill estimator")
+plt.title("Hill plot")
+
 plt.show()
+
+
+
 
 '''
 数据解析
