@@ -52,7 +52,24 @@ plt.show()
 # plt.show()
 
 
-
+# 参考 https://rdrr.io/cran/Dowd/src/R/MEFPlot.R
+def mefplot(ra):
+    data = np.array(ra)
+    if not np.isscalar(data) and data.ndim != 1:
+        raise ValueError("Input should be a 1D vector data.")
+    data = np.sort(data)
+    u = data
+    n = len(u)
+    mef = np.zeros(n-1)
+    for i in range(n-1):
+        data = data[np.where(data > u[i])]
+        mef[i] = np.mean(data) - u[i]
+    u = u[u != np.max(u)]
+    plt.plot(u, mef, '-o')
+    plt.xlabel('Threshold')
+    plt.ylabel('e(u)')
+    plt.title('Empirical Mean Excess Function')
+    plt.show()
 
 # 数据
 # data = np.array([86.91801635, 24.01706689, 23.3389752, 21.34924596, 20.89329284, 
@@ -64,13 +81,14 @@ plt.show()
 
 # 平均超额图
 data_sorted = np.sort(data)[::-1]
-y = np.arange(1, len(data_sorted) + 1) / float(len(data_sorted) + 1)
-z = stats.norm.ppf(y)
-plt.figure()
-plt.plot(z, data_sorted, "o")
-plt.xlabel("Normal quantiles")
-plt.ylabel("Data quantiles")
-plt.title("Mean Excess plot")
+# y = np.arange(1, len(data_sorted) + 1) / float(len(data_sorted) + 1)
+# z = stats.norm.ppf(y)
+# plt.figure()
+# plt.plot(z, data_sorted, "o")
+# plt.xlabel("Normal quantiles")
+# plt.ylabel("Data quantiles")
+# plt.title("Mean Excess plot")
+mefplot(data)
 
 # Hill图
 hill = []
