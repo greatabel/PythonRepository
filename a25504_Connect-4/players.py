@@ -3,77 +3,89 @@ import time
 import pygame
 import math
 
-class connect4Player(object):
-	def __init__(self, position, seed=0):
-		self.position = position
-		self.opponent = None
-		self.seed = seed
-		random.seed(seed)
 
-	def play(self, env, move):
-		move = [-1]
+class connect4Player(object):
+    def __init__(self, position, seed=0):
+        self.position = position
+        self.opponent = None
+        self.seed = seed
+        random.seed(seed)
+
+    def play(self, env, move):
+        move = [-1]
+
 
 class human(connect4Player):
+    def play(self, env, move):
+        move[:] = [int(input("Select next move: "))]
+        while True:
+            if (
+                int(move[0]) >= 0
+                and int(move[0]) <= 6
+                and env.topPosition[int(move[0])] >= 0
+            ):
+                break
+            move[:] = [int(input("Index invalid. Select next move: "))]
 
-	def play(self, env, move):
-		move[:] = [int(input('Select next move: '))]
-		while True:
-			if int(move[0]) >= 0 and int(move[0]) <= 6 and env.topPosition[int(move[0])] >= 0:
-				break
-			move[:] = [int(input('Index invalid. Select next move: '))]
 
 class human2(connect4Player):
+    def play(self, env, move):
+        done = False
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
 
-	def play(self, env, move):
-		done = False
-		while(not done):
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					sys.exit()
+                if event.type == pygame.MOUSEMOTION:
+                    pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
+                    posx = event.pos[0]
+                    if self.position == 1:
+                        pygame.draw.circle(
+                            screen, RED, (posx, int(SQUARESIZE / 2)), RADIUS
+                        )
+                    else:
+                        pygame.draw.circle(
+                            screen, YELLOW, (posx, int(SQUARESIZE / 2)), RADIUS
+                        )
+                pygame.display.update()
 
-				if event.type == pygame.MOUSEMOTION:
-					pygame.draw.rect(screen, BLACK, (0,0, width, SQUARESIZE))
-					posx = event.pos[0]
-					if self.position == 1:
-						pygame.draw.circle(screen, RED, (posx, int(SQUARESIZE/2)), RADIUS)
-					else: 
-						pygame.draw.circle(screen, YELLOW, (posx, int(SQUARESIZE/2)), RADIUS)
-				pygame.display.update()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    posx = event.pos[0]
+                    col = int(math.floor(posx / SQUARESIZE))
+                    move[:] = [col]
+                    done = True
 
-				if event.type == pygame.MOUSEBUTTONDOWN:
-					posx = event.pos[0]
-					col = int(math.floor(posx/SQUARESIZE))
-					move[:] = [col]
-					done = True
 
 class randomAI(connect4Player):
+    def play(self, env, move):
+        possible = env.topPosition >= 0
+        indices = []
+        for i, p in enumerate(possible):
+            if p:
+                indices.append(i)
+        move[:] = [random.choice(indices)]
 
-	def play(self, env, move):
-		possible = env.topPosition >= 0
-		indices = []
-		for i, p in enumerate(possible):
-			if p: indices.append(i)
-		move[:] = [random.choice(indices)]
 
 class stupidAI(connect4Player):
+    def play(self, env, move):
+        possible = env.topPosition >= 0
+        indices = []
+        for i, p in enumerate(possible):
+            if p:
+                indices.append(i)
+        if 3 in indices:
+            move[:] = [3]
+        elif 2 in indices:
+            move[:] = [2]
+        elif 1 in indices:
+            move[:] = [1]
+        elif 5 in indices:
+            move[:] = [5]
+        elif 6 in indices:
+            move[:] = [6]
+        else:
+            move[:] = [0]
 
-	def play(self, env, move):
-		possible = env.topPosition >= 0
-		indices = []
-		for i, p in enumerate(possible):
-			if p: indices.append(i)
-		if 3 in indices:
-			move[:] = [3]
-		elif 2 in indices:
-			move[:] = [2]
-		elif 1 in indices:
-			move[:] = [1]
-		elif 5 in indices:
-			move[:] = [5]
-		elif 6 in indices:
-			move[:] = [6]
-		else:
-			move[:] = [0]
 
 # class minimaxAI(connect4Player):
 # 	def play(self, env, move):
@@ -171,7 +183,6 @@ class minimaxAI(connect4Player):
 
 # improved version ,by use depth = 8
 class alphaBetaAI(connect4Player):
-
     def __init__(self, position, seed=0, depth=8):
         super(alphaBetaAI, self).__init__(position, seed)
         self.depth = depth
@@ -182,7 +193,9 @@ class alphaBetaAI(connect4Player):
         best_move = random.choice(possible_moves)
 
         for move in possible_moves:
-            score = self.alpha_beta_search(env, move, self.depth, float("-inf"), float("inf"), True)
+            score = self.alpha_beta_search(
+                env, move, self.depth, float("-inf"), float("inf"), True
+            )
             if score > max_score:
                 max_score = score
                 best_move = move
@@ -210,8 +223,10 @@ class alphaBetaAI(connect4Player):
         best_score = float("-inf") if is_max_player else float("inf")
 
         for m in possible_moves:
-            s = self.alpha_beta_search(env, m, depth - 1, alpha, beta, not is_max_player)
-            
+            s = self.alpha_beta_search(
+                env, m, depth - 1, alpha, beta, not is_max_player
+            )
+
             # Heuristics to prefer shorter winning sequences
             if s == 100 and depth == self.depth:
                 score = 100
@@ -221,7 +236,7 @@ class alphaBetaAI(connect4Player):
                 score = 50
             elif s == -50 and score != -100:
                 score = -50
-            
+
             if is_max_player:
                 best_score = max(best_score, s)
                 alpha = max(alpha, s)
@@ -236,10 +251,10 @@ class alphaBetaAI(connect4Player):
 
 
 SQUARESIZE = 100
-BLUE = (0,0,255)
-BLACK = (0,0,0)
-RED = (255,0,0)
-YELLOW = (255,255,0)
+BLUE = (0, 0, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+YELLOW = (255, 255, 0)
 
 ROW_COUNT = 6
 COLUMN_COUNT = 7
@@ -249,14 +264,10 @@ pygame.init()
 SQUARESIZE = 100
 
 width = COLUMN_COUNT * SQUARESIZE
-height = (ROW_COUNT+1) * SQUARESIZE
+height = (ROW_COUNT + 1) * SQUARESIZE
 
 size = (width, height)
 
-RADIUS = int(SQUARESIZE/2 - 5)
+RADIUS = int(SQUARESIZE / 2 - 5)
 
 screen = pygame.display.set_mode(size)
-
-
-
-
