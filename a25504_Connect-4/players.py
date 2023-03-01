@@ -82,48 +82,8 @@ class minimaxAI(connect4Player):
 
 class alphaBetaAI(connect4Player):
 
-    def __init__(self, position, seed=0, depth=4):
-        super(alphaBetaAI, self).__init__(position, seed)
-        self.depth = depth
-
 	def play(self, env, move):
-		possible_moves = [i for i in range(7) if env.topPosition[i] >= 0]
-		max_score = float("-inf")
-		best_move = random.choice(possible_moves)
-
-		for move in possible_moves:
-			score = self.alpha_beta_search(env, move, self.depth, float("-inf"), float("inf"), True)
-			if score > max_score:
-				max_score = score
-				best_move = move
-
-		move[:] = [best_move]
-
-	def alpha_beta_search(self, env, move, depth, alpha, beta, is_max_player):
-		env.play(move, self.position if is_max_player else self.opponent.position)
-
-		if depth == 0 or env.gameOver():
-			score = env.getScore(self.position)
-			env.undo(move)
-			return score
-
-		possible_moves = [i for i in range(7) if env.topPosition[i] >= 0]
-		best_score = float("-inf") if is_max_player else float("inf")
-
-		for m in possible_moves:
-			score = self.alpha_beta_search(env, m, depth - 1, alpha, beta, not is_max_player)
-			if is_max_player:
-				best_score = max(best_score, score)
-				alpha = max(alpha, score)
-			else:
-				best_score = min(best_score, score)
-				beta = min(beta, score)
-			if alpha >= beta:
-				break
-
-		env.undo(move)
-		return best_score
-
+		pass
 
 
 SQUARESIZE = 100
