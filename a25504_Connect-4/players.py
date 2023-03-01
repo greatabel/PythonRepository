@@ -227,7 +227,7 @@ class alphaBetaAI(connect4Player):
                 env, m, depth - 1, alpha, beta, not is_max_player
             )
 
-            # Heuristics to prefer shorter winning sequences
+
             if s == 100 and depth == self.depth:
                 score = 100
             elif s == -100 and depth == self.depth:
