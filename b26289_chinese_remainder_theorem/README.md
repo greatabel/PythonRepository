@@ -16,7 +16,7 @@ pip install --upgrade -r requirements.txt
 
 5.
 模拟运行在:
-ython3 i0crt.py
+python3 i0crt.py
 
 
 
