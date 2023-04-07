@@ -5,31 +5,6 @@
 
 # 使用捷径app
 
-# import sys
-# import re
-
-# content = ''
-
-
-# for i in range(6):
-#     t = sys.stdin.readline()
-#     content += t
-#     if '摘录来自' in content:
-#     # if len(content) > 350:
-#         break
-
-# content = content.replace("摘录来自","").strip()
-# # 处理英文时候有问题
-# # content = content.replace(" ","")
-# if '“' in content:
-#     s = content.index('“')
-#     if s != None:
-#         content = content[s+1:]
-# if content is not None:
-#     if content[-1] == '”':
-#         content = content[:-1]
-
-# print(content)
 import sys
 import re
 
@@ -41,18 +16,19 @@ for i in range(6):
     if '摘录来自' in content:
         break
 
-content = content.replace("摘录来自", "").strip()
+# 删除"摘录来自"之后的所有文本
+content = content[:content.index("摘录来自")].strip()
 
-# 判断前引号和后引号的数量
-num_start_quotes = content.count('“')
-num_end_quotes = content.count('”')
+# 删除类似 [48] 这种引用格式的内容
+content = re.sub(r'\[\d+\]', '', content).strip()
 
-# 如果前引号数量大于后引号数量，说明需要删除最后一个前引号
-if num_start_quotes > num_end_quotes:
-    # 查找最后一个前引号的位置
-    last_start_quote_index = content.rfind('“')
-    if last_start_quote_index != -1:
-        content = content[:last_start_quote_index] + content[last_start_quote_index + 1:]
+# 处理首位前引号和其对应的后引号
+if content.startswith("“") and content.endswith("”"):
+    content = content[1:-1]
+elif content.startswith("“") and content.count("“") < content.count("”"):
+    content = content[1:]
+    last_quote_index = content.rindex("”")
+    content = content[:last_quote_index] + content[last_quote_index+1:]
 
 print(content)
 
