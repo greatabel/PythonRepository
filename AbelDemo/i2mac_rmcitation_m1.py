@@ -17,7 +17,8 @@ for i in range(6):
         break
 
 # 删除"摘录来自"之后的所有文本
-content = content[:content.index("摘录来自")].strip()
+if '摘录来自' in content:
+    content = content[:content.index("摘录来自")].strip()
 
 # 删除类似 [48] 这种引用格式的内容
 content = re.sub(r'\[\d+\]', '', content).strip()
