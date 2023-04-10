@@ -24,12 +24,14 @@ if '摘录来自' in content:
 content = re.sub(r'\[\d+\]', '', content).strip()
 
 # 处理首位前引号和其对应的后引号
-if content.startswith("“") and content.endswith("”"):
-    content = content[1:-1]
-elif content.startswith("“") and content.count("“") < content.count("”"):
+if content.startswith("“") and content.count("“") < content.count("”"):
     content = content[1:]
     last_quote_index = content.rindex("”")
-    content = content[:last_quote_index] + content[last_quote_index+1:]
+    # 检查是否存在未匹配的前引号
+    unmatched_open_quote = content[:last_quote_index].rfind("“")
+    if unmatched_open_quote == -1 or \
+    content[:last_quote_index].count("”", unmatched_open_quote + 1) == content[:last_quote_index].count("“", unmatched_open_quote + 1):
+        content = content[:last_quote_index] + content[last_quote_index+1:]
 
 print(content)
 
