@@ -35,7 +35,7 @@ def download_images(topic, num_images, output_dir):
 
 if __name__ == "__main__":
     # topic = 'music'
-    topic = "embroidery"
+    topic = "entertainment"
     num_images = 23
     output_dir = "downloaded_img"
 

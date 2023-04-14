@@ -1,0 +1,4 @@
+sympy==1.11.1
+termcolor
+numpy
+matplotlib
