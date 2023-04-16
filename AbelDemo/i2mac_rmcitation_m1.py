@@ -10,7 +10,7 @@ import re
 
 content = ''
 
-for i in range(6):
+for i in range(10):
     t = sys.stdin.readline()
     content += t
     if '摘录来自' in content:
@@ -37,8 +37,9 @@ if content.startswith("“") and content.count("“") < content.count("”"):
 if content.startswith("“") and content.endswith("”") and content.count("“") == 1 and content.count("”") == 1:
     content = content[1:-1]
 
-# 去掉中文句子中字之间的空格
-content = re.sub(r'\s+', '', content)
+# 去掉中文句子中字之间的空格，但保留数字标号后的空格，例如：1. 或 1 以及中文字符与非中文字符之间的空格
+content = re.sub(r'(?<=[^\d\W])\s+(?=[^\d\W])', '', content)
+
 
 print(content)
 
