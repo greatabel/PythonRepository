@@ -1,0 +1,22 @@
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+<div class="mermaid">
+graph TD
+A[数据采集模块] -- 数据输入 --> B[数据治理模块]
+B -- 治理后的数据 --> C[数据存储共享模块]
+C -- 数据服务 --> D[物流平台数据展示模块]
+E[系统管理模块] -- 管理 --> A
+E -- 管理 --> B
+E -- 管理 --> C
+E -- 管理 --> D
+A -- 数据源管理 --> E
+B -- 数据治理规则管理 --> E
+C -- 数据服务配置管理 --> E
+F[Spark/Spark Streaming] -- 实时数据处理 --> A
+F -- 实时数据处理 --> B
+G[Spark ML] -- 数据分析预测 --> B
+G -- 数据分析预测 --> D
+
+
+</div>
