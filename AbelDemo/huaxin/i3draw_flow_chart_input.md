@@ -6,16 +6,18 @@ graph TD
     A --> E[Agents]
     A --> F[Memory]
     A --> G[Chat]
-    C --> H[Moss-003]
+    C --> H[TigerBot]
     C --> I[Vicuna 7B Model]
-    J[HX_Gpt app and api] -->|uses| B
+    C --> J[GPT-J]
+    J --> K[HX_Gpt app and api]
+    J -->|uses| B
     J -->|uses| C
     J -->|uses| D
     J -->|uses| E
     J -->|uses| F
     J -->|uses| G
-    H -->|integrated with| J
-    I -->|integrated with| J
+    H -->|integrated with| K
+    I -->|integrated with| K
 
     style A fill:#f9d6c1,stroke:#f66,stroke-width:2px;
     style B fill:#f9f2c1,stroke:#d6b656,stroke-width:2px;
@@ -26,5 +28,7 @@ graph TD
     style G fill:#f5f5f5,stroke:#c1c1c1,stroke-width:2px;
     style H fill:#d9c1f9,stroke:#a358b8,stroke-width:2px;
     style I fill:#f9c1c1,stroke:#b85656,stroke-width:2px;
+    style J fill:#c1f9f2,stroke:#56c8b8,stroke-width:2px;
+    style K fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
 
 # pandoc -f markdown -t html i3draw_flow_chart_input.md -o i3output.html
