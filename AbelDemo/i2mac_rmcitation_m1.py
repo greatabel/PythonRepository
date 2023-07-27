@@ -8,47 +8,62 @@
 import sys
 import re
 
-content = ''
-
-for i in range(10):
-    t = sys.stdin.readline()
-    content += t
+def clean_content(content):
+    # 如果内容中存在 "摘录来自"，则移除该字符串后面的所有内容
     if '摘录来自' in content:
-        break
+        content = content[:content.index("摘录来自")].strip()
 
-# 删除"摘录来自"之后的所有文本
-if '摘录来自' in content:
-    content = content[:content.index("摘录来自")].strip()
+    # 删除类似 [48] 这种引用格式的内容
+    content = re.sub(r'\[\d+\]', '', content).strip()
 
-# 删除类似 [48] 这种引用格式的内容
-content = re.sub(r'\[\d+\]', '', content).strip()
+    # 如果内容以 "“" 开始，并且在后面的第一个 "”" 之前还有其他 "“"，则删除第一个 "“"
+    if content.startswith("“"):
+        next_end_quote_index = content[1:].find("”") if "”" in content[1:] else -1
+        next_start_quote_index = content[1:].find("“") if "“" in content[1:] else -1
+        if next_start_quote_index != -1 and next_end_quote_index > next_start_quote_index:
+            content = content[1:]
 
-# 处理首位前引号和其对应的后引号
-if content.startswith("“") and content.count("“") < content.count("”"):
-    content = content[1:]
-    last_quote_index = content.rindex("”")
-    # 检查是否存在未匹配的前引号
-    unmatched_open_quote = content[:last_quote_index].rfind("“")
-    if unmatched_open_quote == -1 or content[:last_quote_index].count("”", unmatched_open_quote + 1) == content[:last_quote_index].count("“", unmatched_open_quote + 1):
-        content = content[:last_quote_index] + content[last_quote_index+1:]
+    # 如果内容以 "”" 结束，并且在最后的 "”" 之前还有 "“"，则删除最后的 "”"
+    if content.endswith("”"):
+        last_start_quote_index = content[:-1].rfind("“") if "“" in content[:-1] else -1
+        last_end_quote_index = content[:-1].rfind("”") if "”" in content[:-1] else -1
+        # 需要确保在最后的引号之前，"“"（开放引号）的数量多于"”"（关闭引号）
+        if last_start_quote_index != -1 and last_end_quote_index != -1 and \
+            content.count("“", 0, last_start_quote_index+1) <= content.count("”", 0, last_end_quote_index+1):
+            content = content[:-1]
 
-# 处理首位前引号和其对应的后引号
-if content.startswith("“") and content.endswith("”") and content.count("“") == 1 and content.count("”") == 1:
-    content = content[1:-1]
 
-# 去掉中文句子中字之间的空格，但保留数字标号后的空格，例如：1. 或 1 以及中文字符与非中文字符之间的空格
-content = re.sub(r'(?<=[^\d\W])\s+(?=[^\d\W])', '', content)
+    # 如果 "“" 和 "”" 的数量匹配，并且刚好出现在开始和结束，也删除它们
+    if content.startswith("“") and content.endswith("”") and content.count("“") == content.count("”"):
+        content = content[1:-1]
 
-# 检查最后一个"《"后面是否有对应的"》"，如果没有就在内容末尾添加"》"
-last_open_quote_index = content.rfind("《")
-if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
-    content += "》"
+    # 去掉中文句子中字之间的空格，但保留数字标号后的空格，例如：1. 或 1 以及中文字符与非中文字符之间的空格
+    content = re.sub(r'(?<=[^\d\W])\s+(?=[^\d\W])', '', content)
 
-# 处理首位前引号和其对应的后引号
-if content.startswith("“") and content.endswith("”"):
-    content = content[1:-1]
+    # 检查最后一个 "《" 后面是否有对应的 "》"，如果没有就在内容末尾添加 "》"
+    last_open_quote_index = content.rfind("《")
+    if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
+        content += "》"
 
-print(content)
+    return content
+
+
+
+def clean_content_from_input():
+    content = ''
+
+    for i in range(10):
+        t = sys.stdin.readline()
+        content += t
+        if '摘录来自' in content:
+            break
+
+    print(clean_content(content))
+
+
+if __name__ == "__main__":
+    clean_content_from_input()
+
 
 
 
