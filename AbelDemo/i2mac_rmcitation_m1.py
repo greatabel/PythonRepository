@@ -29,8 +29,7 @@ if content.startswith("“") and content.count("“") < content.count("”"):
     last_quote_index = content.rindex("”")
     # 检查是否存在未匹配的前引号
     unmatched_open_quote = content[:last_quote_index].rfind("“")
-    if unmatched_open_quote == -1 or \
-        content[:last_quote_index].count("”", unmatched_open_quote + 1) == content[:last_quote_index].count("“", unmatched_open_quote + 1):
+    if unmatched_open_quote == -1 or content[:last_quote_index].count("”", unmatched_open_quote + 1) == content[:last_quote_index].count("“", unmatched_open_quote + 1):
         content = content[:last_quote_index] + content[last_quote_index+1:]
 
 # 处理首位前引号和其对应的后引号
@@ -40,7 +39,16 @@ if content.startswith("“") and content.endswith("”") and content.count("“"
 # 去掉中文句子中字之间的空格，但保留数字标号后的空格，例如：1. 或 1 以及中文字符与非中文字符之间的空格
 content = re.sub(r'(?<=[^\d\W])\s+(?=[^\d\W])', '', content)
 
+# 检查最后一个"《"后面是否有对应的"》"，如果没有就在内容末尾添加"》"
+last_open_quote_index = content.rfind("《")
+if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
+    content += "》"
+
+# 处理首位前引号和其对应的后引号
+if content.startswith("“") and content.endswith("”"):
+    content = content[1:-1]
 
 print(content)
+
 
 
