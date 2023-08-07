@@ -7,8 +7,9 @@ from __future__ import print_function
 import sys
 import sys
 import re
-content = ''
-#从stdin里读取内容
+
+content = ""
+# 从stdin里读取内容
 # for t in sys.stdin:
 # 	content += t
 # #利用正则表达式来查找原文并去除添加的引用信息
@@ -24,27 +25,27 @@ content = ''
 # else:
 # 	print("")
 
-# sys.stdin = open('simulatedInput.txt','r') 
+# sys.stdin = open('simulatedInput.txt','r')
 
 while True:
     t = sys.stdin.readline()
     content += t
-    if '摘录来自' in content:
-    	break
+    if "摘录来自" in content:
+        break
 # for t in sys.stdin.readline():
 
 # 	content += t
 # print('#'*20,content)
 
-#利用正则表达式来查找原文并去除添加的引用信息
-p = re.compile('“(.+)”\n\n摘录来自:')
+# 利用正则表达式来查找原文并去除添加的引用信息
+p = re.compile("“(.+)”\n\n摘录来自:")
 if content is not None:
-	if p.search(content) is not None:
-		copy = p.search(content).group(1)
-		#用print函数把结果传回Automator
-		if copy:
-			print(copy)
-	else:
-		print("")
+    if p.search(content) is not None:
+        copy = p.search(content).group(1)
+        # 用print函数把结果传回Automator
+        if copy:
+            print(copy)
+    else:
+        print("")
 else:
-	print("")
+    print("")
