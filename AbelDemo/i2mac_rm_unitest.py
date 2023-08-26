@@ -24,7 +24,7 @@ class TestCleanContent(unittest.TestCase):
                 i += 2
             else:
                 if diff_text[i] == ' ':
-                    result += Fore.YELLOW + '␣'
+                    result += Fore.GREEN + '␣'
                     result += Style.RESET_ALL
                 else:
                     result += diff_text[i]
@@ -40,9 +40,9 @@ class TestCleanContent(unittest.TestCase):
             diff = self.color_diff(first, second)
             message = '\n'.join([
                 "Values are not equal:",
-                "Actual (first string):",
+                "我们清理算法结果 (first string):",
                 first,
-                "Expected (second string):",
+                "完美期望结果 (second string):",
                 second,
                 "Difference:",
                 diff,
@@ -61,7 +61,7 @@ class TestCleanContent(unittest.TestCase):
 https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 此材料可能受版权保护。"
 
-        expected_result = "它的拉丁语是“lexparsimoniae”，即节约律。在英文中人们常常用格言“如无必要，勿增实体”（Donotmultiplyentitiesbeyondnecessity）来表达。"
+        expected_result = "它的拉丁语是“lex parsimoniae”，即节约律。在英文中人们常常用格言“如无必要，勿增实体”（Do not multiply entities beyond necessity）来表达。"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
 
@@ -79,9 +79,9 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 
 
     def test_chinese_with_space(self):
-        content = "Test it!中 国 人 努力 工作，好  好生活 。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人"
+        content = "What a good day!中 国 人 努力 工作，好  好生活。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人。"
 
-        expected_result = "Test it!国人努力工作，好好生活。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人 haha"
+        expected_result = "What a good day!中国人努力工作，好好生活。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人。"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
     def test_chinese_with_space2(self):

@@ -1,14 +1,22 @@
-```mermaid
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+<div class="mermaid">
 graph TD
-    A[Chinese-LLaMA-Alpaca] --> B[Prompts]
+    A[HX_Gold_LLM] --> B[Prompts]
     A --> C[LLMs]
     A --> D[Chains]
     A --> E[Agents]
     A --> F[Memory]
     A --> G[Chat]
-    C --> H[TigerBot]
-    C --> I[Vicuna 7B Model]
-    C --> J[GPT-J]
+    C --> H[Llama2-70B-Modeal]
+    H --> I[中文资料继续训练]
+    I --> L[根据企业内部整理好的数据集微调]
+    L --> J[GPT-J]
+    C --> J
     J --> K[HX_Gpt app and api]
     J -->|uses| B
     J -->|uses| C
@@ -17,7 +25,6 @@ graph TD
     J -->|uses| F
     J -->|uses| G
     H -->|integrated with| K
-    I -->|integrated with| K
 
     style A fill:#f9d6c1,stroke:#f66,stroke-width:2px;
     style B fill:#f9f2c1,stroke:#d6b656,stroke-width:2px;
@@ -30,5 +37,7 @@ graph TD
     style I fill:#f9c1c1,stroke:#b85656,stroke-width:2px;
     style J fill:#c1f9f2,stroke:#56c8b8,stroke-width:2px;
     style K fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
+    style L fill:#f2f9c1,stroke:#b8b856,stroke-width:2px;
 
-# pandoc -f markdown -t html i3draw_flow_chart_input.md -o i3output.html
+
+</div>
