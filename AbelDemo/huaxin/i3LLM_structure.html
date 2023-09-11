@@ -1,6 +1,3 @@
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
 <script>mermaid.initialize({startOnLoad:true});</script>
 
@@ -12,7 +9,9 @@ graph TD
     A --> E[Agents]
     A --> F[Memory]
     A --> G[Chat]
-    C --> H[Llama2-70B-Modeal]
+    C --> H[Llama2-70B-Model]
+    C --> Q[临时性替代模型 Temp-Qwen_VL_7b]
+    H -.-> Q
     H --> I[中文资料继续训练]
     I --> L[根据企业内部整理好的数据集微调]
     L --> J[GPT-J]
@@ -38,6 +37,5 @@ graph TD
     style J fill:#c1f9f2,stroke:#56c8b8,stroke-width:2px;
     style K fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
     style L fill:#f2f9c1,stroke:#b8b856,stroke-width:2px;
-
-
+    style Q fill:#f9d9c1,stroke:#b88356,stroke-width:2px;
 </div>
