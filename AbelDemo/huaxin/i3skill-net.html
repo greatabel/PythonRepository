@@ -1,0 +1,21 @@
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+<div class="mermaid">
+graph TD
+    style A fill:#f9d71c,stroke:#f9d71c,stroke-width:2px,shape:ellipse;
+    style B fill:#4f81bc,stroke:#4f81bc,stroke-width:2px,shape:box;
+    style C fill:#c0504e,stroke:#c0504e,stroke-width:2px,shape:hexagon;
+    style D fill:#9bbb5a,stroke:#9bbb5a,stroke-width:2px,shape:diamond;
+    style E fill:#8064a1,stroke:#8064a1,stroke-width:2px,shape:parallelogram;
+    style F fill:#f79647,stroke:#f79647,stroke-width:2px,shape:trapezium;
+    style G fill:#a6a6a6,stroke:#a6a6a6,stroke-width:2px,shape:rectangle;
+    
+    A[用户输入界面] -->|收集用户信息| B[个性化内容推荐引擎]
+    B -->|推荐内容| A
+    C[分布式网络爬虫系统] -->|爬取数据| B
+    D[基于LLM的AI模型] -->|处理与生成| B
+    E[基于强化学习的推荐引擎] -->|优化推荐| B
+    F[用户反馈和互动系统] -->|改进推荐| B
+    G[安全和隐私保护] -->|保护数据| F
+</div>
