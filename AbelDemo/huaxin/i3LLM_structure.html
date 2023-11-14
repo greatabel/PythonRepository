@@ -10,11 +10,14 @@ graph TD
     A --> F[Memory]
     A --> G[Chat]
     C --> H[Llama2-70B-Model]
-    C --> Q[临时性替代模型 Temp-Qwen_VL_7b]
+    C --> Q[临时性替代模型 Temp-Qwen_VL_14b]
+    C -.-> R[code-llama2-34b] %% 修改新节点的连接
     H -.-> Q
-    H --> I[中文资料继续训练]
+    H --> R[code-llama2-34b] %% 将新节点放置在中文资料继续训练的上方
+    R --> I[中文资料继续训练] %% 连接新节点到中文资料继续训练
     I --> L[根据企业内部整理好的数据集微调]
-    L --> J[GPT-J]
+    L --> J[GPT-J/或bge-large-zh-v1.5]
+    Q --> K
     C --> J
     J --> K[HX_Gpt app and api]
     J -->|uses| B
@@ -38,4 +41,7 @@ graph TD
     style K fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
     style L fill:#f2f9c1,stroke:#b8b856,stroke-width:2px;
     style Q fill:#f9d9c1,stroke:#b88356,stroke-width:2px;
+    style R fill:#c1d9f9,stroke:#5679b8,stroke-width:2px; %% 为新节点设置样式
+
+
 </div>
