@@ -1,3 +1,4 @@
+import time
 import unittest
 import difflib
 from colorama import Fore, Back, Style, init
@@ -62,7 +63,14 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 此材料可能受版权保护。"
 
         expected_result = "它的拉丁语是“lex parsimoniae”，即节约律。在英文中人们常常用格言“如无必要，勿增实体”（Do not multiply entities beyond necessity）来表达。"
-        self.assertEqualWithDiff(clean_content(content), expected_result)
+        start_time = time.time()  # 记录开始时间
+        actual_result = clean_content(content)
+        end_time = time.time()  # 记录结束时间
+
+        duration = end_time - start_time
+        print(f"Test 'test_normal_content' took {duration:.6f} seconds to run.")
+
+        self.assertEqualWithDiff(actual_result, expected_result)
 
 
     def test_content_with_extras(self):
