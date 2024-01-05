@@ -86,7 +86,7 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 
 
 
-    def test_chinese_with_space(self):
+    def test_chinese_with_space1(self):
         content = "What a good day!中 国 人 努力 工作，好  好生活。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人。"
 
         expected_result = "What a good day!中国人努力工作，好好生活。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人。"
@@ -96,6 +96,18 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
         content = "1939年8月23日，德国外长里宾特 洛 甫与苏联外交人民委员莫洛托夫，在莫斯科签署《苏德互不侵犯 条约》"
 
         expected_result = "1939年8月23日，德国外长里宾特洛甫与苏联外交人民委员莫洛托夫，在莫斯科签署《苏德互不侵犯条约》"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_chinese_with_space3(self):
+        content = " 以 及 1 9 4 4 年 年 初 解 放 该 城 ， 反 映 并 影 响 了 苏 联 的战 时 军 事 战 略。 1 9 4 1 年 战 争初期。"
+
+        expected_result = "以及1944年年初解放该城，反映并影响了苏联的战时军事战略。1941年战争初期。"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_chinese_with_space4(self):
+        content = "  虽 然这 座 城 市 几 乎 被 完 全 封 锁， 但 红 军 粉 碎 了德 国 人从 东 面彻 底 包 围列 宁格 勒 的 企图"
+
+        expected_result = "虽然这座城市几乎被完全封锁，但红军粉碎了德国人从东面彻底包围列宁格勒的企图"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
 

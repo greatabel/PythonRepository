@@ -80,6 +80,22 @@ def clean_content(content):
     content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])", "", content)
 
 
+    # 新增的逻辑: 合并数字序列中的空格
+    content = re.sub(r'(?<=\d)\s+(?=\d)', '', content)
+    # 去除数字后的空格（如果数字后是中文字符）
+    content = re.sub(r'(?<=\d)\s+(?=[\u4e00-\u9fff])', '', content)
+    # 去除数字前的空格（如果数字前是中文字符）
+    content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=\d)', '', content)
+
+    # 新增的逻辑: 去除连续中文字符之间的空格
+    content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])', '', content)
+    # 新增的逻辑: 去除中文字符与中文标点符号之间的空格
+    content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=[，。！？；：])', '', content)
+    content = re.sub(r'(?<=[，。！？；：])\s+(?=[\u4e00-\u9fff])', '', content)
+    # 新增的逻辑: 特别处理中文句号后的空格
+    content = re.sub(r'(?<=。)\s+', '', content)
+
+
     # 检查最后一个 "《" 后面是否有对应的 "》"，如果没有就在内容末尾添加 "》"
     last_open_quote_index = content.rfind("《")
     if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
