@@ -11,9 +11,9 @@ origin_bookrecords = 'bookrecord.csv'
 doulist_page = 'https://www.douban.com/people/greatabel/doulists/all'
 doulist_prex = 'https://www.douban.com/doulist/'
 
-scrawler_pagelimit = 1
+scrawler_pagelimit = 2
 scrawler_pagelimit_doulist = 2
-last_async_time = '2023-01-05 02:38:14'
+last_async_time = '2024-01-10 23:48:14'
 # I ignore @@@ started files in .gitignore
 # filename01 = '@@@01my_all_doulist#'+datetime.datetime.today().strftime('%Y-%m-%d')
 

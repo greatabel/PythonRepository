@@ -79,7 +79,7 @@ def clean_content(content):
     # content = re.sub(r"(?<=[^\d\W])\s+(?=[^\d\W])", "", content)
     content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])", "", content)
 
-
+    # pdf 处理
     # 新增的逻辑: 合并数字序列中的空格
     content = re.sub(r'(?<=\d)\s+(?=\d)', '', content)
     # 去除数字后的空格（如果数字后是中文字符）
