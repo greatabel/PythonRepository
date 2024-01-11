@@ -77,7 +77,8 @@ def clean_content(content):
 
     # 去掉中文句子中字之间的空格，但保留数字标号后的空格，例如：1. 或 1 以及中文字符与非中文字符之间的空格
     # content = re.sub(r"(?<=[^\d\W])\s+(?=[^\d\W])", "", content)
-    content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])", "", content)
+    content = re.sub(r"(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])", "", content)
+
 
     # pdf 处理
     # 新增的逻辑: 合并数字序列中的空格
@@ -88,7 +89,8 @@ def clean_content(content):
     content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=\d)', '', content)
 
     # 新增的逻辑: 去除连续中文字符之间的空格
-    content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])', '', content)
+    content = re.sub(r'(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])', '', content)
+
     # 新增的逻辑: 去除中文字符与中文标点符号之间的空格
     content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=[，。！？；：])', '', content)
     content = re.sub(r'(?<=[，。！？；：])\s+(?=[\u4e00-\u9fff])', '', content)

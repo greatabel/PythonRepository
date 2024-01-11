@@ -110,6 +110,21 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
         expected_result = "虽然这座城市几乎被完全封锁，但红军粉碎了德国人从东面彻底包围列宁格勒的企图"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
+    def test_chinese_with_line5(self):
+        content = '''“但愿一直没到夏天
+夏天就永远在路上
+——［丹麦］亨里克·诺德布兰德《在以色列广场”
+
+摘录来自
+春山多胜事：四时读诗
+三书
+此材料可能受版权保护。"'''
+
+
+        expected_result = '''但愿一直没到夏天
+夏天就永远在路上
+——［丹麦］亨里克·诺德布兰德《在以色列广场》'''
+        self.assertEqualWithDiff(clean_content(content), expected_result)
 
 
 if __name__ == "__main__":
