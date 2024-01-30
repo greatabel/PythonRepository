@@ -1,3 +1,4 @@
+# coding=utf-8
 import time
 import unittest
 import difflib
@@ -9,23 +10,23 @@ class TestCleanContent(unittest.TestCase):
     def color_diff(self, expected, actual):
         """为差异部分添加颜色"""
         diff = difflib.ndiff(expected, actual)
-        diff_text = ''.join(diff)
+        diff_text = "".join(diff)
 
         i = 0
-        result = ''
+        result = ""
         while i < len(diff_text):
-            if diff_text[i:i+2] == '- ':
+            if diff_text[i : i + 2] == "- ":
                 result += Fore.RED
                 i += 2
-            elif diff_text[i:i+2] == '+ ':
+            elif diff_text[i : i + 2] == "+ ":
                 result += Fore.GREEN
                 i += 2
-            elif diff_text[i:i+2] == '  ':
+            elif diff_text[i : i + 2] == "  ":
                 result += Style.RESET_ALL
                 i += 2
             else:
-                if diff_text[i] == ' ':
-                    result += Fore.GREEN + '␣'
+                if diff_text[i] == " ":
+                    result += Fore.GREEN + "␣"
                     result += Style.RESET_ALL
                 else:
                     result += diff_text[i]
@@ -33,25 +34,23 @@ class TestCleanContent(unittest.TestCase):
 
         return result + Style.RESET_ALL
 
-
-
     def assertEqualWithDiff(self, first, second):
         """检查两个字符串是否相等，并在不相等的情况下显示有颜色标记的差异"""
         if first != second:
             diff = self.color_diff(first, second)
-            message = '\n'.join([
-                "Values are not equal:",
-                "我们清理算法结果 (first string):",
-                first,
-                "完美期望结果 (second string):",
-                second,
-                "Difference:",
-                diff,
-            ])
+            message = "\n".join(
+                [
+                    "Values are not equal:",
+                    "我们清理算法结果 (first string):",
+                    first,
+                    "完美期望结果 (second string):",
+                    second,
+                    "Difference:",
+                    diff,
+                ]
+            )
             raise AssertionError(message)
         self.assertEqual(first, second)
-
-
 
     def test_normal_content(self):
         content = "“它的拉丁语是“lex parsimoniae”，即节约律。在英文中人们常常用格言“如无必要，勿增实体”（Do not multiply entities beyond necessity）来表达。”\
@@ -72,7 +71,6 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 
         self.assertEqualWithDiff(actual_result, expected_result)
 
-
     def test_content_with_extras(self):
         content = "“史特金定律表达得更粗俗一些：“任何事物当中的百分之九十都是垃圾（crap）。”\
 \
@@ -83,8 +81,6 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 此材料可能受版权保护。"
         expected_result = "史特金定律表达得更粗俗一些：“任何事物当中的百分之九十都是垃圾（crap）。”"
         self.assertEqualWithDiff(clean_content(content), expected_result)
-
-
 
     def test_chinese_with_space1(self):
         content = "What a good day!中 国 人 努力 工作，好  好生活。加油！计算机科学家约瑟夫·魏岑鲍姆（Joseph Weizenbaum）一直渴望成为一位哲人。"
@@ -120,10 +116,9 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 三书
 此材料可能受版权保护。"'''
 
-
-        expected_result = '''但愿一直没到夏天
+        expected_result = """但愿一直没到夏天
 夏天就永远在路上
-——［丹麦］亨里克·诺德布兰德《在以色列广场》'''
+——［丹麦］亨里克·诺德布兰德《在以色列广场》"""
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
 

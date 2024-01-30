@@ -8,20 +8,22 @@
 import sys
 import re
 
+
 def split_uppercase(string):
     """将大写字母之前的字符串拆分开"""
-    result = ''
+    result = ""
     for i in range(len(string)):
         # 如果当前字符为大写字母且不是第一个字符，则在字符之前添加空格
         if string[i].isupper() and i != 0:
-            result += ' '
+            result += " "
         result += string[i]
     return result
+
 
 def process_english_string(content):
     """查找并处理英文字符串"""
     # 匹配所有英文字符串的正则表达式
-    pattern = r'[A-Za-z]+'
+    pattern = r"[A-Za-z]+"
 
     # 使用 re.findall 找到所有的英文字符串
     english_strings = re.findall(pattern, content)
@@ -35,6 +37,7 @@ def process_english_string(content):
         content = content.replace(string, processed_string)
 
     return content
+
 
 def clean_content(content):
     # 如果内容中存在 "摘录来自"，则移除该字符串后面的所有内容
@@ -79,24 +82,22 @@ def clean_content(content):
     # content = re.sub(r"(?<=[^\d\W])\s+(?=[^\d\W])", "", content)
     content = re.sub(r"(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])", "", content)
 
-
     # pdf 处理
     # 新增的逻辑: 合并数字序列中的空格
-    content = re.sub(r'(?<=\d)\s+(?=\d)', '', content)
+    content = re.sub(r"(?<=\d)\s+(?=\d)", "", content)
     # 去除数字后的空格（如果数字后是中文字符）
-    content = re.sub(r'(?<=\d)\s+(?=[\u4e00-\u9fff])', '', content)
+    content = re.sub(r"(?<=\d)\s+(?=[\u4e00-\u9fff])", "", content)
     # 去除数字前的空格（如果数字前是中文字符）
-    content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=\d)', '', content)
+    content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=\d)", "", content)
 
     # 新增的逻辑: 去除连续中文字符之间的空格
-    content = re.sub(r'(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])', '', content)
+    content = re.sub(r"(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])", "", content)
 
     # 新增的逻辑: 去除中文字符与中文标点符号之间的空格
-    content = re.sub(r'(?<=[\u4e00-\u9fff])\s+(?=[，。！？；：])', '', content)
-    content = re.sub(r'(?<=[，。！？；：])\s+(?=[\u4e00-\u9fff])', '', content)
+    content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[，。！？；：])", "", content)
+    content = re.sub(r"(?<=[，。！？；：])\s+(?=[\u4e00-\u9fff])", "", content)
     # 新增的逻辑: 特别处理中文句号后的空格
-    content = re.sub(r'(?<=。)\s+', '', content)
-
+    content = re.sub(r"(?<=。)\s+", "", content)
 
     # 检查最后一个 "《" 后面是否有对应的 "》"，如果没有就在内容末尾添加 "》"
     last_open_quote_index = content.rfind("《")
