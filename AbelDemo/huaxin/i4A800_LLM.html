@@ -11,8 +11,8 @@
         graph LR
         U[用户请求] --> C{路由选择<br>与负载均衡<br><br>#2选1#}
         C -->|分配至A或B| A[服务器A800_A<br>Qwen_VL 模型<br> #当前进度:完成部署#]
-        C --> B[服务器A800_B<br>Qwen_72b_chat模型<br> #当前进度:更新系统配置库#]
-        A -->|访问| D[服务器A800_C<br>RAG向量数据库DB<br>及其他API和增强功能<br><br> #当前进度:等待更新系统配置库#]
+        C --> B[服务器A800_B<br>Qwen_72b_chat模型<br> #当前进度:完成部署#]
+        A -->|访问| D[服务器A800_C<br>RAG向量数据库DB<br> #当前进度:完成更新系统配置库 <br><br>#进行embedding的模型和reranker的模型重新选型#]
         B -->|访问| D
         D --> E[最终用户服务]
 
