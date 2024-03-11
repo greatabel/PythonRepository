@@ -10,13 +10,13 @@ graph TD
     A --> F[Memory]
     A --> G[Chat]
     C --> H[Llama2-70B-Model]
-    C --> Q[暂时替代模型 Qwen-72B-Chat+Qwen_VL 部署ing]
+    C --> Q[组合Qwen-72B-Chat & Qwen_VL 多模态模型 ]
     C -.-> R[code-llama2-34b] %% 修改新节点的连接
     H -.-> Q
     H --> R[code-llama2-34b] %% 将新节点放置在中文资料继续训练的上方
     R --> I[中文资料继续训练] %% 连接新节点到中文资料继续训练
     I --> L[根据企业内部整理好的数据集微调]
-    L --> J[GPT-J/或bge-large-zh-v1.5]
+    L --> J[jina-embeddings-v2-base-zh]
     Q --> K
     C --> J
     J --> K[HX_Gpt app and api]
