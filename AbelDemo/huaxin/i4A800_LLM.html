@@ -9,10 +9,10 @@
     <h1>服务器配置与负载均衡</h1>
     <div class="mermaid">
         graph LR
-        U[用户请求] --> C{路由选择<br>与负载均衡<br><br>#2选1#}
-        C -->|分配至A或B| A[服务器A800_A<br>Qwen_VL 模型<br> #当前进度:完成部署#]
-        C --> B[服务器A800_B<br>Qwen_72b_chat模型<br> #当前进度:完成部署#]
-        A -->|访问| D[服务器A800_C<br>RAG向量数据库DB<br> #当前进度:完成更新系统配置库 <br><br>#进行embedding的模型和reranker的模型重新选型#]
+        U[用户请求] --> C{服务器A800_B上的Gradio网页<br> #可灵活换成其他前端服务/app# 路由选择<br>与负载均衡<br><br>#2选1#}
+        C -->|分配至A或B| A[服务器A800_A<br>API封装<br> #Qwen_VL模型#]
+        C --> B[服务器A800_B<br>API封装<br> #和RAG请求embedding后#]
+        A -->|访问| D[服务器A800_C<br>RAG向量数据库DB<br> #当前进度:完成第一版RAG部署 <br><br>#进行embedding的模型和reranker的新模型对比实验#]
         B -->|访问| D
         D --> E[最终用户服务]
 
