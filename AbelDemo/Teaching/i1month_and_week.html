@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>动态日历</title>
+<style>
+  .calendar, .header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    max-width: 350px;
+    text-align: center;
+    grid-gap: 10px;
+    padding: 10px;
+  }
+  .day, .header-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.5s ease-in-out;
+  }
+  .header-item {
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+  }
+  .day {
+    background-color: #eee;
+  }
+  .weekend {
+    background-color: #ffdddd; /* 突出周末的颜色 */
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .count-labels {
+    text-align: center;
+    background-color: #ff0;
+    padding: 10px;
+    font-size: 16px;
+    color: #d00;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="count-labels">
+  <span id="saturday-count">周六数量: 0</span>
+  <span id="sunday-count">周日数量: 0</span>
+</div>
+<div class="header">
+  <!-- 表头的星期标签，周日放在周一前面 -->
+  <div class="header-item weekend">周日</div>
+  <div class="header-item">周一</div>
+  <div class="header-item">周二</div>
+  <div class="header-item">周三</div>
+  <div class="header-item">周四</div>
+  <div class="header-item">周五</div>
+  <div class="header-item weekend">周六</div>
+</div>
+<div class="calendar"></div>
+<button onclick="shiftDays()">切换起始日</button>
+
+<script>
+  const DAYS_OF_WEEK = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  const DAYS_IN_MONTH = 30;
+  let startDayIndex = 0;
+
+  function createCalendar(startDayIndex) {
+    const calendarElement = document.querySelector('.calendar');
+    const oldDays = [...calendarElement.childNodes]; 
+    calendarElement.innerHTML = ''; 
+
+    const totalDays = Math.ceil((DAYS_IN_MONTH + startDayIndex) / 7) * 7;
+    let saturdayCount = 0;
+    let sundayCount = 0;
+
+    for (let i = 0; i < totalDays; i++) {
+      const dayElement = document.createElement('div');
+      dayElement.className = 'day';
+      if (i >= startDayIndex && i < startDayIndex + DAYS_IN_MONTH) {
+        dayElement.textContent = i - startDayIndex + 1;
+        if (DAYS_OF_WEEK[(i % 7)] === '周六') {
+          dayElement.classList.add('weekend');
+          saturdayCount++;
+        } else if (DAYS_OF_WEEK[(i % 7)] === '周日') {
+          dayElement.classList.add('weekend');
+          sundayCount++;
+        }
+      }
+      calendarElement.appendChild(dayElement);
+    }
+
+    document.getElementById('saturday-count').textContent = `周六数量: ${saturdayCount}`;
+    document.getElementById('sunday-count').textContent = `周日数量: ${sundayCount}`;
+  }
+
+  function shiftDays() {
+    startDayIndex = (startDayIndex + 1) % 7;
+    createCalendar(startDayIndex);
+  }
+
+  createCalendar(startDayIndex); 
+</script>
+</body>
+</html>
