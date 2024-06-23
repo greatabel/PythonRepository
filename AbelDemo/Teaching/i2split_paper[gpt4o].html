@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纸张折叠演示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        #container {
+            width: 300px;
+            height: 150px;
+            position: relative;
+            border: 2px solid #3498db;
+            margin-bottom: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+        .box {
+            background-color: #3498db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            transition: all 0.5s ease;
+            box-sizing: border-box;
+            border: 1px solid white;
+            flex-shrink: 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>纸张折叠演示</h1>
+    <div id="container">
+        <div class="box" style="width: 100%; height: 100%;">3个</div>
+    </div>
+    <button onclick="fold()">折叠</button>
+    <p id="info">可写区域数量: 1</p>
+
+    <script>
+        let folds = 0;
+
+        function fold() {
+            if (folds < 3) {
+                folds++;
+                const container = document.getElementById('container');
+                const boxes = Array.from(container.querySelectorAll('.box'));
+                const newBoxes = [];
+                const boxWidth = 100 / (2 ** folds) + '%';
+                const boxHeight = '100%';
+
+                // 添加动画效果
+                boxes.forEach(box => {
+                    box.classList.add('hidden');
+                });
+
+                setTimeout(() => {
+                    boxes.forEach(box => {
+                        for (let i = 0; i < 2; i++) {
+                            const newBox = box.cloneNode(true);
+                            newBox.style.width = boxWidth;
+                            newBox.style.height = boxHeight;
+                            newBox.textContent = '3个';
+                            newBox.classList.remove('hidden');
+                            newBoxes.push(newBox);
+                        }
+                    });
+
+                    container.innerHTML = '';  // 清空容器内容
+                    newBoxes.forEach(newBox => container.appendChild(newBox));
+                    updateInfo();
+                }, 500);  // 动画时间与过渡时间一致
+
+            } else {
+                alert('已经折叠3次了！');
+            }
+        }
+
+        function updateInfo() {
+            document.getElementById('info').textContent = `可写区域数量: ${2 ** folds}`;
+        }
+
+        updateInfo();
+    </script>
+</body>
+</html>
