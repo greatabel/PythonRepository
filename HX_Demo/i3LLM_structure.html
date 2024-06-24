@@ -9,9 +9,8 @@ graph TD
     A --> E[Agents]
     A --> F[Memory]
     A --> G[Chat]
-    C --> Q[组合Qwen-72B-Chat & Qwen_VL 多模态模型]
-    C -.-> R[code-llama2-34b/deepseek-coder-33b-instruct调研中]
-    R --> I[中文资料继续训练]
+    C --> Q[组合Qwen1.5-110b-chat & Qwen_VL 多模态模型]
+    H[数据预处理&数据工程] --> I[中文资料继续训练]
     I --> L[根据企业内部整理好的数据集微调]
     L --> J[jina-embeddings-v2-base-zh/同时在测试c4ai-command-r-v01]
     Q --> J
@@ -32,9 +31,11 @@ graph TD
     style F fill:#f9c1f3,stroke:#b853b3,stroke-width:2px;
     style G fill:#f5f5f5,stroke:#c1c1c1,stroke-width:2px;
     style Q fill:#ffcc00,stroke:#ff6600,stroke-width:6px,font-size:25px;
+    style H fill:#c1d9f9,stroke:#5679b8,stroke-width:2px;
     style I fill:#f9c1c1,stroke:#b85656,stroke-width:2px;
     style J fill:#c1f9f2,stroke:#56c8b8,stroke-width:2px;
     style K fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
     style L fill:#f2f9c1,stroke:#b8b856,stroke-width:2px;
-    style R fill:#c1d9f9,stroke:#5679b8,stroke-width:2px;
+
+
 </div>
