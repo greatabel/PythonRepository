@@ -1,0 +1,53 @@
+1<!DOCTYPE html>
+<html>
+<head>
+    <title>服务器配置与负载均衡</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+</head>
+<body>
+    <h1>服务器配置与负载均衡</h1>
+    <div class="mermaid">
+graph TD
+    subgraph RAG系统优化
+        subgraph API重构与核心代码整合
+            A[API重构<br>与RAG结构结合]
+            C[模型调用解耦<br>适配不同应用场景]
+            F[提取RAG核心代码<br>构建统一逻辑框架]
+            A --> C
+            A --> F
+
+            subgraph Embedding模型的API封装
+                B[数据预处理<br>支持非服务器环境]
+            end
+            A --> B
+        end
+
+        subgraph 非流式API开发
+            D[非流式API设计<br>优化调用过程]
+            E[资源效率与响应速度优化<br>支持长文本与复杂查询]
+            D --> E
+        end
+
+        C --> H[企业微信客户端]
+        C --> I[网站ask.huaxincem]
+        C --> J[其他集成]
+        F --> K[API切换与扩展]
+        F --> L[维护性与一致性提高]
+    end
+
+    style A fill:#f9d6c1,stroke:#f66,stroke-width:2px;
+    style B fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
+    style C fill:#f9f2c1,stroke:#d6b656,stroke-width:2px;
+    style D fill:#f9d9c1,stroke:#b88356,stroke-width:2px;
+    style E fill:#c1d9f9,stroke:#5686b8,stroke-width:2px;
+    style F fill:#f5f5f5,stroke:#c1c1c1,stroke-width:2px;
+    style H fill:#d9c1f9,stroke:#8865b8,stroke-width:2px;
+    style I fill:#f9e8c1,stroke:#d6a656,stroke-width:2px;
+    style J fill:#f9c1f1,stroke:#b856b6,stroke-width:2px;
+    style K fill:#c1e9f9,stroke:#5686d8,stroke-width:2px;
+    style L fill:#f9c1c6,stroke:#b85656,stroke-width:2px;
+
+
+</body>
+</html>

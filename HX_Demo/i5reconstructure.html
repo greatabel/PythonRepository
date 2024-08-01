@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>服务器配置与负载均衡</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+</head>
+<body>
+    <h1>服务器配置与负载均衡</h1>
+    <div class="mermaid">
+graph LR
+    U[用户请求] --> C{路由选择与负载均衡}
+    C --> S[使用block_id_text.pkl<br>索引速度提升至0.01秒]
+    C --> G[GPT-4与qwen-max智能拆分<br>文本块处理]
+    
+    S --> M[混合索引方法]
+    G --> M
+    
+    M --> T[文本块嵌入]
+    M --> Q[问答对嵌入]
+    
+    T --> V[阈值设定]
+    T --> L[向量相似度比较]
+    Q --> LQ[问题长度及类型分析]
+    
+    V --> A[RAG的召回算法优化]
+    L --> A
+    LQ --> A
+    
+    A --> F[最终用户服务]
+
+    style C fill:#f9d6c1,stroke:#f66,stroke-width:2px;
+    style F fill:#c1f9d6,stroke:#56b886,stroke-width:2px;
+    style S fill:#f9f2c1,stroke:#d6b656,stroke-width:2px;
+    style M fill:#f9d9c1,stroke:#b88356,stroke-width:2px;
+    style G fill:#c1d9f9,stroke:#5686b8,stroke-width:2px;
+    style U fill:#f5f5f5,stroke:#c1c1c1,stroke-width:2px;
+    style T fill:#f9e8c1,stroke:#d6a656,stroke-width:2px;
+    style Q fill:#f9e8c1,stroke:#d6a656,stroke-width:2px;
+    style V fill:#f9c1d1,stroke:#b85686,stroke-width:2px;
+    style L fill:#f9c1d1,stroke:#b85686,stroke-width:2px;
+    style LQ fill:#f9c1d1,stroke:#b85686,stroke-width:2px;
+    style A fill:#c1e9f9,stroke:#5686d8,stroke-width:2px;
+
+
+    </div>
+</body>
+</html>
