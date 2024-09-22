@@ -22,19 +22,36 @@ body {
     position: relative;
 }
 
+/* 控制按钮容器样式 */
+#controls-container {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* 暂停按钮样式 */
 #pause-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    margin-right: 20px;
     padding: 5px 10px;
     font-size: 16px;
     font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
+/* 倒计时显示样式 */
+#countdown {
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+
 #question-container {
     margin: 20px;
     font-size: 20px;
 }
+
 
 select {
     padding: 5px;

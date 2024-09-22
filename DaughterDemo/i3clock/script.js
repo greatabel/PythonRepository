@@ -4,11 +4,13 @@ let currentHour = 0;
 let currentMinute = 0;
 let correctHour = 0;
 let correctMinute = 0;
-let timeChangeMinutes = 0; // 新增全局变量，记录时间变化的分钟数
+let timeChangeMinutes = 0; // 记录时间变化的分钟数
 let isPaused = false;
 let animationInterval = null;
 let nextQuestionTimeout = null;
 let animationStep = 0;
+let countdownInterval = null; // 倒计时计时器
+let countdownTime = 10; // 倒计时时间
 
 // 夸赞语句数组
 const compliments = [
@@ -117,8 +119,10 @@ function generateQuestion() {
     // 清除可能存在的计时器和动画
     clearInterval(animationInterval);
     clearTimeout(nextQuestionTimeout);
+    clearInterval(countdownInterval);
     animationInterval = null;
     nextQuestionTimeout = null;
+    countdownInterval = null;
     animationStep = 0;
 
     // 隐藏结果显示区域
@@ -126,6 +130,12 @@ function generateQuestion() {
 
     // 清除颜色区域
     document.getElementById('color-area').setAttribute('d', '');
+
+    // 隐藏倒计时
+    document.getElementById('countdown').style.display = 'none';
+
+    // 重置倒计时
+    countdownTime = 10;
 
     // 随机初始时间
     currentHour = Math.floor(Math.random() * 12);
@@ -164,7 +174,7 @@ function checkAnswer() {
     // 运行动画
     animateClock(correctHour, correctMinute);
 
-    // 在动画结束后，等待5秒，然后生成下一个题目
+    // 在动画结束后，等待10秒，然后生成下一个题目
     function proceedToNextQuestion() {
         if (isPaused) {
             // 如果暂停，等待直到恢复
@@ -174,7 +184,8 @@ function checkAnswer() {
         }
     }
 
-    nextQuestionTimeout = setTimeout(proceedToNextQuestion, 5000 + animationDuration());
+    // 设置等待时间（在动画完成后启动倒计时）
+    nextQuestionTimeout = setTimeout(proceedToNextQuestion, 10000 + animationDuration()); // 等待时间改为10000毫秒（10秒）
 }
 
 // 计算动画持续时间
@@ -232,6 +243,8 @@ function animateClock(targetHour, targetMinute) {
 
         if (animationStep >= stepCount) {
             clearInterval(animationInterval);
+            // 在动画完成后启动倒计时
+            startCountdown();
         }
     }, 50);
 }
@@ -277,7 +290,13 @@ function triggerConfetti() {
     // 使用canvas-confetti库
     var duration = 2 * 1000;
     var animationEnd = Date.now() + duration;
-    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+    var defaults = {
+        startVelocity: 60, // 增加初始速度
+        spread: 720,       // 增加散射角度
+        ticks: 60,
+        zIndex: 9999,
+        scalar: 1.5        // 增加粒子大小
+    };
 
     function randomInRange(min, max) {
         return Math.random() * (max - min) + min;
@@ -290,10 +309,36 @@ function triggerConfetti() {
             return clearInterval(interval);
         }
 
-        var particleCount = 50 * (timeLeft / duration);
-        // 由于粒子向下掉落，从略高的位置开始
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+        var particleCount = 100 * (timeLeft / duration); // 增加粒子数量
+        // 从全屏范围内随机位置开始
+        confetti(Object.assign({}, defaults, {
+            particleCount,
+            origin: {
+                x: Math.random(),
+                // 确保粒子从顶部落下
+                y: Math.random() * 0.5
+            }
+        }));
     }, 250);
+}
+
+// 开始倒计时
+function startCountdown() {
+    let countdownElement = document.getElementById('countdown');
+    countdownElement.style.display = 'block';
+    countdownElement.innerText = countdownTime;
+
+    countdownInterval = setInterval(function() {
+        if (isPaused) return;
+
+        countdownTime--;
+        countdownElement.innerText = countdownTime;
+
+        if (countdownTime <= 0) {
+            clearInterval(countdownInterval);
+            countdownElement.style.display = 'none';
+        }
+    }, 1000);
 }
 
 // 暂停或恢复动画和计时器
