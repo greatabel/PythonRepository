@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>时间计算小游戏</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入canvas-confetti库 -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- 撒花效果容器 -->
+    <div id="confetti-container"></div>
+    <!-- 得分显示区域 -->
+    <div id="score-container">
+        <p>得分：<span id="score">0</span></p>
+    </div>
+   <div id="game-container">
+        <div id="clock-container">
+            <!-- SVG时钟 -->
+            <svg id="clock" width="300" height="300">
+                <!-- 表盘 -->
+                <circle cx="150" cy="150" r="140" stroke="black" stroke-width="2" fill="white"/>
+                <!-- 分钟刻度 -->
+                <g id="clock-ticks">
+                    <!-- 动态生成刻度 -->
+                </g>
+                <!-- 数字刻度 -->
+                <g id="clock-numbers">
+                    <!-- 动态生成数字 -->
+                </g>
+                <!-- 颜色区域 -->
+                <path id="color-area" fill="lightblue" opacity="0.5"></path>
+                <!-- 时针 -->
+                <line id="hour-hand" x1="150" y1="150" x2="150" y2="100" stroke="black" stroke-width="4"/>
+                <!-- 分针 -->
+                <line id="minute-hand" x1="150" y1="150" x2="150" y2="60" stroke="black" stroke-width="2"/>
+            </svg>
+            <button id="pause-button">暂停</button>
+        </div>
+        <div id="question-container">
+            <p id="question">题目将在这里显示</p>
+            <!-- 小时下拉菜单 -->
+            <select id="hour-select">
+                <!-- 动态生成选项 -->
+            </select>点
+            <!-- 分钟下拉菜单 -->
+            <select id="minute-select">
+                <!-- 动态生成选项 -->
+            </select>分
+            <button id="submit-answer">提交答案</button>
+        </div>
+        <!-- 结果显示区域 -->
+        <div id="result-container" style="display: none;">
+            <img id="result-image" src="" alt="结果图片">
+            <div id="result-overlay">
+                <span id="result-text"></span>
+            </div>
+            <div id="additional-info">
+                <!-- 显示正确答案或夸赞语 -->
+                <p id="additional-message"></p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

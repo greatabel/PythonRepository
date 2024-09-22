@@ -1,0 +1,120 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #f0f8ff;
+}
+
+#score-container {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4500;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#clock-container {
+    margin: 20px;
+    position: relative;
+}
+
+#pause-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#question-container {
+    margin: 20px;
+    font-size: 20px;
+}
+
+select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+#submit-answer {
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-left: 10px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+#result-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#result-image {
+    width: 200px;
+    height: auto;
+    margin-right: 20px;
+}
+
+#result-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#result-text {
+    font-size: 48px;
+    font-weight: bold;
+    color: red;
+}
+
+#result-text.correct {
+    color: green;
+}
+
+#additional-info {
+    flex: 1;
+}
+
+#additional-message {
+    font-size: 24px;
+    font-weight: bold;
+    color: blue;
+}
+
+/* 时钟数字样式 */
+.clock-number {
+    font-size: 24px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+/* 时钟刻度样式 */
+.clock-tick {
+    stroke: black;
+    stroke-width: 2;
+}
+
+.clock-tick-small {
+    stroke: black;
+    stroke-width: 1;
+}
+
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
