@@ -1,13 +1,19 @@
-#game {  
-    font-family: Arial, sans-serif;  
-}  
-  
-#toys .toy {  
-    margin-bottom: 10px;  
-}  
-  
-button {  
-    margin-top: 20px;  
-    padding: 10px 20px;  
-    font-size: 16px;  
-}  
+#game {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.toy {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    margin: 5px;
+}
+
+#instruction {
+    color: blue;
+}
