@@ -1,4 +1,4 @@
-let shouldEstimateUp = true; // 全局变量，决定是否应该向上估计
+let correctEstimationDirection = 'up'; // 全局变量，'up' 或 'down'
 
 document.addEventListener('DOMContentLoaded', function() {  
     setupGame();  
@@ -30,8 +30,8 @@ function setupGame() {
     const money = Math.floor(Math.random() * 301) + 100; // 随机生成100到400之间的金额  
     document.getElementById('money').textContent = money;  
 
-    // 决定是否应该向上估计
-    shouldEstimateUp = money > totalBasePrice;
+    // 决定正确的估计方向
+    correctEstimationDirection = money > totalBasePrice ? 'up' : 'down';
 
     // 添加指令提示
     const gameContainer = document.getElementById('game');
@@ -43,7 +43,10 @@ function setupGame() {
     instruction.id = 'instruction';
     instruction.style.marginBottom = '10px';
     instruction.style.fontWeight = 'bold';
-    instruction.textContent = shouldEstimateUp ? '请对所有玩具进行向上估计。' : '请对所有玩具进行向下估计。';
+    instruction.style.color = 'blue';
+    instruction.textContent = correctEstimationDirection === 'up' 
+        ? '提示：正确的估计方向是“向上估计”。' 
+        : '提示：正确的估计方向是“向下估计”。';
     gameContainer.insertBefore(instruction, toysContainer);
 
     toys.forEach(toy => {  
@@ -52,7 +55,7 @@ function setupGame() {
         toyElement.className = 'toy';  
         toyElement.innerHTML = `  
             <span class="name">${toy.name}</span>  
-            <span class="price">${price} 元</span>  
+            <span class="price"> 基础价格: ${price} 元</span>  
             <button class="estimate-up" data-price="${price}">向上估计</button>  
             <button class="estimate-down" data-price="${price}">向下估计</button>  
             <span class="estimated"></span>  
@@ -60,18 +63,6 @@ function setupGame() {
         `;  
         toysContainer.appendChild(toyElement);  
     });  
-
-    // 根据应该的估计方向禁用不允许的按钮
-    const estimateUpButtons = document.querySelectorAll('.estimate-up');
-    const estimateDownButtons = document.querySelectorAll('.estimate-down');
-
-    if (shouldEstimateUp) {
-        // 只允许向上估计，禁用向下估计按钮
-        estimateDownButtons.forEach(button => button.disabled = true);
-    } else {
-        // 只允许向下估计，禁用向上估计按钮
-        estimateUpButtons.forEach(button => button.disabled = true);
-    }
 }
 
 function estimate(buttonElement, price, direction) {  
@@ -91,7 +82,7 @@ function estimate(buttonElement, price, direction) {
     estimatedElement.setAttribute('data-direction', direction);  
 
     // 验证当前估算是否符合全局应该的方向
-    if ((shouldEstimateUp && direction === 'up') || (!shouldEstimateUp && direction === 'down')) {
+    if (direction === correctEstimationDirection) {
         feedbackElement.textContent = '正确！';  
         feedbackElement.style.color = 'green';  
     } else {  
@@ -104,23 +95,34 @@ function calculate() {
     const estimates = document.querySelectorAll('.estimated');  
     let totalEstimatedCost = 0;  
     let estimationText = '';  
+    let allEstimated = true;
     let allCorrect = true; // 标记所有估算是否正确
 
     estimates.forEach((estimate, index) => {  
         const value = parseInt(estimate.getAttribute('data-value'));  
         const direction = estimate.getAttribute('data-direction');  
-        totalEstimatedCost += value;  
-        estimationText += `${value} 元${index < estimates.length - 1 ? ' + ' : ''}`;  
+        const feedback = estimate.parentNode.querySelector('.feedback').textContent;
 
-        // 检查每个估算是否正确
-        if ((shouldEstimateUp && direction !== 'up') || (!shouldEstimateUp && direction !== 'down')) {
+        if (isNaN(value)) {
+            allEstimated = false;
+        }
+
+        if (feedback !== '正确！') {
             allCorrect = false;
         }
+
+        totalEstimatedCost += isNaN(value) ? 0 : value;
+        estimationText += `${isNaN(value) ? '未估算' : `${value} 元`}${index < estimates.length - 1 ? ' + ' : ''}`;  
     });  
 
     const currentMoney = parseInt(document.getElementById('money').innerText);  
     const resultText = totalEstimatedCost <= currentMoney ? "钱够" : "钱不够";  
     const comparisonText = `${totalEstimatedCost} 元 <= ${currentMoney} 元`;  
+
+    if (!allEstimated) {
+        alert("请完成所有玩具的估算！");
+        return;
+    }
 
     document.getElementById('estimations').innerText = `${estimationText} = ${totalEstimatedCost} 元，${resultText}，因为 ${comparisonText}。`;  
 

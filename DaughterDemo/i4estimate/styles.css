@@ -1,19 +1,50 @@
 #game {
-    width: 400px;
-    margin: 0 auto;
+    width: 500px;
+    margin: 20px auto;
     text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#wallet {
+    font-size: 1.2em;
+    margin-bottom: 20px;
 }
 
 .toy {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 15px;
     margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.toy .name {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+}
+
+.toy .price {
+    display: inline-block;
+    width: 150px;
 }
 
 button {
     margin: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0e0e0;
 }
 
 #instruction {
-    color: blue;
+    margin-bottom: 15px;
+}
+
+#estimations {
+    margin-top: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
