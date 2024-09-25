@@ -1,4 +1,39 @@
 body {
+
+    position: relative; /* 确保伪元素能相对于body定位 */
+
+}
+
+
+body::before {
+
+    content: ""; /* 伪元素必须有内容 */
+
+    background-image: url('bg.jpg'); /* 图片URL */
+
+    background-repeat: repeat; /* 设置图片平铺 */
+
+    background-position: 0 0; /* 图片从左上角开始平铺 */
+
+    position: absolute; /* 绝对定位 */
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    opacity: 0.5; /* 设置背景图片透明度为50% */
+
+    z-index: -1; /* 确保伪元素在内容层之下 */
+
+}
+
+/*  **  **  **  **  **  */
+
+body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     background-color: #f0f8ff;
 }
@@ -72,7 +107,7 @@ select {
 }
 
 #result-image {
-    width: 200px;
+    width: 400px;
     height: auto;
     margin-right: 20px;
 }

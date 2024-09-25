@@ -265,7 +265,7 @@ function showResult(isCorrect) {
         document.getElementById('score').innerText = score;
 
         // 随机选择一条夸赞语句
-        let compliment = compliments[Math.floor(Math.random() * compliments.length)];
+        let compliment = '楚楚' + compliments[Math.floor(Math.random() * compliments.length)];
         additionalMessage.innerText = compliment;
         additionalMessage.style.color = 'green';
 
