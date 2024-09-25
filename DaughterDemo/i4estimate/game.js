@@ -32,14 +32,36 @@ function setupGame() {
     // 计算两个玩具的价格总和
     const totalBasePrice = toys.reduce((sum, toy) => sum + toy.basePrice, 0);
 
-    const toysContainer = document.getElementById('toys');
-    toysContainer.innerHTML = '';
+    // 确保玩具总价格与钱包金额的差值至少为10
+    let money;
+    let difference;
+    let estimationDirection;
 
-    const money = Math.floor(Math.random() * 301) + 100; // 随机生成100到400之间的金额
+    // 随机决定估计方向，并根据方向生成钱包金额
+    if (Math.random() < 0.5) {
+        // 钱包金额比玩具总价格多至少10
+        difference = Math.floor(Math.random() * 50) + 10; // 10到59的随机数
+        money = totalBasePrice + difference;
+        estimationDirection = 'up';
+    } else {
+        // 钱包金额比玩具总价格少至少10
+        difference = Math.floor(Math.random() * 50) + 10; // 10到59的随机数
+        money = totalBasePrice - difference;
+        // 确保钱包金额不为负数
+        if (money < 0) {
+            money = 0;
+        }
+        estimationDirection = 'down';
+    }
+
+    // 更新正确的估计方向
+    correctEstimationDirection = estimationDirection;
+
+    // 更新钱包金额显示
     document.getElementById('money').textContent = money;
 
-    // 决定正确的估计方向
-    correctEstimationDirection = money > totalBasePrice ? 'up' : 'down';
+    const toysContainer = document.getElementById('toys');
+    toysContainer.innerHTML = '';
 
     // 获取游戏容器和指令提示容器
     const gameContainer = document.getElementById('game');
@@ -156,6 +178,10 @@ function setupGame() {
         clearInterval(countdownInterval);
         countdownInterval = null;
     }
+
+    // 保存当前的玩具总价格和钱包金额，供后续使用
+    setupGame.totalBasePrice = totalBasePrice;
+    setupGame.money = money;
 }
 
 
@@ -190,6 +216,7 @@ function calculate() {
     const estimates = document.querySelectorAll('.estimated');
     let allEstimated = true;
     let allCorrect = true; // 标记所有估算是否正确
+    let estimatedTotalPrice = 0; // 估算的玩具总价格
 
     estimates.forEach((estimate) => {
         const value = parseInt(estimate.getAttribute('data-value'));
@@ -198,6 +225,8 @@ function calculate() {
 
         if (isNaN(value)) {
             allEstimated = false;
+        } else {
+            estimatedTotalPrice += value;
         }
 
         if (feedback !== '正确！') {
@@ -210,13 +239,26 @@ function calculate() {
         return;
     }
 
-    // 如果所有估算都正确，则结果正确；否则，结果错误
+    // 玩具总价格和钱包金额
+    const totalBasePrice = setupGame.totalBasePrice;
+    const money = setupGame.money;
+
+    // 比较估算的总价格和钱包金额
+    const comparisonSymbol = estimatedTotalPrice > money ? '>' : (estimatedTotalPrice < money ? '<' : '=');
+
+    // 构建比较结果字符串
+    const comparisonResult = `估算的玩具总价格为 ${estimatedTotalPrice} 元 ${comparisonSymbol} 钱包金额为 ${money} 元。`;
+
+    // 如果所有估算都正确，并且估算的总价格与正确的估计方向一致，则结果正确；否则，结果错误
+
+   
+
     if (allCorrect) {
-        displayResult('正确！', true);
+        displayResult(`正确！${comparisonResult}`, true);
         currentScore += 10;
         triggerFireworks(); // 触发烟花效果
     } else {
-        displayResult('错误！', false);
+        displayResult(`错误！${comparisonResult}`, false);
         currentScore -= 10;
     }
 
@@ -230,6 +272,7 @@ function calculate() {
     // 开始倒计时
     startCountdown();
 }
+
 
 function displayResult(message, isCorrect) {
     const resultDiv = document.getElementById('result');
