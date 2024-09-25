@@ -1,16 +1,71 @@
-#game {
-    width: 500px;
-    margin: 20px auto;
-    text-align: center;
+/* styles.css */
+
+body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
-#wallet {
+/* 背景图设置为平铺，50%透明度 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/background.jpg');
+    background-repeat: repeat;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+#game {
+    width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+#wallet, #score {
     font-size: 1.2em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+#score {
+    font-weight: bold;
+}
+
+#instruction-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+#lightbulb {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#instruction {
+    display: none;
+    margin-top: 10px;
+    font-weight: bold;
+    color: blue;
 }
 
 .toy {
+    display: flex;
+    align-items: center;
     border: 1px solid #ccc;
     padding: 15px;
     margin: 10px 0;
@@ -18,33 +73,92 @@
     background-color: #f9f9f9;
 }
 
-.toy .name {
-    display: inline-block;
-    width: 100px;
+.toy img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+}
+
+.toy .details {
+    flex: 1;
+    text-align: left;
+}
+
+.toy .details .name {
+    display: block;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.toy .price {
-    display: inline-block;
-    width: 150px;
+.toy .details .price {
+    display: block;
+    margin-bottom: 10px;
 }
 
-button {
+.toy button {
     margin: 5px;
     padding: 5px 10px;
     cursor: pointer;
 }
 
-button:hover {
+.toy button:hover {
     background-color: #e0e0e0;
 }
 
-#instruction {
-    margin-bottom: 15px;
+.toy .estimated {
+    display: block;
+    margin-top: 10px;
+    font-style: italic;
 }
 
-#estimations {
+.toy .feedback {
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#result.correct {
+    color: green;
+}
+
+#result.error {
+    color: red;
+}
+
+#countdown-container {
     margin-top: 20px;
     font-size: 1.1em;
     font-weight: bold;
 }
+
+#countdown-container.hidden {
+    display: none;
+}
+
+#pause-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#pause-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* 确保canvas位于最上层但不影响其他内容 */
+#fireworks-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999; /* 确保在所有元素之上 */
+}
+

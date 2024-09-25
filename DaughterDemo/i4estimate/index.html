@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>估算游戏</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入 Fireworks.js 库 -->
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js/dist/fireworks.js"></script>
+
+</head>
+<body>
+    
+    <div id="game">
+        <div id="wallet">钱包: <span id="money">加载中...</span> 元</div>
+        <div id="score">积分: <span id="current-score">0</span> 分</div>
+        <div id="instruction-container">
+            <img src="images/lightbulb.png" alt="提示" id="lightbulb" width="30" height="30" style="cursor: pointer;">
+            <div id="instruction" style="display: none;"></div>
+        </div>
+        <div id="toys"></div>
+        <button id="calculate-button">计算</button>
+        <div id="result"></div>
+        <div id="countdown-container" class="hidden">
+            <span id="countdown">8</span> 秒后进入下一轮
+            <button id="pause-button">暂停</button>
+        </div>
+    </div>
+    <canvas id="fireworks-canvas"></canvas>
+
+    <script src="game.js"></script>
+</body>
+</html>
