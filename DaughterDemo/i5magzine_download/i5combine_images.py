@@ -91,9 +91,9 @@ if __name__ == "__main__":
     # 只处理1-10页
     create_pdf(
         input_directory, 
-        f"{parent_directory}/magazine_1_to_7.pdf",
-        start_page=1,
-        end_page=7
+        f"{parent_directory}/magazine_16_to_25.pdf",
+        start_page=16,
+        end_page=25
     )
     
     # # 只处理20-25页
