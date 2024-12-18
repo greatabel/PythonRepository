@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "期刊下载助手",
+  "version": "1.0",
+  "description": "帮助下载在线期刊图片",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://ycfw.library.hb.cn/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://ycfw.library.hb.cn/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

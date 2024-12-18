@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { 
+            width: 200px; 
+            padding: 10px; 
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        button { 
+            width: 100%; 
+            margin: 5px 0; 
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #f0f0f0;
+        }
+        #status {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button id="startDownload">下载当前页</button>
+    <button id="toggleAutoSave">自动保存模式: 关闭</button>
+    <div id="status">限制下载  页</div>
+    <script src="popup.js"></script>
+</body>
+</html>

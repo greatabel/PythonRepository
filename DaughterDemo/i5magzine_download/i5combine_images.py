@@ -79,22 +79,23 @@ def create_pdf(input_dir, output_pdf, start_page=None, end_page=None):
 if __name__ == "__main__":
     # 配置路径
     input_directory = "/Users/abel/AbelProject/PythonRepository/DaughterDemo/i5magzine_download/images"
+    input_directory = "/Users/abel/Downloads/magazine_downloads"
     parent_directory = str(Path(input_directory).parent)  # 获取上级目录
     
     # 示例：创建不同范围的PDF
     # 完整版本
-    # create_pdf(
-    #     input_directory, 
-    #     f"{parent_directory}/magazine_full.pdf"
-    # )
-    
-    # 只处理1-10页
     create_pdf(
         input_directory, 
-        f"{parent_directory}/magazine_16_to_25.pdf",
-        start_page=16,
-        end_page=25
+        f"{parent_directory}/magazine_full.pdf"
     )
+    
+    # 只处理1-10页
+    # create_pdf(
+    #     input_directory, 
+    #     f"{parent_directory}/magazine_16_to_25.pdf",
+    #     start_page=16,
+    #     end_page=25
+    # )
     
     # # 只处理20-25页
     # create_pdf(
