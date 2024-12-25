@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RAG系统索引与智能拆分算法</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad:true,
+            theme: 'forest', // 使用森林主题，带有绿色调的颜色方案
+            themeCSS: `
+                .node rect { stroke-width: 3px; }
+                .node text { font-family: 'Courier New', Courier, monospace; } // 使用等宽字体
+            `
+        });
+    </script>
+</head>
+<body>
+    <h1>RAG系统索引与智能拆分算法</h1>
+    <div class="mermaid">
+graph TD
+    A[索引构建] --> B[混合索引策略]
+    B --> C[文本块嵌入]
+    B --> D[高级LLM生成的问答对嵌入]
+    B --> E[多模态转换后内容嵌入]
+    
+    E --> F[召回算法设计]
+    F --> G[综合相关性算法]
+    
+    G --> H[相似度测量]
+    G --> I[问题与文本类型分析]
+    G --> J[上下文权重]
+    
+    H --> K[检索精确度提升]
+    I --> K
+    J --> K
+    
+    K --> L[召回率提升]
+    L --> M[用户体验增强]
+
+    style A fill:#ffffc2,stroke:#333,stroke-width:2px;
+    style B fill:#ffcccc,stroke:#333,stroke-width:2px;
+    style C fill:#ccffcc,stroke:#333,stroke-width:2px;
+    style D fill:#ccccff,stroke:#333,stroke-width:2px;
+    style E fill:#ccffff,stroke:#333,stroke-width:2px;
+    style F fill:#c2f0c2,stroke:#333,stroke-width:2px;
+    style G fill:#f0c2c2,stroke:#333,stroke-width:2px;
+    style H fill:#f2f2c2,stroke:#333,stroke-width:2px;
+    style I fill:#f2c2f2,stroke:#333,stroke-width:2px;
+    style J fill:#c2c2f2,stroke:#333,stroke-width:2px;
+    style K fill:#c2f2f2,stroke:#333,stroke-width:2px;
+    style L fill:#f2c2c2,stroke:#333,stroke-width:2px;
+    style M fill:#c2f0f0,stroke:#333,stroke-width:2px;
+    </div>
+</body>
+</html>

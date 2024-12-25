@@ -15,7 +15,7 @@ def get_page_info(filename):
         return int(match.group(1)), int(match.group(2))
     return None, None
 
-def create_pdf(input_dir, output_pdf, start_page=None, end_page=None):
+def create_pdf(input_dir, output_pdf, start_subpage=None, end_subpage=None):
     # 获取所有图片文件
     image_dir = Path(input_dir)
     page_images = {}  # 使用字典存储每页的图片
@@ -28,9 +28,9 @@ def create_pdf(input_dir, output_pdf, start_page=None, end_page=None):
         if img_path.suffix.lower() in supported_formats:
             page_num, sub_page = get_page_info(img_path.name)
             if page_num is not None:  # 只处理符合命名规则的文件
-                # 检查是否在指定范围内
-                if (start_page is None or page_num >= start_page) and \
-                   (end_page is None or page_num <= end_page):
+                # 检查是否在指定的子页面范围内
+                if (start_subpage is None or sub_page >= start_subpage) and \
+                   (end_subpage is None or sub_page <= end_subpage):
                     if page_num not in page_images:
                         page_images[page_num] = {}
                     page_images[page_num][sub_page] = str(img_path)
@@ -78,14 +78,25 @@ def create_pdf(input_dir, output_pdf, start_page=None, end_page=None):
 if __name__ == "__main__":
     # 配置路径
     input_directory = "/Users/abel/Downloads/magazine_downloads"
-    # parent_directory = str(Path(input_directory).parent)
-    output_pdf = "magazine_full.pdf"
+    
+    # 定义起始和结束页码
+    start_page = 20
+    end_page = None
+    
+    # 生成包含页码信息的输出文件名
+    output_filename = f"magazine_page{start_page}-{end_page}.pdf"
+    output_pdf = str(output_filename)
+    
+    # 创建PDF
     create_pdf(
         input_directory, 
-        output_pdf
+        output_pdf,
+        start_subpage=start_page,
+        end_subpage=end_page
     )
-    # 创建完整PDF
+
     # create_pdf(
     #     input_directory, 
-    #     f"{parent_directory}/magazine_full.pdf"
-    # )
+    #     output_pdf
+ 
+    # )    

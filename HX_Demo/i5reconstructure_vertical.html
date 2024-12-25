@@ -3,12 +3,25 @@
 <head>
     <title>服务器配置与负载均衡</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.5/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true});</script>
+    <style>
+        /* 通过CSS直接指定Mermaid图表中的文本样式 */
+        .mermaid .node text {
+            font-size: 8px; /* 调整为适当的大小 */
+            fill: #333; /* 字体颜色 */
+        }
+        .mermaid .node rect {
+            stroke: #333; /* 边框颜色 */
+            fill: #fff; /* 背景色 */
+        }
+    </style>
+    <script>
+        mermaid.initialize({startOnLoad:true});
+    </script>
 </head>
 <body>
     <h1>服务器配置与负载均衡</h1>
     <div class="mermaid">
-graph LR
+graph TD
     U[用户请求] --> C{路由选择与负载均衡}
     C --> S[使用block_id_text.pkl<br>索引速度提升至0.01秒]
     C --> G[GPT-4与qwen-max智能拆分<br>文本块处理]
@@ -16,7 +29,7 @@ graph LR
     G --> P[使用GPT4和QwQ合成<br>问答数据及meta信息]
     P --> M[混合索引方法]
     
-    S --> M[混合索引方法]
+    S --> M
     G --> M
     
     M --> T[文本块嵌入]
@@ -44,8 +57,6 @@ graph LR
     style L fill:#f9c1d1,stroke:#b85686,stroke-width:2px;
     style LQ fill:#f9c1d1,stroke:#b85686,stroke-width:2px;
     style A fill:#c1e9f9,stroke:#5686d8,stroke-width:2px;
-
-
     </div>
 </body>
 </html>
