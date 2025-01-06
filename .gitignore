@@ -9,6 +9,8 @@ ghostdriver.log
 */.ipynb_checkpoints/*
 AbelDemo/luminagic/SNGenerator/sns/*
 
+AbelDemo/psych_investigation_xl/data/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
