@@ -80,8 +80,8 @@ if __name__ == "__main__":
     input_directory = "/Users/abel/Downloads/magazine_downloads"
     
     # 定义起始和结束页码
-    start_page = 32
-    end_page = 51
+    start_page = 0
+    end_page = 53
     
     # 生成包含页码信息的输出文件名
     output_filename = f"magazine_page{start_page}-{end_page}.pdf"
