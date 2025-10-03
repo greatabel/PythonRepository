@@ -121,6 +121,18 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 ——［丹麦］亨里克·诺德布兰德《在以色列广场》"""
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
+    def test_pdf_like_kangxi_radicals_spacing(self):
+        content = """示 显 现 妄 念 ， 本 体 未 成 者 ：
+⽆ 知 愚 稚 别 ® 倒 相 ， ⼼ 造 诸 显 有 相 法 ，
+由 习 ⽓ ⽣ ⽆ 实 有 ， 对 此 不 起 能 所 执 ，
+应 悟 ⼀ 切 超 ⾔ 诠"""
+
+        expected_result = """示显现妄念，本体未成者：
+⽆知愚稚别®倒相，⼼造诸显有相法，
+由习⽓⽣⽆实有，对此不起能所执，
+应悟⼀切超⾔诠"""
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
 
 if __name__ == "__main__":
     unittest.main()

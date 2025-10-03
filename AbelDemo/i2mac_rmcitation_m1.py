@@ -3,8 +3,6 @@
 # mac默认/usr/bin/python 是 python2.7，最好不要改变
 # 另外注意服务是： 没有输入，具体看图：https://www.jianshu.com/p/0e9e5c2cb2a2
 
-# 使用捷径app
-
 import sys
 import re
 
@@ -22,20 +20,11 @@ def split_uppercase(string):
 
 def process_english_string(content):
     """查找并处理英文字符串"""
-    # 匹配所有英文字符串的正则表达式
     pattern = r"[A-Za-z]+"
-
-    # 使用 re.findall 找到所有的英文字符串
     english_strings = re.findall(pattern, content)
-
-    # 对每个英文字符串进行处理
     for string in english_strings:
-        # 使用 split_uppercase 函数处理字符串
         processed_string = split_uppercase(string)
-
-        # 在原始内容中用处理后的字符串替换原字符串
         content = content.replace(string, processed_string)
-
     return content
 
 
@@ -61,7 +50,6 @@ def clean_content(content):
     if content.endswith("”"):
         last_start_quote_index = content[:-1].rfind("“") if "“" in content[:-1] else -1
         last_end_quote_index = content[:-1].rfind("”") if "”" in content[:-1] else -1
-        # 需要确保在最后的引号之前，"“"（开放引号）的数量多于"”"（关闭引号）
         if (
             last_start_quote_index != -1
             and last_end_quote_index != -1
@@ -78,32 +66,39 @@ def clean_content(content):
     ):
         content = content[1:-1]
 
-    # 去掉中文句子中字之间的空格，但保留数字标号后的空格，例如：1. 或 1 以及中文字符与非中文字符之间的空格
-    # content = re.sub(r"(?<=[^\d\W])\s+(?=[^\d\W])", "", content)
-    content = re.sub(r"(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])", "", content)
+    # 逐行去掉行首行尾空白
+    content = re.sub(r"^[ \t\u3000]+|[ \t\u3000]+$", "", content, flags=re.M)
 
-    # pdf 处理
-    # 新增的逻辑: 合并数字序列中的空格
-    content = re.sub(r"(?<=\d)\s+(?=\d)", "", content)
-    # 去除数字后的空格（如果数字后是中文字符）
-    content = re.sub(r"(?<=\d)\s+(?=[\u4e00-\u9fff])", "", content)
-    # 去除数字前的空格（如果数字前是中文字符）
-    content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=\d)", "", content)
+    # 定义广义“中文/汉字相关”字符集合：含部首、扩展区、兼容等
+    HAN_CLASS = r"\u2E80-\u2FFF\u3400-\u9FFF\uF900-\uFAFF"
+    # 常见中日韩标点符号（含特殊符号®），用于去除与汉字之间的空格
+    punct_chars = "，。！？；：、（）《》“”‘’—…～·「」『』〈〉〔〕【】®："
+    PUNCT_CLASS = re.escape(punct_chars)
 
-    # 新增的逻辑: 去除连续中文字符之间的空格
-    content = re.sub(r"(?<=[\u4e00-\u9fff])[ \t]+(?=[\u4e00-\u9fff])", "", content)
+    # 去掉连续中文关联字符之间的空格（包括康熙部首等 PDF 伪字形）
+    content = re.sub(
+        fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content
+    )
 
-    # 新增的逻辑: 去除中文字符与中文标点符号之间的空格
-    content = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[，。！？；：])", "", content)
-    content = re.sub(r"(?<=[，。！？；：])\s+(?=[\u4e00-\u9fff])", "", content)
-    # 新增的逻辑: 特别处理中文句号后的空格
-    content = re.sub(r"(?<=。)\s+", "", content)
+    # 数字序列中的空格
+    content = re.sub(r"(?<=\d)[ \t\u00A0\u3000]+(?=\d)", "", content)
+    # 数字与中文关联字符之间的空格（双向）
+    content = re.sub(fr"(?<=\d)[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content)
+    content = re.sub(fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=\d)", "", content)
+
+    # 中文关联字符与常见中文标点之间的空格（双向）
+    content = re.sub(fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{PUNCT_CLASS}])", "", content)
+    content = re.sub(fr"(?<=[{PUNCT_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content)
+
+    # 特别处理中文句号后的空格
+    content = re.sub(r"(?<=。)[ \t\u00A0\u3000]+", "", content)
 
     # 检查最后一个 "《" 后面是否有对应的 "》"，如果没有就在内容末尾添加 "》"
     last_open_quote_index = content.rfind("《")
     if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
         content += "》"
 
+    # 英文字符串处理（大写内部分割）
     content = process_english_string(content)
 
     return content
@@ -111,13 +106,11 @@ def clean_content(content):
 
 def clean_content_from_input():
     content = ""
-
-    for i in range(10):
+    for _ in range(10):
         t = sys.stdin.readline()
         content += t
         if "摘录来自" in content:
             break
-
     print(clean_content(content))
 
 
