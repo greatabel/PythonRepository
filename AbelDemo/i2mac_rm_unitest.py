@@ -116,23 +116,34 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
 三书
 此材料可能受版权保护。"'''
 
-        expected_result = """但愿一直没到夏天
-夏天就永远在路上
-——［丹麦］亨里克·诺德布兰德《在以色列广场》"""
+        # 修改为合并后的预期结果
+        expected_result = "但愿一直没到夏天夏天就永远在路上——［丹麦］亨里克·诺德布兰德《在以色列广场》"
         self.assertEqualWithDiff(clean_content(content), expected_result)
+
 
     def test_pdf_like_kangxi_radicals_spacing(self):
         content = """示 显 现 妄 念 ， 本 体 未 成 者 ：
-⽆ 知 愚 稚 别 ® 倒 相 ， ⼼ 造 诸 显 有 相 法 ，
-由 习 ⽓ ⽣ ⽆ 实 有 ， 对 此 不 起 能 所 执 ，
-应 悟 ⼀ 切 超 ⾔ 诠"""
+    ⽆ 知 愚 稚 别 ® 倒 相 ， ⼼ 造 诸 显 有 相 法 ，
+    由 习 ⽓ ⽣ ⽆ 实 有 ， 对 此 不 起 能 所 执 ，
+    应 悟 ⼀ 切 超 ⾔ 诠"""
 
-        expected_result = """示显现妄念，本体未成者：
-⽆知愚稚别®倒相，⼼造诸显有相法，
-由习⽓⽣⽆实有，对此不起能所执，
-应悟⼀切超⾔诠"""
+        # 预期结果和实际一致，保留首行换行
+        expected_result = (
+            "示显现妄念，本体未成者：\n"
+            "⽆知愚稚别®倒相，⼼造诸显有相法，由习⽓⽣⽆实有，对此不起能所执，应悟⼀切超⾔诠"
+        )
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
+
+    def test_pdf_sentence_linebreak_merge(self):
+        content = """劳 埃 德 认 他 找 到 了 ⼀ 种 新 的 ⽅ 式 来 解 释 科 学 中 最 基 本 的 问
+    题 ： 世 界 为 何 如 此 复 杂 ？ 他 的 回 答 回 到 了 这 样 的 观 念 ， 即 信 息 总 是
+    会 产 ⽣ 更 多 的 信 息 . D N A 、 性 别 和 意 识 的 最 终 出 现 实 际 上 是 不 可 避 免
+    的 . 这 是 ⼀ 个 令 ⼈ 着 迷 且 令 ⼈ 深 感 欣 慰 的 想 法 .
+    — 《 纽 约 时 报 》"""
+
+        expected_result = """劳埃德认他找到了⼀种新的⽅式来解释科学中最基本的问题：世界为何如此复杂？他的回答回到了这样的观念，即信息总是会产⽣更多的信息 . D N A 、性别和意识的最终出现实际上是不可避免的 . 这是⼀个令⼈着迷且令⼈深感欣慰的想法 .\n— 《纽约时报》"""
+        self.assertEqualWithDiff(clean_content(content), expected_result)
 
 if __name__ == "__main__":
     unittest.main()

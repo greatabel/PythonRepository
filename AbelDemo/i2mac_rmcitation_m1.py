@@ -28,7 +28,37 @@ def process_english_string(content):
     return content
 
 
+def smart_merge_lines(content):
+    # 按行分割
+    lines = content.split('\n')
+    merged_lines = []
+    i = 0
+    zh_punct = "。！？；：、）》”’"
+    en_punct = ".!?;:,)]\"'"
+    while i < len(lines):
+        line = lines[i].rstrip()
+        if not line:
+            # 空行保留
+            merged_lines.append('')
+            i += 1
+            continue
+        # 判断：如果下一行存在且不是空行，而且本行不是标点结尾
+        while (i + 1 < len(lines)
+               and lines[i + 1].strip() != ''
+               and (not line or line[-1] not in zh_punct + en_punct)):
+            # 合并下一行
+            next_line = lines[i + 1].lstrip()
+            line += next_line
+            i += 1
+        merged_lines.append(line)
+        i += 1
+    # 合并为字符串
+    return '\n'.join(merged_lines)
+
+
 def clean_content(content):
+    content = smart_merge_lines(content)
+
     # 如果内容中存在 "摘录来自"，则移除该字符串后面的所有内容
     if "摘录来自" in content:
         content = content[: content.index("摘录来自")].strip()
