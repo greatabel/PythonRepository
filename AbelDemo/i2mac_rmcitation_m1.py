@@ -7,64 +7,84 @@ import sys
 import re
 
 
-def split_uppercase(string):
-    """将大写字母之前的字符串拆分开"""
-    result = ""
-    for i in range(len(string)):
-        # 如果当前字符为大写字母且不是第一个字符，则在字符之前添加空格
-        if string[i].isupper() and i != 0:
-            result += " "
-        result += string[i]
-    return result
+def split_uppercase_camel(text):
+    """
+    仅在小写 -> 大写的边界插入空格，用于 CamelCase。
+    不会拆分 ALL-CAPS（如 DNA）。
+    例如: DoNot -> Do Not；TeXLive -> TeX Live；DNA 保持不变
+    """
+    return re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', text)
 
 
 def process_english_string(content):
-    """查找并处理英文字符串"""
-    pattern = r"[A-Za-z]+"
-    english_strings = re.findall(pattern, content)
-    for string in english_strings:
-        processed_string = split_uppercase(string)
-        content = content.replace(string, processed_string)
-    return content
+    """
+    安全版英文处理：仅进行 CamelCase 的断开，不处理 ALL-CAPS 和正常英文短语之间的空格
+    """
+    return split_uppercase_camel(content)
+
+
+def merge_pdf_split_letters(content):
+    """
+    合并 PDF 拆开的英文：形如 'T e i c h m i l l e r' / 'T U T' / 'A B C'
+    限定：前后不是英文字母，且整个串是由“单字母 + 空格”重复组成，长度>=3个字母
+    避免影响正常英文短语
+    """
+    pattern = re.compile(r'(?<![A-Za-z])(?:[A-Za-z]\s){2,}[A-Za-z](?![A-Za-z])')
+    return pattern.sub(lambda m: m.group(0).replace(' ', ''), content)
 
 
 def smart_merge_lines(content):
-    # 按行分割
-    lines = content.split('\n')
-    merged_lines = []
-    i = 0
+    """
+    合并 PDF 断行：仅当上一行不以终止类标点结束时合并到同一行；
+    段落空行保留；避免破坏诗歌/标题等
+    """
     zh_punct = "。！？；：、）》”’"
     en_punct = ".!?;:,)]\"'"
-    while i < len(lines):
-        line = lines[i].rstrip()
-        if not line:
-            # 空行保留
-            merged_lines.append('')
-            i += 1
-            continue
-        # 判断：如果下一行存在且不是空行，而且本行不是标点结尾
-        while (i + 1 < len(lines)
-               and lines[i + 1].strip() != ''
-               and (not line or line[-1] not in zh_punct + en_punct)):
-            # 合并下一行
-            next_line = lines[i + 1].lstrip()
-            line += next_line
-            i += 1
-        merged_lines.append(line)
-        i += 1
-    # 合并为字符串
-    return '\n'.join(merged_lines)
+
+    lines = content.splitlines()
+    new_lines = []
+    for i, line in enumerate(lines):
+        line = line.rstrip()
+        if i > 0 and new_lines:
+            prev_line = new_lines[-1]
+            if prev_line and prev_line[-1] not in zh_punct + en_punct:
+                new_lines[-1] = prev_line + line.lstrip()
+                continue
+        new_lines.append(line)
+    return "\n".join(new_lines)
 
 
 def clean_content(content):
-    content = smart_merge_lines(content)
-
     # 如果内容中存在 "摘录来自"，则移除该字符串后面的所有内容
     if "摘录来自" in content:
         content = content[: content.index("摘录来自")].strip()
 
+    # 先做 PDF 断行的智能合并
+    content = smart_merge_lines(content)
+
     # 删除类似 [48] 这种引用格式的内容
     content = re.sub(r"\[\d+\]", "", content).strip()
+
+    # 统一修剪引号/括号紧贴处的空白（仅在边界，不影响内部单词间空格）
+    # 开引号/开括号后面的多余空格
+    content = re.sub(r'([“（])\s+', r'\1', content)
+    # 闭引号/闭括号前面的多余空格
+    content = re.sub(r'\s+([”）])', r'\1', content)
+
+    # 合并 PDF 拆开的英文单词或缩写
+    content = merge_pdf_split_letters(content)
+
+    # 定义广义“中文/汉字相关”字符集合
+    HAN_CLASS = r"\u2E80-\u2FFF\u3400-\u9FFF\uF900-\uFAFF"
+    # 常见中日韩标点符号（含特殊符号®）
+    punct_chars = "，。！？；：、（）《》“”‘’—…～·「」『』〈〉〔〕【】®："
+    PUNCT_CLASS = re.escape(punct_chars)
+
+    # ALL-CAPS 缩写 与 中文之间取消空格：TUT 理论 -> TUT理论；ABC 猜想 -> ABC猜想
+    content = re.sub(fr'([A-Z]{{2,}})[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])', r'\1', content)
+
+    # 仅 CamelCase 边界断开（不影响 ALL-CAPS 和正常英文短语）
+    content = process_english_string(content)
 
     # 如果内容以 "“" 开始，并且在后面的第一个 "”" 之前还有其他 "“"，则删除第一个 "“"
     if content.startswith("“"):
@@ -99,12 +119,6 @@ def clean_content(content):
     # 逐行去掉行首行尾空白
     content = re.sub(r"^[ \t\u3000]+|[ \t\u3000]+$", "", content, flags=re.M)
 
-    # 定义广义“中文/汉字相关”字符集合：含部首、扩展区、兼容等
-    HAN_CLASS = r"\u2E80-\u2FFF\u3400-\u9FFF\uF900-\uFAFF"
-    # 常见中日韩标点符号（含特殊符号®），用于去除与汉字之间的空格
-    punct_chars = "，。！？；：、（）《》“”‘’—…～·「」『』〈〉〔〕【】®："
-    PUNCT_CLASS = re.escape(punct_chars)
-
     # 去掉连续中文关联字符之间的空格（包括康熙部首等 PDF 伪字形）
     content = re.sub(
         fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content
@@ -120,6 +134,15 @@ def clean_content(content):
     content = re.sub(fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{PUNCT_CLASS}])", "", content)
     content = re.sub(fr"(?<=[{PUNCT_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content)
 
+    # 新增：常见中文标点与中文标点之间的空格（如 "） ，"、"” 。"）
+    content = re.sub(fr"(?<=[{PUNCT_CLASS}])[ \t\u00A0\u3000]+(?=[{PUNCT_CLASS}])", "", content)
+
+    # 新增：英文标点（ASCII .!?;:,）前的空格去掉；例如 "信息 ." -> "信息."
+    content = re.sub(r"(?<=\S)[ \t\u00A0\u3000]+(?=[\.\!\?\:\;\,])", "", content)
+
+    # 新增：破折号与书名号之间保持一个空格：—《 -> — 《
+    content = content.replace("—《", "— 《")
+
     # 特别处理中文句号后的空格
     content = re.sub(r"(?<=。)[ \t\u00A0\u3000]+", "", content)
 
@@ -127,9 +150,6 @@ def clean_content(content):
     last_open_quote_index = content.rfind("《")
     if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
         content += "》"
-
-    # 英文字符串处理（大写内部分割）
-    content = process_english_string(content)
 
     return content
 

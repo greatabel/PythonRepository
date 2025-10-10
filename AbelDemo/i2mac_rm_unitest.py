@@ -141,9 +141,20 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
     会 产 ⽣ 更 多 的 信 息 . D N A 、 性 别 和 意 识 的 最 终 出 现 实 际 上 是 不 可 避 免
     的 . 这 是 ⼀ 个 令 ⼈ 着 迷 且 令 ⼈ 深 感 欣 慰 的 想 法 .
     — 《 纽 约 时 报 》"""
+        expected_result = (
+            "劳埃德认他找到了⼀种新的⽅式来解释科学中最基本的问题：世界为何如此复杂？"
+            "他的回答回到了这样的观念，即信息总是会产⽣更多的信息. DNA 、性别和意识的最终出现实际上是不可避免的. "
+            "这是⼀个令⼈着迷且令⼈深感欣慰的想法.\n— 《纽约时报》"
+        )
+        self.assertEqualWithDiff(clean_content(content), expected_result)
 
-        expected_result = """劳埃德认他找到了⼀种新的⽅式来解释科学中最基本的问题：世界为何如此复杂？他的回答回到了这样的观念，即信息总是会产⽣更多的信息 . D N A 、性别和意识的最终出现实际上是不可避免的 . 这是⼀个令⼈着迷且令⼈深感欣慰的想法 .\n— 《纽约时报》"""
+
+    def test_pdf_english_single_letter_merge(self):
+        content = "这 个 新 理 论 的 名 称 就 是 “ 跨 视 宇 T e i c h m i l l e r 理 论 ” （ 以 下\n简 称 “ T U T 理 论 ” ） ， 它 关 联 着 数 论 中 的 ⼀ 个 ⾮ 常 重 要 ⽽ ⼜ ⾮ 常 困 难 的 猜\n想 ， 即 著 名 的 “ A B C 猜 想 ” 。"
+        expected_result = "这个新理论的名称就是“跨视宇 Teichmiller 理论”（以下简称“TUT理论”），它关联着数论中的⼀个⾮常重要⽽⼜⾮常困难的猜想，即著名的“ABC猜想”。"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
 if __name__ == "__main__":
     unittest.main()
+
+
