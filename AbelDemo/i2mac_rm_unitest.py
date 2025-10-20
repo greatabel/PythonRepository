@@ -154,6 +154,13 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
         expected_result = "这个新理论的名称就是“跨视宇 Teichmiller 理论”（以下简称“TUT理论”），它关联着数论中的⼀个⾮常重要⽽⼜⾮常困难的猜想，即著名的“ABC猜想”。"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
+
+    def test_unicode_line_separators_and_nbsp(self):
+        # U+2028 行分隔符、NBSP 和零宽字符
+        content = "唯识之学是释迦世尊甚深之教，\u2028对众生破除迷惑进而入佛\u00A0知见有极大的意义。\u200b"
+        expected_result = "唯识之学是释迦世尊甚深之教，对众生破除迷惑进而入佛知见有极大的意义。"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
 if __name__ == "__main__":
     unittest.main()
 

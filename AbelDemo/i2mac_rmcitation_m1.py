@@ -1,46 +1,74 @@
 # coding=utf-8
-# https://www.jianshu.com/p/ab7d1ebba3bf
-# mac默认/usr/bin/python 是 python2.7，最好不要改变
-# 另外注意服务是： 没有输入，具体看图：https://www.jianshu.com/p/0e9e5c2cb2a2
-
 import sys
 import re
+import subprocess
+
+
+def _read_all_stdin():
+    try:
+        data = sys.stdin.read()
+        return data if data is not None else ""
+    except Exception:
+        return ""
+
+
+def _read_clipboard_text():
+    """
+    在 macOS 用 pbpaste 拿纯文本。若失败则返回空字符串。
+    """
+    try:
+        out = subprocess.check_output(["pbpaste", "-Prefer", "txt"])
+        # 尝试按 UTF-8 解码，失败则退回系统默认
+        try:
+            return out.decode("utf-8")
+        except Exception:
+            return out.decode(errors="ignore")
+    except Exception:
+        return ""
+
+
+def _normalize_newlines_and_spaces(text):
+    """
+    标准化换行与常见不可见空白：
+    - CRLF/CR -> \n
+    - Unicode 行/段分隔符 U+2028/U+2029 -> \n
+    - 去掉 BOM/零宽空格 U+FEFF/U+200B/U+200C/U+200D
+    - 将 NBSP(U+00A0)、全角空格(U+3000) 统一为空格
+    """
+    if not text:
+        return ""
+    # 换行统一
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = text.replace("\u2028", "\n").replace("\u2029", "\n")
+    # 去掉不可见字符
+    text = text.replace("\ufeff", "").replace("\u200b", "").replace("\u200c", "").replace("\u200d", "")
+    # 统一空白
+    text = text.replace("\u00A0", " ").replace("\u3000", " ")
+    return text
 
 
 def split_uppercase_camel(text):
-    """
-    仅在小写 -> 大写的边界插入空格，用于 CamelCase。
-    不会拆分 ALL-CAPS（如 DNA）。
-    例如: DoNot -> Do Not；TeXLive -> TeX Live；DNA 保持不变
-    """
+    # 仅在小写 -> 大写边界插空格（CamelCase），不拆 ALL-CAPS（DNA）
     return re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', text)
 
 
 def process_english_string(content):
-    """
-    安全版英文处理：仅进行 CamelCase 的断开，不处理 ALL-CAPS 和正常英文短语之间的空格
-    """
+    # 仅进行 CamelCase 的断开
     return split_uppercase_camel(content)
 
 
 def merge_pdf_split_letters(content):
-    """
-    合并 PDF 拆开的英文：形如 'T e i c h m i l l e r' / 'T U T' / 'A B C'
-    限定：前后不是英文字母，且整个串是由“单字母 + 空格”重复组成，长度>=3个字母
-    避免影响正常英文短语
-    """
+    # 合并 PDF 拆开的英文：T e i c h m i l l e r / T U T / A B C
     pattern = re.compile(r'(?<![A-Za-z])(?:[A-Za-z]\s){2,}[A-Za-z](?![A-Za-z])')
     return pattern.sub(lambda m: m.group(0).replace(' ', ''), content)
 
 
 def smart_merge_lines(content):
-    """
-    合并 PDF 断行：仅当上一行不以终止类标点结束时合并到同一行；
-    段落空行保留；避免破坏诗歌/标题等
-    """
+    # 智能合并断行：上一行不是终止类标点才合并
     zh_punct = "。！？；：、）》”’"
     en_punct = ".!?;:,)]\"'"
 
+    # 保守做法：逐行合并
     lines = content.splitlines()
     new_lines = []
     for i, line in enumerate(lines):
@@ -54,49 +82,55 @@ def smart_merge_lines(content):
     return "\n".join(new_lines)
 
 
+def drop_noise_lines(content):
+    # 删除噪音行：独立数字行、由横线/破折号/下划线/波浪线/点构成的分隔线
+    noise_rule = re.compile(r'^\s*(?:\d+|[—\-–_~·\.]{3,})\s*$', re.U)
+    lines = content.splitlines()
+    kept = [ln for ln in lines if not noise_rule.match(ln)]
+    return "\n".join(kept)
+
+
 def clean_content(content):
-    # 如果内容中存在 "摘录来自"，则移除该字符串后面的所有内容
+    # 标准化输入
+    content = _normalize_newlines_and_spaces(content)
+
+    # 截断 “摘录来自” 之后
     if "摘录来自" in content:
         content = content[: content.index("摘录来自")].strip()
 
-    # 先做 PDF 断行的智能合并
+    # 先删除噪音行（独立数字、分隔线），避免后续被合并到有效文本里
+    content = drop_noise_lines(content)
+
+    # 再做 PDF 断行的智能合并
     content = smart_merge_lines(content)
 
-    # 删除类似 [48] 这种引用格式的内容
+    # 删除 [48] 类引用
     content = re.sub(r"\[\d+\]", "", content).strip()
 
-    # 统一修剪引号/括号紧贴处的空白（仅在边界，不影响内部单词间空格）
-    # 开引号/开括号后面的多余空格
+    # 引号/括号紧贴处边界空格
     content = re.sub(r'([“（])\s+', r'\1', content)
-    # 闭引号/闭括号前面的多余空格
     content = re.sub(r'\s+([”）])', r'\1', content)
 
-    # 合并 PDF 拆开的英文单词或缩写
+    # 合并 PDF 拆开的英文
     content = merge_pdf_split_letters(content)
 
-    # 定义广义“中文/汉字相关”字符集合
+    # 类别定义
     HAN_CLASS = r"\u2E80-\u2FFF\u3400-\u9FFF\uF900-\uFAFF"
-    # 常见中日韩标点符号（含特殊符号®）
     punct_chars = "，。！？；：、（）《》“”‘’—…～·「」『』〈〉〔〕【】®："
     PUNCT_CLASS = re.escape(punct_chars)
 
-    # ALL-CAPS 缩写 与 中文之间取消空格：TUT 理论 -> TUT理论；ABC 猜想 -> ABC猜想
+    # ALL-CAPS 英文缩写 与 中文之间取消空格：TUT 理论 -> TUT理论
     content = re.sub(fr'([A-Z]{{2,}})[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])', r'\1', content)
 
-    # 仅 CamelCase 边界断开（不影响 ALL-CAPS 和正常英文短语）
+    # CamelCase 边界断开
     content = process_english_string(content)
 
-    # 如果内容以 "“" 开始，并且在后面的第一个 "”" 之前还有其他 "“"，则删除第一个 "“"
+    # 起止 “”“” 修正
     if content.startswith("“"):
         next_end_quote_index = content[1:].find("”") if "”" in content[1:] else -1
         next_start_quote_index = content[1:].find("“") if "“" in content[1:] else -1
-        if (
-            next_start_quote_index != -1
-            and next_end_quote_index > next_start_quote_index
-        ):
+        if next_start_quote_index != -1 and next_end_quote_index > next_start_quote_index:
             content = content[1:]
-
-    # 如果内容以 "”" 结束，并且在最后的 "”" 之前还有 "“"，则删除最后的 "”"
     if content.endswith("”"):
         last_start_quote_index = content[:-1].rfind("“") if "“" in content[:-1] else -1
         last_end_quote_index = content[:-1].rfind("”") if "”" in content[:-1] else -1
@@ -107,60 +141,62 @@ def clean_content(content):
             <= content.count("”", 0, last_end_quote_index + 1)
         ):
             content = content[:-1]
-
-    # 如果 "“" 和 "”" 的数量匹配，并且刚好出现在开始和结束，也删除它们
-    if (
-        content.startswith("“")
-        and content.endswith("”")
-        and content.count("“") == content.count("”")
-    ):
+    if content.startswith("“") and content.endswith("”") and content.count("“") == content.count("”"):
         content = content[1:-1]
 
     # 逐行去掉行首行尾空白
     content = re.sub(r"^[ \t\u3000]+|[ \t\u3000]+$", "", content, flags=re.M)
 
-    # 去掉连续中文关联字符之间的空格（包括康熙部首等 PDF 伪字形）
-    content = re.sub(
-        fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content
-    )
+    # 中文字符之间空格
+    content = re.sub(fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content)
 
-    # 数字序列中的空格
+    # 数字序列、数字与中文之间空格
     content = re.sub(r"(?<=\d)[ \t\u00A0\u3000]+(?=\d)", "", content)
-    # 数字与中文关联字符之间的空格（双向）
     content = re.sub(fr"(?<=\d)[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content)
     content = re.sub(fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=\d)", "", content)
 
-    # 中文关联字符与常见中文标点之间的空格（双向）
+    # 中文字符与中文标点之间空格（双向）
     content = re.sub(fr"(?<=[{HAN_CLASS}])[ \t\u00A0\u3000]+(?=[{PUNCT_CLASS}])", "", content)
     content = re.sub(fr"(?<=[{PUNCT_CLASS}])[ \t\u00A0\u3000]+(?=[{HAN_CLASS}])", "", content)
 
-    # 新增：常见中文标点与中文标点之间的空格（如 "） ，"、"” 。"）
+    # 标点-标点之间空格（如 "） ，"、"” 。"）
     content = re.sub(fr"(?<=[{PUNCT_CLASS}])[ \t\u00A0\u3000]+(?=[{PUNCT_CLASS}])", "", content)
 
-    # 新增：英文标点（ASCII .!?;:,）前的空格去掉；例如 "信息 ." -> "信息."
+    # 英文标点（ASCII .!?;:,）前的空格去掉："信息 ." -> "信息."
     content = re.sub(r"(?<=\S)[ \t\u00A0\u3000]+(?=[\.\!\?\:\;\,])", "", content)
 
-    # 新增：破折号与书名号之间保持一个空格：—《 -> — 《
+    # 破折号与书名号之间保持一个空格：—《 -> — 《
     content = content.replace("—《", "— 《")
 
-    # 特别处理中文句号后的空格
+    # 中文句号后的空格
     content = re.sub(r"(?<=。)[ \t\u00A0\u3000]+", "", content)
 
-    # 检查最后一个 "《" 后面是否有对应的 "》"，如果没有就在内容末尾添加 "》"
-    last_open_quote_index = content.rfind("《")
-    if last_open_quote_index != -1 and content[last_open_quote_index:].count("》") == 0:
+    # 补全最后一个 "《" 无 "》"
+    last_open_book = content.rfind("《")
+    if last_open_book != -1 and content[last_open_book:].count("》") == 0:
         content += "》"
+
+    # 补全最后一个 "「" 无 "」"
+    last_open_corner = content.rfind("「")
+    if last_open_corner != -1 and content[last_open_corner:].count("」") == 0:
+        content += "」"
 
     return content
 
 
 def clean_content_from_input():
-    content = ""
-    for _ in range(10):
-        t = sys.stdin.readline()
-        content += t
-        if "摘录来自" in content:
-            break
+    # 1) 先尝试从 stdin 读取全部输入
+    content = _read_all_stdin()
+
+    # 2) 如果 stdin 为空，再回退到 macOS 剪贴板（纯文本）
+    if not content.strip() and sys.platform == "darwin":
+        content = _read_clipboard_text()
+
+    # 3) 仍然为空就直接返回空
+    if not content.strip():
+        print("")
+        return
+
     print(clean_content(content))
 
 
