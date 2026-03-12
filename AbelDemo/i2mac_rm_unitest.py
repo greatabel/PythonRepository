@@ -53,18 +53,26 @@ class TestCleanContent(unittest.TestCase):
         self.assertEqual(first, second)
 
     def test_normal_content(self):
-        content = "“它的拉丁语是“lex parsimoniae”，即节约律。在英文中人们常常用格言“如无必要，勿增实体”（Do not multiply entities beyond necessity）来表达。”\
-\
-摘录来自\
-直觉泵和其他思考工具\
-【美】丹尼尔·丹尼特（Daniel C. Dennett）\
-https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
-此材料可能受版权保护。"
+        content = (
+            "\u201c它的拉丁语是\u201clex parsimoniae\u201d"
+            "，即节约律。在英文中人们常常用格言\u201c如无必要，勿增实体\u201d"
+            "（Do not multiply entities beyond necessity）来表达。\u201d"
+            "\n"
+            "摘录来自\n"
+            "直觉泵和其他思考工具\n"
+            "【美】丹尼尔·丹尼特（Daniel C. Dennett）\n"
+            "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\n"
+            "此材料可能受版权保护。"
+        )
 
-        expected_result = "它的拉丁语是“lex parsimoniae”，即节约律。在英文中人们常常用格言“如无必要，勿增实体”（Do not multiply entities beyond necessity）来表达。"
-        start_time = time.time()  # 记录开始时间
+        expected_result = (
+            "它的拉丁语是\u201clex parsimoniae\u201d"
+            "，即节约律。在英文中人们常常用格言\u201c如无必要，勿增实体\u201d"
+            "（Do not multiply entities beyond necessity）来表达。"
+        )
+        start_time = time.time()
         actual_result = clean_content(content)
-        end_time = time.time()  # 记录结束时间
+        end_time = time.time()
 
         duration = end_time - start_time
         print(f"Test 'test_normal_content' took {duration:.6f} seconds to run.")
@@ -72,14 +80,16 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
         self.assertEqualWithDiff(actual_result, expected_result)
 
     def test_content_with_extras(self):
-        content = "“史特金定律表达得更粗俗一些：“任何事物当中的百分之九十都是垃圾（crap）。”\
-\
-摘录来自\
-直觉泵和其他思考工具\
-【美】丹尼尔·丹尼特（Daniel C. Dennett）\
-https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
-此材料可能受版权保护。"
-        expected_result = "史特金定律表达得更粗俗一些：“任何事物当中的百分之九十都是垃圾（crap）。”"
+        content = (
+            "\u201c史特金定律表达得更粗俗一些：\u201c任何事物当中的百分之九十都是垃圾（crap）。\u201d"
+            "\n"
+            "摘录来自\n"
+            "直觉泵和其他思考工具\n"
+            "【美】丹尼尔·丹尼特（Daniel C. Dennett）\n"
+            "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\n"
+            "此材料可能受版权保护。"
+        )
+        expected_result = "史特金定律表达得更粗俗一些：\u201c任何事物当中的百分之九十都是垃圾（crap）。\u201d"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
     def test_chinese_with_space1(self):
@@ -107,19 +117,19 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
     def test_chinese_with_line5(self):
-        content = '''“但愿一直没到夏天
-夏天就永远在路上
-——［丹麦］亨里克·诺德布兰德《在以色列广场”
+        content = (
+            "\u201c但愿一直没到夏天\n"
+            "夏天就永远在路上\n"
+            "——［丹麦］亨里克·诺德布兰德《在以色列广场\u201d\n"
+            "\n"
+            "摘录来自\n"
+            "春山多胜事：四时读诗\n"
+            "三书\n"
+            "此材料可能受版权保护。"
+        )
 
-摘录来自
-春山多胜事：四时读诗
-三书
-此材料可能受版权保护。"'''
-
-        # 修改为合并后的预期结果
         expected_result = "但愿一直没到夏天夏天就永远在路上——［丹麦］亨里克·诺德布兰德《在以色列广场》"
         self.assertEqualWithDiff(clean_content(content), expected_result)
-
 
     def test_pdf_like_kangxi_radicals_spacing(self):
         content = """示 显 现 妄 念 ， 本 体 未 成 者 ：
@@ -127,13 +137,11 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
     由 习 ⽓ ⽣ ⽆ 实 有 ， 对 此 不 起 能 所 执 ，
     应 悟 ⼀ 切 超 ⾔ 诠"""
 
-        # 预期结果和实际一致，保留首行换行
         expected_result = (
             "示显现妄念，本体未成者：\n"
             "⽆知愚稚别®倒相，⼼造诸显有相法，由习⽓⽣⽆实有，对此不起能所执，应悟⼀切超⾔诠"
         )
         self.assertEqualWithDiff(clean_content(content), expected_result)
-
 
     def test_pdf_sentence_linebreak_merge(self):
         content = """劳 埃 德 认 他 找 到 了 ⼀ 种 新 的 ⽅ 式 来 解 释 科 学 中 最 基 本 的 问
@@ -148,20 +156,73 @@ https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=0\
         )
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
-
     def test_pdf_english_single_letter_merge(self):
-        content = "这 个 新 理 论 的 名 称 就 是 “ 跨 视 宇 T e i c h m i l l e r 理 论 ” （ 以 下\n简 称 “ T U T 理 论 ” ） ， 它 关 联 着 数 论 中 的 ⼀ 个 ⾮ 常 重 要 ⽽ ⼜ ⾮ 常 困 难 的 猜\n想 ， 即 著 名 的 “ A B C 猜 想 ” 。"
-        expected_result = "这个新理论的名称就是“跨视宇 Teichmiller 理论”（以下简称“TUT理论”），它关联着数论中的⼀个⾮常重要⽽⼜⾮常困难的猜想，即著名的“ABC猜想”。"
+        content = (
+            "这 个 新 理 论 的 名 称 就 是 \u201c 跨 视 宇 T e i c h m i l l e r 理 论 \u201d （ 以 下\n"
+            "简 称 \u201c T U T 理 论 \u201d ） ， 它 关 联 着 数 论 中 的 ⼀ 个 ⾮ 常 重 要 ⽽ ⼜ ⾮ 常 困 难 的 猜\n"
+            "想 ， 即 著 名 的 \u201c A B C 猜 想 \u201d 。"
+        )
+        expected_result = (
+            "这个新理论的名称就是\u201c跨视宇 Teichmiller 理论\u201d（以下"
+            "简称\u201cTUT理论\u201d），它关联着数论中的⼀个⾮常重要⽽⼜⾮常困难的猜想"
+            "，即著名的\u201cABC猜想\u201d。"
+        )
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
-
     def test_unicode_line_separators_and_nbsp(self):
-        # U+2028 行分隔符、NBSP 和零宽字符
         content = "唯识之学是释迦世尊甚深之教，\u2028对众生破除迷惑进而入佛\u00A0知见有极大的意义。\u200b"
         expected_result = "唯识之学是释迦世尊甚深之教，对众生破除迷惑进而入佛知见有极大的意义。"
         self.assertEqualWithDiff(clean_content(content), expected_result)
 
+    # ========== iBooks 丢失 《 的容错修复测试 ==========
+
+    def test_ibooks_missing_open_book_quote_simple(self):
+        """iBooks 复制丢失 《：开头的 楞严经》 -> 《楞严经》"""
+        content = (
+            "楞严经》云：\u2018汝与众生，亦复如是。\u2019\n"
+            "\n"
+            "摘录来自\n"
+            "心经抉隐\n"
+            "元音老人"
+        )
+        expected_result = "《楞严经》云：\u2018汝与众生，亦复如是。\u2019"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_ibooks_missing_open_book_quote_with_wrapper(self):
+        """iBooks 复制丢失 《，且有 " 包裹"""
+        content = (
+            "\u201c楞严经》云：\u2018汝与众生。\u2019\u201d\n"
+            "\n"
+            "摘录来自\n"
+            "某本书"
+        )
+        expected_result = "《楞严经》云：\u2018汝与众生。\u2019"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_normal_book_quote_not_doubled(self):
+        """正常的 《楞严经》 不应被重复添加 《"""
+        content = "《楞严经》是一部重要的佛教经典。"
+        expected_result = "《楞严经》是一部重要的佛教经典。"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_ibooks_missing_open_book_quote_after_punct(self):
+        """》 前面有标点分隔的情况：逗号后丢失 《"""
+        content = "他很喜欢读书，楞严经》是他最爱的经典。"
+        expected_result = "他很喜欢读书，《楞严经》是他最爱的经典。"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_mixed_normal_and_missing_after_punct(self):
+        """一个正常 《》，一个在标点后丢失 《"""
+        content = "《心经》很短，楞严经》很长。"
+        expected_result = "《心经》很短，《楞严经》很长。"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+    def test_ibooks_missing_open_book_quote_after_colon(self):
+        """冒号后丢失 《"""
+        content = "佛经有很多：楞严经》就是其中之一。"
+        expected_result = "佛经有很多：《楞严经》就是其中之一。"
+        self.assertEqualWithDiff(clean_content(content), expected_result)
+
+
 if __name__ == "__main__":
     unittest.main()
-
-
